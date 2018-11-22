@@ -4,17 +4,6 @@
  **/
 var KalturaAssetService = {
 	/**
-	 * Add a new asset.
- *	            For metas of type bool-&gt; use kalturaBoolValue, type number-&gt; KalturaDoubleValue, type date -&gt; KalturaLongValue, type string -&gt; KalturaStringValue.
-	 * @param	asset	KalturaAsset		Asset object (optional)
-	 **/
-	add: function(asset){
-		var kparams = new Object();
-		kparams.asset = asset;
-		return new KalturaRequestBuilder("asset", "add", kparams);
-	},
-	
-	/**
 	 * Returns a group-by result for media or EPG according to given filter. Lists values of each field and their respective count..
 	 * @param	filter	KalturaSearchAssetFilter		Filtering the assets request (optional, default: null)
 	 **/
@@ -25,18 +14,6 @@ var KalturaAssetService = {
 		if (filter != null)
 			kparams.filter = filter;
 		return new KalturaRequestBuilder("asset", "count", kparams);
-	},
-	
-	/**
-	 * Delete an existing asset.
-	 * @param	id	int		Asset Identifier (optional)
-	 * @param	assetReferenceType	string		Type of asset (optional, enum: KalturaAssetReferenceType)
-	 **/
-	deleteAction: function(id, assetReferenceType){
-		var kparams = new Object();
-		kparams.id = id;
-		kparams.assetReferenceType = assetReferenceType;
-		return new KalturaRequestBuilder("asset", "delete", kparams);
 	},
 	
 	/**
@@ -95,32 +72,5 @@ var KalturaAssetService = {
 		if (pager != null)
 			kparams.pager = pager;
 		return new KalturaRequestBuilder("asset", "list", kparams);
-	},
-	
-	/**
-	 * remove metas and tags from asset.
-	 * @param	id	int		Asset Identifier (optional)
-	 * @param	assetReferenceType	string		Type of asset (optional, enum: KalturaAssetReferenceType)
-	 * @param	idIn	string		comma separated ids of metas and tags (optional)
-	 **/
-	removeMetasAndTags: function(id, assetReferenceType, idIn){
-		var kparams = new Object();
-		kparams.id = id;
-		kparams.assetReferenceType = assetReferenceType;
-		kparams.idIn = idIn;
-		return new KalturaRequestBuilder("asset", "removeMetasAndTags", kparams);
-	},
-	
-	/**
-	 * update an existing asset.
- *	            For metas of type bool-&gt; use kalturaBoolValue, type number-&gt; KalturaDoubleValue, type date -&gt; KalturaLongValue, type string -&gt; KalturaStringValue.
-	 * @param	id	int		Asset Identifier (optional)
-	 * @param	asset	KalturaAsset		Asset object (optional)
-	 **/
-	update: function(id, asset){
-		var kparams = new Object();
-		kparams.id = id;
-		kparams.asset = asset;
-		return new KalturaRequestBuilder("asset", "update", kparams);
 	}
 }

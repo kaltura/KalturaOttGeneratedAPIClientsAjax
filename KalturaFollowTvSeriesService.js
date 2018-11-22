@@ -4,7 +4,8 @@
  **/
 var KalturaFollowTvSeriesService = {
 	/**
-	 * Add a user&#39;s tv series follow.
+	 * (Deprecated - use personalList.add)
+ *	            Add a user&#39;s tv series follow.
  *	            Possible status codes: UserAlreadyFollowing = 8013, NotFound = 500007, InvalidAssetId = 4024.
 	 * @param	followTvSeries	KalturaFollowTvSeries		Follow series request parameters (optional)
 	 **/
@@ -15,7 +16,8 @@ var KalturaFollowTvSeriesService = {
 	},
 	
 	/**
-	 * Delete a user&#39;s tv series follow.
+	 * (Deprecated - use personalList.delete)
+ *	            Delete a user&#39;s tv series follow.
  *	            Possible status codes: UserNotFollowing = 8012, NotFound = 500007, InvalidAssetId = 4024, AnnouncementNotFound = 8006.
 	 * @param	assetId	int		Asset identifier (optional)
 	 **/
@@ -40,7 +42,8 @@ var KalturaFollowTvSeriesService = {
 	},
 	
 	/**
-	 * List user&#39;s tv series follows.
+	 * (Deprecated - use personalList.list)
+ *	            List user&#39;s tv series follows.
  *	            Possible status codes:.
 	 * @param	filter	KalturaFollowTvSeriesFilter		Follow TV series filter (optional)
 	 * @param	pager	KalturaFilterPager		pager (optional, default: null)

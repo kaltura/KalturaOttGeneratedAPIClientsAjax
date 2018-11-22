@@ -18,7 +18,7 @@ var KalturaOttUserService = {
 	},
 	
 	/**
-	 * Deprecate - use Register or Update actions instead by setting user.roleIds parameter.
+	 * Edit user details..
 	 * @param	roleId	int		The role identifier to add (optional)
 	 **/
 	addRole: function(roleId){
@@ -163,15 +163,11 @@ var KalturaOttUserService = {
 	 * Send an e-mail with URL to enable the user to set new password..
 	 * @param	partnerId	int		Partner Identifier (optional)
 	 * @param	username	string		user name (optional)
-	 * @param	templateName	string		Template name for reset password (optional, default: null)
 	 **/
-	resetPassword: function(partnerId, username, templateName){
-		if(!templateName)
-			templateName = null;
+	resetPassword: function(partnerId, username){
 		var kparams = new Object();
 		kparams.partnerId = partnerId;
 		kparams.username = username;
-		kparams.templateName = templateName;
 		return new KalturaRequestBuilder("ottuser", "resetPassword", kparams);
 	},
 	
