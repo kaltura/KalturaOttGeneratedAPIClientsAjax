@@ -597,8 +597,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:18-11-21');
-	this.setApiVersion('5.0.3.42001');
+	this.setClientTag('ajax:18-11-22');
+	this.setApiVersion('5.0.1.15905');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
@@ -752,42 +752,6 @@ KalturaClient.prototype.setSessionId = function(sessionId){
  */
 KalturaClient.prototype.getSessionId = function(){
 	return this.requestData.ks;
-};
-
-/**
- * Abort all following requests if current request has an error
- * 
- * @param bool $abortAllOnError
- */
-KalturaClient.prototype.setAbortAllOnError = function(abortAllOnError){
-	this.requestData.abortAllOnError = abortAllOnError;
-};
-
-/**
- * Abort all following requests if current request has an error
- * 
- * @return bool
- */
-KalturaClient.prototype.getAbortAllOnError = function(){
-	return this.requestData.abortAllOnError;
-};
-
-/**
- * Skip current request according to skip option
- * 
- * @param string $skipOnError
- */
-KalturaClient.prototype.setSkipOnError = function(skipOnError){
-	this.requestData.skipOnError = skipOnError;
-};
-
-/**
- * Skip current request according to skip option
- * 
- * @return string
- */
-KalturaClient.prototype.getSkipOnError = function(){
-	return this.requestData.skipOnError;
 };
 
 /**
@@ -950,41 +914,5 @@ KalturaRequestBuilder.prototype.setResponseProfile = function(responseProfile){
  */
 KalturaRequestBuilder.prototype.getResponseProfile = function(){
 	return this.requestData.responseProfile;
-};
-
-/**
- * Abort all following requests if current request has an error
- * 
- * @param bool $abortAllOnError
- */
-KalturaRequestBuilder.prototype.setAbortAllOnError = function(abortAllOnError){
-	this.requestData.abortAllOnError = abortAllOnError;
-};
-
-/**
- * Abort all following requests if current request has an error
- * 
- * @return bool
- */
-KalturaRequestBuilder.prototype.getAbortAllOnError = function(){
-	return this.requestData.abortAllOnError;
-};
-
-/**
- * Skip current request according to skip option
- * 
- * @param string $skipOnError
- */
-KalturaRequestBuilder.prototype.setSkipOnError = function(skipOnError){
-	this.requestData.skipOnError = skipOnError;
-};
-
-/**
- * Skip current request according to skip option
- * 
- * @return string
- */
-KalturaRequestBuilder.prototype.getSkipOnError = function(){
-	return this.requestData.skipOnError;
 };
 

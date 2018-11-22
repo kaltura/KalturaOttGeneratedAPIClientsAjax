@@ -5,19 +5,11 @@
 var KalturaCollectionService = {
 	/**
 	 * Returns a list of subscriptions requested by Subscription ID or file ID.
-	 * @param	filter	KalturaCollectionFilter		Filter request (optional, default: null)
-	 * @param	pager	KalturaFilterPager		Page size and index (optional, default: null)
+	 * @param	filter	KalturaCollectionFilter		Filter request (optional)
 	 **/
-	listAction: function(filter, pager){
-		if(!filter)
-			filter = null;
-		if(!pager)
-			pager = null;
+	listAction: function(filter){
 		var kparams = new Object();
-		if (filter != null)
-			kparams.filter = filter;
-		if (pager != null)
-			kparams.pager = pager;
+		kparams.filter = filter;
 		return new KalturaRequestBuilder("collection", "list", kparams);
 	}
 }
