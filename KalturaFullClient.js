@@ -5602,8 +5602,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:18-11-25');
-	this.setApiVersion('5.0.3.42010');
+	this.setClientTag('ajax:18-11-26');
+	this.setApiVersion('5.0.3.22718');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
@@ -5778,21 +5778,21 @@ KalturaClient.prototype.getAbortAllOnError = function(){
 };
 
 /**
- * Skip current request according to skip option
+ * Skip current request according to skip condition
  * 
- * @param string $skipOnError
+ * @param KalturaSkipCondition $skipCondition
  */
-KalturaClient.prototype.setSkipOnError = function(skipOnError){
-	this.requestData.skipOnError = skipOnError;
+KalturaClient.prototype.setSkipCondition = function(skipCondition){
+	this.requestData.skipCondition = skipCondition;
 };
 
 /**
- * Skip current request according to skip option
+ * Skip current request according to skip condition
  * 
- * @return string
+ * @return KalturaSkipCondition
  */
-KalturaClient.prototype.getSkipOnError = function(){
-	return this.requestData.skipOnError;
+KalturaClient.prototype.getSkipCondition = function(){
+	return this.requestData.skipCondition;
 };
 
 /**
@@ -5976,20 +5976,20 @@ KalturaRequestBuilder.prototype.getAbortAllOnError = function(){
 };
 
 /**
- * Skip current request according to skip option
+ * Skip current request according to skip condition
  * 
- * @param string $skipOnError
+ * @param KalturaSkipCondition $skipCondition
  */
-KalturaRequestBuilder.prototype.setSkipOnError = function(skipOnError){
-	this.requestData.skipOnError = skipOnError;
+KalturaRequestBuilder.prototype.setSkipCondition = function(skipCondition){
+	this.requestData.skipCondition = skipCondition;
 };
 
 /**
- * Skip current request according to skip option
+ * Skip current request according to skip condition
  * 
- * @return string
+ * @return KalturaSkipCondition
  */
-KalturaRequestBuilder.prototype.getSkipOnError = function(){
-	return this.requestData.skipOnError;
+KalturaRequestBuilder.prototype.getSkipCondition = function(){
+	return this.requestData.skipCondition;
 };
 
