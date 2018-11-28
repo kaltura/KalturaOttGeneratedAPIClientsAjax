@@ -497,7 +497,7 @@ var KalturaAssetStructService = {
 	
 	/**
 	 * Delete an existing assetStruct.
-	 * @param	id	int		AssetStruct Identifier (optional)
+	 * @param	id	int		AssetStruct Identifier, id = 0 is identified as program AssetStruct (optional)
 	 **/
 	deleteAction: function(id){
 		var kparams = new Object();
@@ -520,7 +520,7 @@ var KalturaAssetStructService = {
 	
 	/**
 	 * Update an existing assetStruct.
-	 * @param	id	int		AssetStruct Identifier (optional)
+	 * @param	id	int		AssetStruct Identifier, id = 0 is identified as program AssetStruct (optional)
 	 * @param	assetStruct	KalturaAssetStruct		AssetStruct Object (optional)
 	 **/
 	update: function(id, assetStruct){
@@ -5602,8 +5602,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:18-11-27');
-	this.setApiVersion('5.0.3.42018');
+	this.setClientTag('ajax:18-11-28');
+	this.setApiVersion('5.0.3.29164');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**

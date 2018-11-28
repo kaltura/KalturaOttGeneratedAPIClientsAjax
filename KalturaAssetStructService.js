@@ -15,7 +15,7 @@ var KalturaAssetStructService = {
 	
 	/**
 	 * Delete an existing assetStruct.
-	 * @param	id	int		AssetStruct Identifier (optional)
+	 * @param	id	int		AssetStruct Identifier, id = 0 is identified as program AssetStruct (optional)
 	 **/
 	deleteAction: function(id){
 		var kparams = new Object();
@@ -38,7 +38,7 @@ var KalturaAssetStructService = {
 	
 	/**
 	 * Update an existing assetStruct.
-	 * @param	id	int		AssetStruct Identifier (optional)
+	 * @param	id	int		AssetStruct Identifier, id = 0 is identified as program AssetStruct (optional)
 	 * @param	assetStruct	KalturaAssetStruct		AssetStruct Object (optional)
 	 **/
 	update: function(id, assetStruct){
