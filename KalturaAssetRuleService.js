@@ -25,14 +25,9 @@ var KalturaAssetRuleService = {
 	
 	/**
 	 * Get the list of asset rules for the partner.
-	 * @param	filter	KalturaAssetRuleFilter		filter by condition name (optional, default: null)
 	 **/
-	listAction: function(filter){
-		if(!filter)
-			filter = null;
+	listAction: function(){
 		var kparams = new Object();
-		if (filter != null)
-			kparams.filter = filter;
 		return new KalturaRequestBuilder("assetrule", "list", kparams);
 	},
 	
