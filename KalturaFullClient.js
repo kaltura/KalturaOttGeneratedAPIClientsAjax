@@ -314,10 +314,13 @@ var KalturaAssetFileService = {
 	 * @param	assetFileId	int		Asset file identifier (optional)
 	 * @param	contextType	string		Playback context type (optional, enum: KalturaPlaybackContextType)
 	 * @param	ks	string		Kaltura session for the user, not mandatory for anonymous user (optional, default: null)
+	 * @param	tokenizedUrl	string		Tokenized Url, not mandatory (optional, default: null)
 	 **/
-	playManifest: function(partnerId, assetId, assetType, assetFileId, contextType, ks){
+	playManifest: function(partnerId, assetId, assetType, assetFileId, contextType, ks, tokenizedUrl){
 		if(!ks)
 			ks = null;
+		if(!tokenizedUrl)
+			tokenizedUrl = null;
 		var kparams = new Object();
 		kparams.partnerId = partnerId;
 		kparams.assetId = assetId;
@@ -325,6 +328,7 @@ var KalturaAssetFileService = {
 		kparams.assetFileId = assetFileId;
 		kparams.contextType = contextType;
 		kparams.ks = ks;
+		kparams.tokenizedUrl = tokenizedUrl;
 		return new KalturaRequestBuilder("assetfile", "playManifest", kparams);
 	}
 }
@@ -3481,6 +3485,66 @@ var KalturaPinService = {
 }
 
 /**
+ *Class definition for the Kaltura service: playbackProfile.
+ **/
+var KalturaPlaybackProfileService = {
+	/**
+	 * Insert new Playback adapter for partner.
+	 * @param	playbackProfile	KalturaPlaybackProfile		Playback adapter Object (optional)
+	 **/
+	add: function(playbackProfile){
+		var kparams = new Object();
+		kparams.playbackProfile = playbackProfile;
+		return new KalturaRequestBuilder("playbackprofile", "add", kparams);
+	},
+	
+	/**
+	 * Delete Playback adapter by Playback adapter id.
+	 * @param	id	int		Playback adapter identifier (optional)
+	 **/
+	deleteAction: function(id){
+		var kparams = new Object();
+		kparams.id = id;
+		return new KalturaRequestBuilder("playbackprofile", "delete", kparams);
+	},
+	
+	/**
+	 * Generate playback adapter shared secret.
+	 * @param	id	int		Playback adapter identifier (optional)
+	 **/
+	generateSharedSecret: function(id){
+		var kparams = new Object();
+		kparams.id = id;
+		return new KalturaRequestBuilder("playbackprofile", "generateSharedSecret", kparams);
+	},
+	
+	/**
+	 * Returns all playback profiles for partner : id + name.
+	 * @param	filter	KalturaPlaybackProfileFilter		Filter parameters for filtering out the result (optional, default: null)
+	 **/
+	listAction: function(filter){
+		if(!filter)
+			filter = null;
+		var kparams = new Object();
+		if (filter != null)
+			kparams.filter = filter;
+		return new KalturaRequestBuilder("playbackprofile", "list", kparams);
+	},
+	
+	/**
+	 * Update Playback adapter details.
+	 * @param	id	int		Playback adapter identifier (optional)
+	 * @param	playbackProfile	KalturaPlaybackProfile		Playback adapter Object (optional)
+	 **/
+	update: function(id, playbackProfile){
+		var kparams = new Object();
+		kparams.id = id;
+		kparams.playbackProfile = playbackProfile;
+		return new KalturaRequestBuilder("playbackprofile", "update", kparams);
+	}
+}
+
+/**
  *Class definition for the Kaltura service: ppv.
  **/
 var KalturaPpvService = {
@@ -5602,8 +5666,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:18-12-19');
-	this.setApiVersion('5.1.61.41995');
+	this.setClientTag('ajax:18-12-20');
+	this.setApiVersion('5.1.74.35250');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
