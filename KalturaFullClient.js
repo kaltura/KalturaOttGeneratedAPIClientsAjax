@@ -3816,6 +3816,17 @@ var KalturaRecordingService = {
 	},
 	
 	/**
+	 * Deprecated, please use recording.update instead
+ *	            Protects an existing recording from the cleanup process for the defined protection period.
+	 * @param	id	int		Recording identifier (optional)
+	 **/
+	protect: function(id){
+		var kparams = new Object();
+		kparams.id = id;
+		return new KalturaRequestBuilder("recording", "protect", kparams);
+	},
+	
+	/**
 	 * Update an existing recording with is protected field.
 	 * @param	id	int		recording identifier (optional)
 	 * @param	recording	KalturaRecording		recording to update (optional)
@@ -5668,8 +5679,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:18-12-26');
-	this.setApiVersion('5.1.98.42804');
+	this.setClientTag('ajax:18-12-27');
+	this.setApiVersion('5.1.112.27939');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
