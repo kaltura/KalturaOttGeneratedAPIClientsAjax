@@ -25,14 +25,11 @@ var KalturaImageService = {
 	
 	/**
 	 * Get the list of images by different filtering.
-	 * @param	filter	KalturaImageFilter		Filter (optional, default: null)
+	 * @param	filter	KalturaImageFilter		Filter (optional)
 	 **/
 	listAction: function(filter){
-		if(!filter)
-			filter = null;
 		var kparams = new Object();
-		if (filter != null)
-			kparams.filter = filter;
+		kparams.filter = filter;
 		return new KalturaRequestBuilder("image", "list", kparams);
 	},
 	

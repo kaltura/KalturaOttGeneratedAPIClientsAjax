@@ -2335,14 +2335,11 @@ var KalturaImageService = {
 	
 	/**
 	 * Get the list of images by different filtering.
-	 * @param	filter	KalturaImageFilter		Filter (optional, default: null)
+	 * @param	filter	KalturaImageFilter		Filter (optional)
 	 **/
 	listAction: function(filter){
-		if(!filter)
-			filter = null;
 		var kparams = new Object();
-		if (filter != null)
-			kparams.filter = filter;
+		kparams.filter = filter;
 		return new KalturaRequestBuilder("image", "list", kparams);
 	},
 	
@@ -5680,7 +5677,7 @@ var MD5 = function (string) {
 function KalturaClient(config){
 	this.init(config);
 	this.setClientTag('ajax:19-01-17');
-	this.setApiVersion('5.1.1.15927');
+	this.setApiVersion('5.1.1.24444');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
