@@ -26,20 +26,6 @@ var KalturaFollowTvSeriesService = {
 	},
 	
 	/**
-	 * Delete a user&#39;s tv series follow..
-	 * @param	assetId	int		Asset identifier (optional)
-	 * @param	token	string		User's token identifier (optional)
-	 * @param	partnerId	int		Partner identifier (optional)
-	 **/
-	deleteWithToken: function(assetId, token, partnerId){
-		var kparams = new Object();
-		kparams.assetId = assetId;
-		kparams.token = token;
-		kparams.partnerId = partnerId;
-		return new KalturaRequestBuilder("followtvseries", "deleteWithToken", kparams);
-	},
-	
-	/**
 	 * List user&#39;s tv series follows.
  *	            Possible status codes:.
 	 * @param	filter	KalturaFollowTvSeriesFilter		Follow TV series filter (optional)

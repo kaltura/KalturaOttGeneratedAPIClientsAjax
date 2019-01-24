@@ -4,7 +4,7 @@
  **/
 var KalturaChannelService = {
 	/**
-	 * Insert new channel for partner. Supports KalturaDynamicChannel or KalturaManualChannel.
+	 * Insert new channel for partner. Currently supports only KSQL channel.
 	 * @param	channel	KalturaChannel		KSQL channel Object (optional)
 	 **/
 	add: function(channel){
@@ -24,7 +24,7 @@ var KalturaChannelService = {
 	},
 	
 	/**
-	 * Returns channel.
+	 * Returns channel info.
 	 * @param	id	int		Channel Identifier (optional)
 	 **/
 	get: function(id){
@@ -34,31 +34,13 @@ var KalturaChannelService = {
 	},
 	
 	/**
-	 * Get the list of tags for the partner.
-	 * @param	filter	KalturaChannelsFilter		Filter (optional, default: null)
-	 * @param	pager	KalturaFilterPager		Page size and index (optional, default: null)
-	 **/
-	listAction: function(filter, pager){
-		if(!filter)
-			filter = null;
-		if(!pager)
-			pager = null;
-		var kparams = new Object();
-		if (filter != null)
-			kparams.filter = filter;
-		if (pager != null)
-			kparams.pager = pager;
-		return new KalturaRequestBuilder("channel", "list", kparams);
-	},
-	
-	/**
-	 * Update channel details. Supports KalturaDynamicChannel or KalturaManualChannel.
-	 * @param	id	int		Channel identifier (optional)
+	 * Update channel details. Currently supports only KSQL channel.
+	 * @param	channelId	int		Channel identifier (optional)
 	 * @param	channel	KalturaChannel		KSQL channel Object (optional)
 	 **/
-	update: function(id, channel){
+	update: function(channelId, channel){
 		var kparams = new Object();
-		kparams.id = id;
+		kparams.channelId = channelId;
 		kparams.channel = channel;
 		return new KalturaRequestBuilder("channel", "update", kparams);
 	}

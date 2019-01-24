@@ -24,20 +24,6 @@ var KalturaUserInterestService = {
 	},
 	
 	/**
-	 * Delete new user interest for partner user.
-	 * @param	id	string		User interest identifier (optional)
-	 * @param	token	string		User's token identifier (optional)
-	 * @param	partnerId	int		Partner identifier (optional)
-	 **/
-	deleteWithToken: function(id, token, partnerId){
-		var kparams = new Object();
-		kparams.id = id;
-		kparams.token = token;
-		kparams.partnerId = partnerId;
-		return new KalturaRequestBuilder("userinterest", "deleteWithToken", kparams);
-	},
-	
-	/**
 	 * Returns all Engagement for partner.
 	 **/
 	listAction: function(){

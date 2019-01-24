@@ -5,8 +5,8 @@
 var KalturaNotificationService = {
 	/**
 	 * TBD.
-	 * @param	identifier	string		In case type is 'announcement', identifier should be the announcement ID. In case type is 'system', identifier should be 'login' (the login topic) (optional)
-	 * @param	type	string		'announcement' - TV-Series topic, 'system' - login topic (optional, enum: KalturaNotificationType)
+	 * @param	identifier	string		In case type is "announcement", identifier should be the announcement ID. In case type is "system", identifier should be "login" (the login topic) (optional)
+	 * @param	type	string		"announcement" - TV-Series topic, "system" - login topic (optional, enum: KalturaNotificationType)
 	 **/
 	register: function(identifier, type){
 		var kparams = new Object();
@@ -25,16 +25,6 @@ var KalturaNotificationService = {
 		kparams.userId = userId;
 		kparams.pushMessage = pushMessage;
 		return new KalturaRequestBuilder("notification", "sendPush", kparams);
-	},
-	
-	/**
-	 * Sends SMS notification to user.
-	 * @param	message	string		Message to send (optional)
-	 **/
-	sendSms: function(message){
-		var kparams = new Object();
-		kparams.message = message;
-		return new KalturaRequestBuilder("notification", "sendSms", kparams);
 	},
 	
 	/**

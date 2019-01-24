@@ -597,8 +597,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:19-01-23');
-	this.setApiVersion('5.1.1.42808');
+	this.setClientTag('ajax:19-01-24');
+	this.setApiVersion('4.7.84.18306');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
@@ -644,24 +644,6 @@ KalturaClient.prototype.setApiVersion = function(apiVersion){
  */
 KalturaClient.prototype.getApiVersion = function(){
 	return this.requestData.apiVersion;
-};
-
-/**
- * Abort the Multireuqset call if any error occurs in one of the requests
- * 
- * @param bool $abortOnError
- */
-KalturaClient.prototype.setAbortOnError = function(abortOnError){
-	this.requestData.abortOnError = abortOnError;
-};
-
-/**
- * Abort the Multireuqset call if any error occurs in one of the requests
- * 
- * @return bool
- */
-KalturaClient.prototype.getAbortOnError = function(){
-	return this.requestData.abortOnError;
 };
 
 /**
@@ -773,42 +755,6 @@ KalturaClient.prototype.getSessionId = function(){
 };
 
 /**
- * Abort all following requests if current request has an error
- * 
- * @param bool $abortAllOnError
- */
-KalturaClient.prototype.setAbortAllOnError = function(abortAllOnError){
-	this.requestData.abortAllOnError = abortAllOnError;
-};
-
-/**
- * Abort all following requests if current request has an error
- * 
- * @return bool
- */
-KalturaClient.prototype.getAbortAllOnError = function(){
-	return this.requestData.abortAllOnError;
-};
-
-/**
- * Skip current request according to skip condition
- * 
- * @param KalturaSkipCondition $skipCondition
- */
-KalturaClient.prototype.setSkipCondition = function(skipCondition){
-	this.requestData.skipCondition = skipCondition;
-};
-
-/**
- * Skip current request according to skip condition
- * 
- * @return KalturaSkipCondition
- */
-KalturaClient.prototype.getSkipCondition = function(){
-	return this.requestData.skipCondition;
-};
-
-/**
  * Client tag
  * 
  * @param string $clientTag
@@ -842,24 +788,6 @@ KalturaRequestBuilder.prototype.setApiVersion = function(apiVersion){
  */
 KalturaRequestBuilder.prototype.getApiVersion = function(){
 	return this.requestData.apiVersion;
-};
-
-/**
- * Abort the Multireuqset call if any error occurs in one of the requests
- * 
- * @param bool $abortOnError
- */
-KalturaRequestBuilder.prototype.setAbortOnError = function(abortOnError){
-	this.requestData.abortOnError = abortOnError;
-};
-
-/**
- * Abort the Multireuqset call if any error occurs in one of the requests
- * 
- * @return bool
- */
-KalturaRequestBuilder.prototype.getAbortOnError = function(){
-	return this.requestData.abortOnError;
 };
 
 /**
@@ -986,41 +914,5 @@ KalturaRequestBuilder.prototype.setResponseProfile = function(responseProfile){
  */
 KalturaRequestBuilder.prototype.getResponseProfile = function(){
 	return this.requestData.responseProfile;
-};
-
-/**
- * Abort all following requests if current request has an error
- * 
- * @param bool $abortAllOnError
- */
-KalturaRequestBuilder.prototype.setAbortAllOnError = function(abortAllOnError){
-	this.requestData.abortAllOnError = abortAllOnError;
-};
-
-/**
- * Abort all following requests if current request has an error
- * 
- * @return bool
- */
-KalturaRequestBuilder.prototype.getAbortAllOnError = function(){
-	return this.requestData.abortAllOnError;
-};
-
-/**
- * Skip current request according to skip condition
- * 
- * @param KalturaSkipCondition $skipCondition
- */
-KalturaRequestBuilder.prototype.setSkipCondition = function(skipCondition){
-	this.requestData.skipCondition = skipCondition;
-};
-
-/**
- * Skip current request according to skip condition
- * 
- * @return KalturaSkipCondition
- */
-KalturaRequestBuilder.prototype.getSkipCondition = function(){
-	return this.requestData.skipCondition;
 };
 
