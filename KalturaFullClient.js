@@ -4789,6 +4789,24 @@ var KalturaTransactionHistoryService = {
 }
 
 /**
+ *Class definition for the Kaltura service: tvmRule.
+ **/
+var KalturaTvmRuleService = {
+	/**
+	 * Get the list of tvm rules for the partner.
+	 * @param	filter	KalturaTvmRuleFilter		TvmRuleFilter Filter (optional, default: null)
+	 **/
+	listAction: function(filter){
+		if(!filter)
+			filter = null;
+		var kparams = new Object();
+		if (filter != null)
+			kparams.filter = filter;
+		return new KalturaRequestBuilder("tvmrule", "list", kparams);
+	}
+}
+
+/**
  *Class definition for the Kaltura service: unifiedPayment.
  **/
 var KalturaUnifiedPaymentService = {
@@ -5676,8 +5694,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:19-01-23');
-	this.setApiVersion('5.1.1.42808');
+	this.setClientTag('ajax:19-01-24');
+	this.setApiVersion('5.1.1.21077');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
