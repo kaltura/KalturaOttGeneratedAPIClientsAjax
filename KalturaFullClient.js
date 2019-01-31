@@ -2922,7 +2922,7 @@ var KalturaOttUserService = {
 	},
 	
 	/**
-	 * Retrieve user by external identifier or username or if filter is null all user in the master or the user itself.
+	 * Returns list of OTTUser (limited to 500 items). Filters by username/external identifier/idIn or roleIdIn.
 	 * @param	filter	KalturaOTTUserFilter		Filter request (optional, default: null)
 	 **/
 	listAction: function(filter){
@@ -5694,8 +5694,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:19-01-28');
-	this.setApiVersion('5.1.1.42810');
+	this.setClientTag('ajax:19-01-31');
+	this.setApiVersion('5.1.1.16000');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
