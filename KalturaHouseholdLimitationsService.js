@@ -11,5 +11,13 @@ var KalturaHouseholdLimitationsService = {
 		var kparams = new Object();
 		kparams.id = id;
 		return new KalturaRequestBuilder("householdlimitations", "get", kparams);
+	},
+	
+	/**
+	 * Get the list of PartnerConfiguration.
+	 **/
+	listAction: function(){
+		var kparams = new Object();
+		return new KalturaRequestBuilder("householdlimitations", "list", kparams);
 	}
 }

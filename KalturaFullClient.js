@@ -2094,6 +2094,14 @@ var KalturaHouseholdLimitationsService = {
 		var kparams = new Object();
 		kparams.id = id;
 		return new KalturaRequestBuilder("householdlimitations", "get", kparams);
+	},
+	
+	/**
+	 * Get the list of PartnerConfiguration.
+	 **/
+	listAction: function(){
+		var kparams = new Object();
+		return new KalturaRequestBuilder("householdlimitations", "list", kparams);
 	}
 }
 
@@ -5694,8 +5702,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:19-01-31');
-	this.setApiVersion('5.1.1.16693');
+	this.setClientTag('ajax:19-02-04');
+	this.setApiVersion('5.1.1.18776');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
