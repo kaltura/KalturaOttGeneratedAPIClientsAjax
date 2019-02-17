@@ -2022,13 +2022,9 @@ var KalturaHouseholdDeviceService = {
 	
 	/**
 	 * Returns device registration status to the supplied household.
-	 * @param	udid	string		device id (optional, default: null)
 	 **/
-	get: function(udid){
-		if(!udid)
-			udid = null;
+	get: function(){
 		var kparams = new Object();
-		kparams.udid = udid;
 		return new KalturaRequestBuilder("householddevice", "get", kparams);
 	},
 	
@@ -5706,8 +5702,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:19-02-16');
-	this.setApiVersion('5.1.2.42812');
+	this.setClientTag('ajax:19-02-17');
+	this.setApiVersion('5.1.2.17630');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**

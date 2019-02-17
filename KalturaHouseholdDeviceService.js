@@ -49,13 +49,9 @@ var KalturaHouseholdDeviceService = {
 	
 	/**
 	 * Returns device registration status to the supplied household.
-	 * @param	udid	string		device id (optional, default: null)
 	 **/
-	get: function(udid){
-		if(!udid)
-			udid = null;
+	get: function(){
 		var kparams = new Object();
-		kparams.udid = udid;
 		return new KalturaRequestBuilder("householddevice", "get", kparams);
 	},
 	
