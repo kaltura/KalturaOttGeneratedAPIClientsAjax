@@ -598,7 +598,7 @@ var MD5 = function (string) {
 function KalturaClient(config){
 	this.init(config);
 	this.setClientTag('ajax:19-02-18');
-	this.setApiVersion('5.1.2.25382');
+	this.setApiVersion('5.1.2.28271');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
@@ -806,6 +806,24 @@ KalturaClient.prototype.setSkipCondition = function(skipCondition){
  */
 KalturaClient.prototype.getSkipCondition = function(){
 	return this.requestData.skipCondition;
+};
+
+/**
+ * Abort the Multireuqset call if any error occurs in one of the requests
+ * 
+ * @param bool $abortOnError
+ */
+KalturaClient.prototype.setAbortOnError = function(abortOnError){
+	this.requestData.abortOnError = abortOnError;
+};
+
+/**
+ * Abort the Multireuqset call if any error occurs in one of the requests
+ * 
+ * @return bool
+ */
+KalturaClient.prototype.getAbortOnError = function(){
+	return this.requestData.abortOnError;
 };
 
 /**
@@ -1022,5 +1040,23 @@ KalturaRequestBuilder.prototype.setSkipCondition = function(skipCondition){
  */
 KalturaRequestBuilder.prototype.getSkipCondition = function(){
 	return this.requestData.skipCondition;
+};
+
+/**
+ * Abort the Multireuqset call if any error occurs in one of the requests
+ * 
+ * @param bool $abortOnError
+ */
+KalturaRequestBuilder.prototype.setAbortOnError = function(abortOnError){
+	this.requestData.abortOnError = abortOnError;
+};
+
+/**
+ * Abort the Multireuqset call if any error occurs in one of the requests
+ * 
+ * @return bool
+ */
+KalturaRequestBuilder.prototype.getAbortOnError = function(){
+	return this.requestData.abortOnError;
 };
 
