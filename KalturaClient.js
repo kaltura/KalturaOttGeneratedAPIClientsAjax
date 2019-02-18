@@ -598,7 +598,7 @@ var MD5 = function (string) {
 function KalturaClient(config){
 	this.init(config);
 	this.setClientTag('ajax:19-02-18');
-	this.setApiVersion('5.1.2.19212');
+	this.setApiVersion('5.1.2.25382');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
@@ -644,24 +644,6 @@ KalturaClient.prototype.setApiVersion = function(apiVersion){
  */
 KalturaClient.prototype.getApiVersion = function(){
 	return this.requestData.apiVersion;
-};
-
-/**
- * Abort the Multireuqset call if any error occurs in one of the requests
- * 
- * @param bool $abortOnError
- */
-KalturaClient.prototype.setAbortOnError = function(abortOnError){
-	this.requestData.abortOnError = abortOnError;
-};
-
-/**
- * Abort the Multireuqset call if any error occurs in one of the requests
- * 
- * @return bool
- */
-KalturaClient.prototype.getAbortOnError = function(){
-	return this.requestData.abortOnError;
 };
 
 /**
@@ -773,6 +755,24 @@ KalturaClient.prototype.getSessionId = function(){
 };
 
 /**
+ * Abort the Multireuqset call if any error occurs in one of the requests
+ * 
+ * @param bool $abortOnError
+ */
+KalturaClient.prototype.setAbortOnError = function(abortOnError){
+	this.requestData.abortOnError = abortOnError;
+};
+
+/**
+ * Abort the Multireuqset call if any error occurs in one of the requests
+ * 
+ * @return bool
+ */
+KalturaClient.prototype.getAbortOnError = function(){
+	return this.requestData.abortOnError;
+};
+
+/**
  * Abort all following requests if current request has an error
  * 
  * @param bool $abortAllOnError
@@ -842,24 +842,6 @@ KalturaRequestBuilder.prototype.setApiVersion = function(apiVersion){
  */
 KalturaRequestBuilder.prototype.getApiVersion = function(){
 	return this.requestData.apiVersion;
-};
-
-/**
- * Abort the Multireuqset call if any error occurs in one of the requests
- * 
- * @param bool $abortOnError
- */
-KalturaRequestBuilder.prototype.setAbortOnError = function(abortOnError){
-	this.requestData.abortOnError = abortOnError;
-};
-
-/**
- * Abort the Multireuqset call if any error occurs in one of the requests
- * 
- * @return bool
- */
-KalturaRequestBuilder.prototype.getAbortOnError = function(){
-	return this.requestData.abortOnError;
 };
 
 /**
@@ -986,6 +968,24 @@ KalturaRequestBuilder.prototype.setResponseProfile = function(responseProfile){
  */
 KalturaRequestBuilder.prototype.getResponseProfile = function(){
 	return this.requestData.responseProfile;
+};
+
+/**
+ * Abort the Multireuqset call if any error occurs in one of the requests
+ * 
+ * @param bool $abortOnError
+ */
+KalturaRequestBuilder.prototype.setAbortOnError = function(abortOnError){
+	this.requestData.abortOnError = abortOnError;
+};
+
+/**
+ * Abort the Multireuqset call if any error occurs in one of the requests
+ * 
+ * @return bool
+ */
+KalturaRequestBuilder.prototype.getAbortOnError = function(){
+	return this.requestData.abortOnError;
 };
 
 /**
