@@ -15,6 +15,19 @@ var KalturaAssetService = {
 	},
 	
 	/**
+	 * Add new bulk upload batch job Conversion profile id can be specified in the API..
+	 * @param	fileData	HTMLElement		fileData (optional)
+	 * @param	bulkUploadJobData	KalturaBulkUploadJobData		bulkUploadJobData (optional)
+	 **/
+	addFromBulkUpload: function(fileData, bulkUploadJobData){
+		var kparams = new Object();
+		var kfiles = new Object();
+		kfiles.fileData = fileData;
+		kparams.bulkUploadJobData = bulkUploadJobData;
+		return new KalturaRequestBuilder("asset", "addFromBulkUpload", kparams, kfiles);
+	},
+	
+	/**
 	 * Returns a group-by result for media or EPG according to given filter. Lists values of each field and their respective count..
 	 * @param	filter	KalturaSearchAssetFilter		Filtering the assets request (optional, default: null)
 	 **/
