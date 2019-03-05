@@ -17,15 +17,15 @@ var KalturaAssetService = {
 	/**
 	 * Add new bulk upload batch job Conversion profile id can be specified in the API..
 	 * @param	fileData	HTMLElement		fileData (optional)
-	 * @param	assetType	string		assetType (optional, enum: KalturaAssetType)
 	 * @param	bulkUploadJobData	KalturaBulkUploadJobData		bulkUploadJobData (optional)
+	 * @param	bulkUploadAssetData	KalturaBulkUploadAssetData		bulkUploadAssetData (optional)
 	 **/
-	addFromBulkUpload: function(fileData, assetType, bulkUploadJobData){
+	addFromBulkUpload: function(fileData, bulkUploadJobData, bulkUploadAssetData){
 		var kparams = new Object();
 		var kfiles = new Object();
 		kfiles.fileData = fileData;
-		kparams.assetType = assetType;
 		kparams.bulkUploadJobData = bulkUploadJobData;
+		kparams.bulkUploadAssetData = bulkUploadAssetData;
 		return new KalturaRequestBuilder("asset", "addFromBulkUpload", kparams, kfiles);
 	},
 	

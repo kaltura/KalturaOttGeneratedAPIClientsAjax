@@ -182,15 +182,15 @@ var KalturaAssetService = {
 	/**
 	 * Add new bulk upload batch job Conversion profile id can be specified in the API..
 	 * @param	fileData	HTMLElement		fileData (optional)
-	 * @param	assetType	string		assetType (optional, enum: KalturaAssetType)
 	 * @param	bulkUploadJobData	KalturaBulkUploadJobData		bulkUploadJobData (optional)
+	 * @param	bulkUploadAssetData	KalturaBulkUploadAssetData		bulkUploadAssetData (optional)
 	 **/
-	addFromBulkUpload: function(fileData, assetType, bulkUploadJobData){
+	addFromBulkUpload: function(fileData, bulkUploadJobData, bulkUploadAssetData){
 		var kparams = new Object();
 		var kfiles = new Object();
 		kfiles.fileData = fileData;
-		kparams.assetType = assetType;
 		kparams.bulkUploadJobData = bulkUploadJobData;
+		kparams.bulkUploadAssetData = bulkUploadAssetData;
 		return new KalturaRequestBuilder("asset", "addFromBulkUpload", kparams, kfiles);
 	},
 	
@@ -525,6 +525,16 @@ var KalturaAssetStructService = {
 	},
 	
 	/**
+	 * Get AssetStruct by ID.
+	 * @param	id	int		ID to get (optional)
+	 **/
+	get: function(id){
+		var kparams = new Object();
+		kparams.id = id;
+		return new KalturaRequestBuilder("assetstruct", "get", kparams);
+	},
+	
+	/**
 	 * Return a list of asset structs for the account with optional filter.
 	 * @param	filter	KalturaAssetStructFilter		Filter parameters for filtering out the result (optional, default: null)
 	 **/
@@ -680,6 +690,16 @@ var KalturaBookmarkService = {
  *Class definition for the Kaltura service: bulkUpload.
  **/
 var KalturaBulkUploadService = {
+	/**
+	 * Get BulkUpload by ID.
+	 * @param	id	int		ID to get (optional)
+	 **/
+	get: function(id){
+		var kparams = new Object();
+		kparams.id = id;
+		return new KalturaRequestBuilder("bulkupload", "get", kparams);
+	},
+	
 	/**
 	 * Get list of KalturaBulkUpload by filter.
 	 * @param	filter	KalturaBulkUploadFilter		Filtering the bulk action request (optional, default: null)
@@ -5706,8 +5726,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:19-03-03');
-	this.setApiVersion('5.1.2.42049');
+	this.setClientTag('ajax:19-03-05');
+	this.setApiVersion('5.1.2.17963');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
