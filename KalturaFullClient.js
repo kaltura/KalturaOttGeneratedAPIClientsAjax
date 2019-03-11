@@ -702,17 +702,14 @@ var KalturaBulkUploadService = {
 	
 	/**
 	 * Get list of KalturaBulkUpload by filter.
-	 * @param	filter	KalturaBulkUploadFilter		Filtering the bulk action request (optional, default: null)
+	 * @param	filter	KalturaBulkUploadFilter		Filtering the bulk action request (optional)
 	 * @param	pager	KalturaFilterPager		Paging the request (optional, default: null)
 	 **/
 	listAction: function(filter, pager){
-		if(!filter)
-			filter = null;
 		if(!pager)
 			pager = null;
 		var kparams = new Object();
-		if (filter != null)
-			kparams.filter = filter;
+		kparams.filter = filter;
 		if (pager != null)
 			kparams.pager = pager;
 		return new KalturaRequestBuilder("bulkupload", "list", kparams);
@@ -5731,8 +5728,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:19-03-10');
-	this.setApiVersion('5.1.2.43155');
+	this.setClientTag('ajax:19-03-11');
+	this.setApiVersion('5.1.2.22446');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
