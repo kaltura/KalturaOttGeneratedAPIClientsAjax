@@ -180,6 +180,21 @@ var KalturaAssetService = {
 	},
 	
 	/**
+	 * Add new bulk upload batch job Conversion profile id can be specified in the API..
+	 * @param	fileData	HTMLElement		fileData (optional)
+	 * @param	bulkUploadJobData	KalturaBulkUploadJobData		bulkUploadJobData (optional)
+	 * @param	bulkUploadAssetData	KalturaBulkUploadAssetData		bulkUploadAssetData (optional)
+	 **/
+	addFromBulkUpload: function(fileData, bulkUploadJobData, bulkUploadAssetData){
+		var kparams = new Object();
+		var kfiles = new Object();
+		kfiles.fileData = fileData;
+		kparams.bulkUploadJobData = bulkUploadJobData;
+		kparams.bulkUploadAssetData = bulkUploadAssetData;
+		return new KalturaRequestBuilder("asset", "addFromBulkUpload", kparams, kfiles);
+	},
+	
+	/**
 	 * Returns a group-by result for media or EPG according to given filter. Lists values of each field and their respective count..
 	 * @param	filter	KalturaSearchAssetFilter		Filtering the assets request (optional, default: null)
 	 **/
@@ -510,6 +525,16 @@ var KalturaAssetStructService = {
 	},
 	
 	/**
+	 * Get AssetStruct by ID.
+	 * @param	id	int		ID to get (optional)
+	 **/
+	get: function(id){
+		var kparams = new Object();
+		kparams.id = id;
+		return new KalturaRequestBuilder("assetstruct", "get", kparams);
+	},
+	
+	/**
 	 * Return a list of asset structs for the account with optional filter.
 	 * @param	filter	KalturaAssetStructFilter		Filter parameters for filtering out the result (optional, default: null)
 	 **/
@@ -662,35 +687,32 @@ var KalturaBookmarkService = {
 }
 
 /**
- *Class definition for the Kaltura service: bulk.
+ *Class definition for the Kaltura service: bulkUpload.
  **/
-var KalturaBulkService = {
+var KalturaBulkUploadService = {
 	/**
-	 * List bulk actions.
-	 * @param	filter	KalturaBulkFilter		Filtering the bulk action request (optional, default: null)
-	 * @param	pager	KalturaFilterPager		Paging the request (optional, default: null)
+	 * Get BulkUpload by ID.
+	 * @param	id	int		ID to get (optional)
 	 **/
-	listAction: function(filter, pager){
-		if(!filter)
-			filter = null;
-		if(!pager)
-			pager = null;
+	get: function(id){
 		var kparams = new Object();
-		if (filter != null)
-			kparams.filter = filter;
-		if (pager != null)
-			kparams.pager = pager;
-		return new KalturaRequestBuilder("bulk", "list", kparams);
+		kparams.id = id;
+		return new KalturaRequestBuilder("bulkupload", "get", kparams);
 	},
 	
 	/**
-	 * ServeLog action returns the log file for the bulk action.
-	 * @param	id	int		bulk action id (optional)
+	 * Get list of KalturaBulkUpload by filter.
+	 * @param	filter	KalturaBulkUploadFilter		Filtering the bulk action request (optional)
+	 * @param	pager	KalturaFilterPager		Paging the request (optional, default: null)
 	 **/
-	serveLog: function(id){
+	listAction: function(filter, pager){
+		if(!pager)
+			pager = null;
 		var kparams = new Object();
-		kparams.id = id;
-		return new KalturaRequestBuilder("bulk", "serveLog", kparams);
+		kparams.filter = filter;
+		if (pager != null)
+			kparams.pager = pager;
+		return new KalturaRequestBuilder("bulkupload", "list", kparams);
 	}
 }
 
@@ -5706,8 +5728,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:19-02-20');
-	this.setApiVersion('5.1.1.25422');
+	this.setClientTag('ajax:19-04-14');
+	this.setApiVersion('5.2.0.16219');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**

@@ -24,6 +24,16 @@ var KalturaAssetStructService = {
 	},
 	
 	/**
+	 * Get AssetStruct by ID.
+	 * @param	id	int		ID to get (optional)
+	 **/
+	get: function(id){
+		var kparams = new Object();
+		kparams.id = id;
+		return new KalturaRequestBuilder("assetstruct", "get", kparams);
+	},
+	
+	/**
 	 * Return a list of asset structs for the account with optional filter.
 	 * @param	filter	KalturaAssetStructFilter		Filter parameters for filtering out the result (optional, default: null)
 	 **/
