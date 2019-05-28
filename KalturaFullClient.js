@@ -4858,13 +4858,18 @@ var KalturaTopicNotificationMessageService = {
 	/**
 	 * Lists all topic notifications in the system..
 	 * @param	filter	KalturaTopicNotificationMessageFilter		Filter options (optional, default: null)
+	 * @param	pager	KalturaFilterPager		Paging the request (optional, default: null)
 	 **/
-	listAction: function(filter){
+	listAction: function(filter, pager){
 		if(!filter)
 			filter = null;
+		if(!pager)
+			pager = null;
 		var kparams = new Object();
 		if (filter != null)
 			kparams.filter = filter;
+		if (pager != null)
+			kparams.pager = pager;
 		return new KalturaRequestBuilder("topicnotificationmessage", "list", kparams);
 	},
 	
@@ -5893,8 +5898,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:19-05-23');
-	this.setApiVersion('5.2.0.43014');
+	this.setClientTag('ajax:19-05-27');
+	this.setApiVersion('5.2.0.43007');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**

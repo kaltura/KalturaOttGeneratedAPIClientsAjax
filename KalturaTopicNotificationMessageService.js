@@ -26,13 +26,18 @@ var KalturaTopicNotificationMessageService = {
 	/**
 	 * Lists all topic notifications in the system..
 	 * @param	filter	KalturaTopicNotificationMessageFilter		Filter options (optional, default: null)
+	 * @param	pager	KalturaFilterPager		Paging the request (optional, default: null)
 	 **/
-	listAction: function(filter){
+	listAction: function(filter, pager){
 		if(!filter)
 			filter = null;
+		if(!pager)
+			pager = null;
 		var kparams = new Object();
 		if (filter != null)
 			kparams.filter = filter;
+		if (pager != null)
+			kparams.pager = pager;
 		return new KalturaRequestBuilder("topicnotificationmessage", "list", kparams);
 	},
 	
