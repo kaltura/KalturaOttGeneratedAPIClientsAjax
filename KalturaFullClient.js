@@ -1266,6 +1266,16 @@ var KalturaCouponService = {
 		var kparams = new Object();
 		kparams.code = code;
 		return new KalturaRequestBuilder("coupon", "get", kparams);
+	},
+	
+	/**
+	 * Lists coupon codes..
+	 * @param	filter	KalturaCouponFilter		Filter options (optional)
+	 **/
+	listAction: function(filter){
+		var kparams = new Object();
+		kparams.filter = filter;
+		return new KalturaRequestBuilder("coupon", "list", kparams);
 	}
 }
 
@@ -1537,6 +1547,18 @@ var KalturaEngagementService = {
  *Class definition for the Kaltura service: entitlement.
  **/
 var KalturaEntitlementService = {
+	/**
+	 * Apply new coupon for existing subscription.
+	 * @param	purchaseId	int		purchase Id (optional)
+	 * @param	couponCode	string		coupon Code (optional)
+	 **/
+	applyCoupon: function(purchaseId, couponCode){
+		var kparams = new Object();
+		kparams.purchaseId = purchaseId;
+		kparams.couponCode = couponCode;
+		return new KalturaRequestBuilder("entitlement", "applyCoupon", kparams);
+	},
+	
 	/**
 	 * Immediately cancel a subscription, PPV or collection. Cancel is possible only if within cancellation window and content not already consumed.
 	 * @param	assetId	int		The mediaFileID to cancel (optional)
@@ -1991,6 +2013,44 @@ var KalturaHouseholdService = {
 		var kparams = new Object();
 		kparams.household = household;
 		return new KalturaRequestBuilder("household", "update", kparams);
+	}
+}
+
+/**
+ *Class definition for the Kaltura service: householdCoupon.
+ **/
+var KalturaHouseholdCouponService = {
+	/**
+	 * householdCoupon add.
+	 * @param	objectToAdd	KalturaHouseholdCoupon		householdCoupon details (optional)
+	 **/
+	add: function(objectToAdd){
+		var kparams = new Object();
+		kparams.objectToAdd = objectToAdd;
+		return new KalturaRequestBuilder("householdcoupon", "add", kparams);
+	},
+	
+	/**
+	 * Remove coupon from household.
+	 * @param	id	string		Coupon code (optional)
+	 **/
+	deleteAction: function(id){
+		var kparams = new Object();
+		kparams.id = id;
+		return new KalturaRequestBuilder("householdcoupon", "delete", kparams);
+	},
+	
+	/**
+	 * Gets all HouseholdCoupon items for a household.
+	 * @param	filter	KalturaHouseholdCouponFilter		Request filter (optional)
+	 **/
+	listAction: function(filter){
+		if(!filter)
+			filter = null;
+		var kparams = new Object();
+		if (filter != null)
+			kparams.filter = filter;
+		return new KalturaRequestBuilder("householdcoupon", "list", kparams);
 	}
 }
 
@@ -3294,6 +3354,19 @@ var KalturaPartnerConfigurationService = {
 		var kparams = new Object();
 		kparams.configuration = configuration;
 		return new KalturaRequestBuilder("partnerconfiguration", "update", kparams);
+	}
+}
+
+/**
+ *Class definition for the Kaltura service: partner.
+ **/
+var KalturaPartnerService = {
+	/**
+	 * Returns a login session for external system (like OVP).
+	 **/
+	externalLogin: function(){
+		var kparams = new Object();
+		return new KalturaRequestBuilder("partner", "externalLogin", kparams);
 	}
 }
 
@@ -5915,8 +5988,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:19-08-05');
-	this.setApiVersion('5.2.5.17649');
+	this.setClientTag('ajax:19-08-12');
+	this.setApiVersion('5.2.5.13338');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
