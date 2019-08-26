@@ -4762,131 +4762,6 @@ var KalturaTopicService = {
 }
 
 /**
- *Class definition for the Kaltura service: topicNotification.
- **/
-var KalturaTopicNotificationService = {
-	/**
-	 * Add a new topic notification.
-	 * @param	topicNotification	KalturaTopicNotification		The topic notification to add (optional)
-	 **/
-	add: function(topicNotification){
-		var kparams = new Object();
-		kparams.topicNotification = topicNotification;
-		return new KalturaRequestBuilder("topicnotification", "add", kparams);
-	},
-	
-	/**
-	 * Delete an existing topic notification.
-	 * @param	id	int		ID of topic notification to delete (optional)
-	 **/
-	deleteAction: function(id){
-		var kparams = new Object();
-		kparams.id = id;
-		return new KalturaRequestBuilder("topicnotification", "delete", kparams);
-	},
-	
-	/**
-	 * Lists all topic notifications in the system..
-	 * @param	filter	KalturaTopicNotificationFilter		Filter options (optional, default: null)
-	 **/
-	listAction: function(filter){
-		if(!filter)
-			filter = null;
-		var kparams = new Object();
-		if (filter != null)
-			kparams.filter = filter;
-		return new KalturaRequestBuilder("topicnotification", "list", kparams);
-	},
-	
-	/**
-	 * Subscribe a user to a topic notification.
-	 * @param	topicNotificationId	int		ID of topic notification to subscribe to. (optional)
-	 **/
-	subscribe: function(topicNotificationId){
-		var kparams = new Object();
-		kparams.topicNotificationId = topicNotificationId;
-		return new KalturaRequestBuilder("topicnotification", "subscribe", kparams);
-	},
-	
-	/**
-	 * Unubscribe a user from a topic notification.
-	 * @param	topicNotificationId	int		ID of topic notification to unsubscribe from. (optional)
-	 **/
-	unsubscribe: function(topicNotificationId){
-		var kparams = new Object();
-		kparams.topicNotificationId = topicNotificationId;
-		return new KalturaRequestBuilder("topicnotification", "unsubscribe", kparams);
-	},
-	
-	/**
-	 * Update an existing topic notification.
-	 * @param	id	int		The topic notification ID to update (optional)
-	 * @param	topicNotification	KalturaTopicNotification		The topic notification to update (optional)
-	 **/
-	update: function(id, topicNotification){
-		var kparams = new Object();
-		kparams.id = id;
-		kparams.topicNotification = topicNotification;
-		return new KalturaRequestBuilder("topicnotification", "update", kparams);
-	}
-}
-
-/**
- *Class definition for the Kaltura service: topicNotificationMessage.
- **/
-var KalturaTopicNotificationMessageService = {
-	/**
-	 * Add a new topic notification message.
-	 * @param	topicNotificationMessage	KalturaTopicNotificationMessage		The topic notification message to add (optional)
-	 **/
-	add: function(topicNotificationMessage){
-		var kparams = new Object();
-		kparams.topicNotificationMessage = topicNotificationMessage;
-		return new KalturaRequestBuilder("topicnotificationmessage", "add", kparams);
-	},
-	
-	/**
-	 * Delete an existing topic notification message.
-	 * @param	id	int		ID of topic notification message to delete (optional)
-	 **/
-	deleteAction: function(id){
-		var kparams = new Object();
-		kparams.id = id;
-		return new KalturaRequestBuilder("topicnotificationmessage", "delete", kparams);
-	},
-	
-	/**
-	 * Lists all topic notifications in the system..
-	 * @param	filter	KalturaTopicNotificationMessageFilter		Filter options (optional, default: null)
-	 * @param	pager	KalturaFilterPager		Paging the request (optional, default: null)
-	 **/
-	listAction: function(filter, pager){
-		if(!filter)
-			filter = null;
-		if(!pager)
-			pager = null;
-		var kparams = new Object();
-		if (filter != null)
-			kparams.filter = filter;
-		if (pager != null)
-			kparams.pager = pager;
-		return new KalturaRequestBuilder("topicnotificationmessage", "list", kparams);
-	},
-	
-	/**
-	 * Update an existing topic notification message.
-	 * @param	id	int		The topic notification message ID to update (optional)
-	 * @param	topicNotificationMessage	KalturaTopicNotificationMessage		The topic notification message to update (optional)
-	 **/
-	update: function(id, topicNotificationMessage){
-		var kparams = new Object();
-		kparams.id = id;
-		kparams.topicNotificationMessage = topicNotificationMessage;
-		return new KalturaRequestBuilder("topicnotificationmessage", "update", kparams);
-	}
-}
-
-/**
  *Class definition for the Kaltura service: transaction.
  **/
 var KalturaTransactionService = {
@@ -5898,8 +5773,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:19-06-06');
-	this.setApiVersion('5.2.0.16354');
+	this.setClientTag('ajax:19-08-26');
+	this.setApiVersion('5.2.2.5493');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
