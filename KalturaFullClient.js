@@ -3418,6 +3418,26 @@ var KalturaPaymentMethodProfileService = {
  **/
 var KalturaPermissionService = {
 	/**
+	 * Adds new permission.
+	 * @param	permission	KalturaPermission		Permission to insert (optional)
+	 **/
+	add: function(permission){
+		var kparams = new Object();
+		kparams.permission = permission;
+		return new KalturaRequestBuilder("permission", "add", kparams);
+	},
+	
+	/**
+	 * Deletes an existing permission.
+	 * @param	id	int		Permission ID to delete (optional)
+	 **/
+	deleteAction: function(id){
+		var kparams = new Object();
+		kparams.id = id;
+		return new KalturaRequestBuilder("permission", "delete", kparams);
+	},
+	
+	/**
 	 * Returns permission names as comma separated string.
 	 **/
 	getCurrentPermissions: function(){
@@ -4787,14 +4807,11 @@ var KalturaTopicNotificationService = {
 	
 	/**
 	 * Lists all topic notifications in the system..
-	 * @param	filter	KalturaTopicNotificationFilter		Filter options (optional, default: null)
+	 * @param	filter	KalturaTopicNotificationFilter		Filter options (optional)
 	 **/
 	listAction: function(filter){
-		if(!filter)
-			filter = null;
 		var kparams = new Object();
-		if (filter != null)
-			kparams.filter = filter;
+		kparams.filter = filter;
 		return new KalturaRequestBuilder("topicnotification", "list", kparams);
 	},
 	
@@ -5898,8 +5915,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:19-06-06');
-	this.setApiVersion('5.2.0.16354');
+	this.setClientTag('ajax:19-08-26');
+	this.setApiVersion('5.2.4.5672');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
