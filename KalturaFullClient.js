@@ -1682,6 +1682,33 @@ var KalturaEntitlementService = {
 }
 
 /**
+ *Class definition for the Kaltura service: eventNotification.
+ **/
+var KalturaEventNotificationService = {
+	/**
+	 * eventNotification update.
+	 * @param	id	string		Object ID to update (optional)
+	 * @param	objectToUpdate	KalturaEventNotification		eventNotification details (optional)
+	 **/
+	update: function(id, objectToUpdate){
+		var kparams = new Object();
+		kparams.id = id;
+		kparams.objectToUpdate = objectToUpdate;
+		return new KalturaRequestBuilder("eventnotification", "update", kparams);
+	},
+	
+	/**
+	 * Gets all EventNotification items for a given Object id and type.
+	 * @param	filter	KalturaEventNotificationFilter		Request filter (optional)
+	 **/
+	listAction: function(filter){
+		var kparams = new Object();
+		kparams.filter = filter;
+		return new KalturaRequestBuilder("eventnotification", "list", kparams);
+	}
+}
+
+/**
  *Class definition for the Kaltura service: exportTask.
  **/
 var KalturaExportTaskService = {
@@ -5988,8 +6015,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:19-08-28');
-	this.setApiVersion('5.2.6.13467');
+	this.setClientTag('ajax:19-09-05');
+	this.setApiVersion('5.2.6.13530');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
