@@ -4,6 +4,26 @@
  **/
 var KalturaPermissionService = {
 	/**
+	 * Adds new permission.
+	 * @param	permission	KalturaPermission		Permission to insert (optional)
+	 **/
+	add: function(permission){
+		var kparams = new Object();
+		kparams.permission = permission;
+		return new KalturaRequestBuilder("permission", "add", kparams);
+	},
+	
+	/**
+	 * Deletes an existing permission.
+	 * @param	id	int		Permission ID to delete (optional)
+	 **/
+	deleteAction: function(id){
+		var kparams = new Object();
+		kparams.id = id;
+		return new KalturaRequestBuilder("permission", "delete", kparams);
+	},
+	
+	/**
 	 * Returns permission names as comma separated string.
 	 **/
 	getCurrentPermissions: function(){
