@@ -3398,53 +3398,6 @@ var KalturaPartnerService = {
 }
 
 /**
- *Class definition for the Kaltura service: passwordPolicy.
- **/
-var KalturaPasswordPolicyService = {
-	/**
-	 * Add an object.
-	 * @param	objectToAdd	KalturaPasswordPolicy		Object to add (optional)
-	 **/
-	add: function(objectToAdd){
-		var kparams = new Object();
-		kparams.objectToAdd = objectToAdd;
-		return new KalturaRequestBuilder("passwordpolicy", "add", kparams);
-	},
-	
-	/**
-	 * Update an object.
-	 * @param	id	int		Object ID to update (optional)
-	 * @param	objectToUpdate	KalturaPasswordPolicy		Object to update (optional)
-	 **/
-	update: function(id, objectToUpdate){
-		var kparams = new Object();
-		kparams.id = id;
-		kparams.objectToUpdate = objectToUpdate;
-		return new KalturaRequestBuilder("passwordpolicy", "update", kparams);
-	},
-	
-	/**
-	 * Delete an object.
-	 * @param	id	int		Object ID to delete (optional)
-	 **/
-	deleteAction: function(id){
-		var kparams = new Object();
-		kparams.id = id;
-		return new KalturaRequestBuilder("passwordpolicy", "delete", kparams);
-	},
-	
-	/**
-	 * .
-	 * @param	filter	KalturaPasswordPolicyFilter		Request filter (optional)
-	 **/
-	listAction: function(filter){
-		var kparams = new Object();
-		kparams.filter = filter;
-		return new KalturaRequestBuilder("passwordpolicy", "list", kparams);
-	}
-}
-
-/**
  *Class definition for the Kaltura service: paymentGatewayProfile.
  **/
 var KalturaPaymentGatewayProfileService = {
@@ -4087,26 +4040,6 @@ var KalturaRecordingService = {
  **/
 var KalturaRegionService = {
 	/**
-	 * Adds a new region for partner.
-	 * @param	region	KalturaRegion		Region to add (optional)
-	 **/
-	add: function(region){
-		var kparams = new Object();
-		kparams.region = region;
-		return new KalturaRequestBuilder("region", "add", kparams);
-	},
-	
-	/**
-	 * Delete an existing region.
-	 * @param	id	int		Region ID to delete (optional)
-	 **/
-	deleteAction: function(id){
-		var kparams = new Object();
-		kparams.id = id;
-		return new KalturaRequestBuilder("region", "delete", kparams);
-	},
-	
-	/**
 	 * Returns all regions for the partner.
 	 * @param	filter	KalturaRegionFilter		Regions filter (optional)
 	 **/
@@ -4114,18 +4047,6 @@ var KalturaRegionService = {
 		var kparams = new Object();
 		kparams.filter = filter;
 		return new KalturaRequestBuilder("region", "list", kparams);
-	},
-	
-	/**
-	 * Update an existing region.
-	 * @param	id	int		Region ID to update (optional)
-	 * @param	region	KalturaRegion		Region to update (optional)
-	 **/
-	update: function(id, region){
-		var kparams = new Object();
-		kparams.id = id;
-		kparams.region = region;
-		return new KalturaRequestBuilder("region", "update", kparams);
 	}
 }
 
@@ -6095,7 +6016,7 @@ var MD5 = function (string) {
 function KalturaClient(config){
 	this.init(config);
 	this.setClientTag('ajax:19-09-11');
-	this.setApiVersion('5.2.6.5982');
+	this.setApiVersion('5.2.6.13553');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
