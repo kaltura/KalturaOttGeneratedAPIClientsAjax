@@ -2042,7 +2042,7 @@ var KalturaHouseholdCouponService = {
 	
 	/**
 	 * Gets all HouseholdCoupon items for a household.
-	 * @param	filter	KalturaHouseholdCouponFilter		Request filter (optional)
+	 * @param	filter	KalturaHouseholdCouponFilter		Request filter (optional, default: null)
 	 **/
 	listAction: function(filter){
 		if(!filter)
@@ -5988,7 +5988,7 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:19-09-10');
+	this.setClientTag('ajax:19-09-12');
 	this.setApiVersion('5.2.5.13438');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
