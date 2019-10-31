@@ -1682,6 +1682,21 @@ var KalturaEntitlementService = {
 }
 
 /**
+ *Class definition for the Kaltura service: eventNotificationAction.
+ **/
+var KalturaEventNotificationActionService = {
+	/**
+	 * Dispatches event notification.
+	 * @param	scope	KalturaEventNotificationScope		Scope (optional)
+	 **/
+	dispatch: function(scope){
+		var kparams = new Object();
+		kparams.scope = scope;
+		return new KalturaRequestBuilder("eventnotificationaction", "dispatch", kparams);
+	}
+}
+
+/**
  *Class definition for the Kaltura service: eventNotification.
  **/
 var KalturaEventNotificationService = {
@@ -6097,8 +6112,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:19-09-18');
-	this.setApiVersion('5.2.6.13610');
+	this.setClientTag('ajax:19-10-31');
+	this.setApiVersion('5.2.7.0');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
