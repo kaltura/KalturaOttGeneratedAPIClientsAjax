@@ -25,14 +25,11 @@ var KalturaTopicNotificationService = {
 	
 	/**
 	 * Lists all topic notifications in the system..
-	 * @param	filter	KalturaTopicNotificationFilter		Filter options (optional, default: null)
+	 * @param	filter	KalturaTopicNotificationFilter		Filter options (optional)
 	 **/
 	listAction: function(filter){
-		if(!filter)
-			filter = null;
 		var kparams = new Object();
-		if (filter != null)
-			kparams.filter = filter;
+		kparams.filter = filter;
 		return new KalturaRequestBuilder("topicnotification", "list", kparams);
 	},
 	

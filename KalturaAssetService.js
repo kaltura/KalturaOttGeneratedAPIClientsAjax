@@ -85,12 +85,16 @@ var KalturaAssetService = {
 	 * @param	assetId	string		Asset identifier (optional)
 	 * @param	assetType	string		Asset type (optional, enum: KalturaAssetType)
 	 * @param	contextDataParams	KalturaPlaybackContextOptions		Parameters for the request (optional)
+	 * @param	sourceType	string		Filter sources by type (optional, default: null)
 	 **/
-	getPlaybackContext: function(assetId, assetType, contextDataParams){
+	getPlaybackContext: function(assetId, assetType, contextDataParams, sourceType){
+		if(!sourceType)
+			sourceType = null;
 		var kparams = new Object();
 		kparams.assetId = assetId;
 		kparams.assetType = assetType;
 		kparams.contextDataParams = contextDataParams;
+		kparams.sourceType = sourceType;
 		return new KalturaRequestBuilder("asset", "getPlaybackContext", kparams);
 	},
 	
