@@ -4,6 +4,18 @@
  **/
 var KalturaEntitlementService = {
 	/**
+	 * Apply new coupon for existing subscription.
+	 * @param	purchaseId	int		purchase Id (optional)
+	 * @param	couponCode	string		coupon Code (optional)
+	 **/
+	applyCoupon: function(purchaseId, couponCode){
+		var kparams = new Object();
+		kparams.purchaseId = purchaseId;
+		kparams.couponCode = couponCode;
+		return new KalturaRequestBuilder("entitlement", "applyCoupon", kparams);
+	},
+	
+	/**
 	 * Immediately cancel a subscription, PPV or collection. Cancel is possible only if within cancellation window and content not already consumed.
 	 * @param	assetId	int		The mediaFileID to cancel (optional)
 	 * @param	productType	string		The product type for the cancelation (optional, enum: KalturaTransactionType)
