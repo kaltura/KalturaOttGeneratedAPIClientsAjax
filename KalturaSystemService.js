@@ -4,22 +4,6 @@
  **/
 var KalturaSystemService = {
 	/**
-	 * Clear local server cache.
-	 * @param	action	string		action to perform, possible values: clear_all / keys / getKey (optional, default: null)
-	 * @param	key	string		key to get in case you send action getKey (optional, default: null)
-	 **/
-	clearLocalServerCache: function(action, key){
-		if(!action)
-			action = null;
-		if(!key)
-			key = null;
-		var kparams = new Object();
-		kparams.action = action;
-		kparams.key = key;
-		return new KalturaRequestBuilder("system", "clearLocalServerCache", kparams);
-	},
-	
-	/**
 	 * Gets the current level of the KLogger.
 	 **/
 	getLogLevel: function(){
@@ -41,18 +25,6 @@ var KalturaSystemService = {
 	getVersion: function(){
 		var kparams = new Object();
 		return new KalturaRequestBuilder("system", "getVersion", kparams);
-	},
-	
-	/**
-	 * Returns true if version has been incremented successfully or false otherwise. You need to send groupId only if you wish to increment for a specific groupId and not the one the KS belongs to..
-	 * @param	groupId	int		groupId (optional)
-	 **/
-	incrementLayeredCacheGroupConfigVersion: function(groupId){
-		if(!groupId)
-			groupId = 0;
-		var kparams = new Object();
-		kparams.groupId = groupId;
-		return new KalturaRequestBuilder("system", "incrementLayeredCacheGroupConfigVersion", kparams);
 	},
 	
 	/**
