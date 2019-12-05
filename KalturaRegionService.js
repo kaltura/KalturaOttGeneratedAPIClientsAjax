@@ -26,15 +26,10 @@ var KalturaRegionService = {
 	/**
 	 * Returns all regions for the partner.
 	 * @param	filter	KalturaRegionFilter		Regions filter (optional)
-	 * @param	pager	KalturaFilterPager		Paging the request (optional, default: null)
 	 **/
-	listAction: function(filter, pager){
-		if(!pager)
-			pager = null;
+	listAction: function(filter){
 		var kparams = new Object();
 		kparams.filter = filter;
-		if (pager != null)
-			kparams.pager = pager;
 		return new KalturaRequestBuilder("region", "list", kparams);
 	},
 	
