@@ -4131,10 +4131,15 @@ var KalturaRegionService = {
 	/**
 	 * Returns all regions for the partner.
 	 * @param	filter	KalturaRegionFilter		Regions filter (optional)
+	 * @param	pager	KalturaFilterPager		Paging the request (optional, default: null)
 	 **/
-	listAction: function(filter){
+	listAction: function(filter, pager){
+		if(!pager)
+			pager = null;
 		var kparams = new Object();
 		kparams.filter = filter;
+		if (pager != null)
+			kparams.pager = pager;
 		return new KalturaRequestBuilder("region", "list", kparams);
 	},
 	
@@ -6162,8 +6167,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:19-12-04');
-	this.setApiVersion('5.2.8.14182');
+	this.setClientTag('ajax:19-12-05');
+	this.setApiVersion('5.2.8.14197');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
