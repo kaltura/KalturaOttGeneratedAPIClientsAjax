@@ -4,32 +4,35 @@
  **/
 var KalturaHouseholdSegmentService = {
 	/**
-	 * Adds a segment to a household.
-	 * @param	householdSegment	KalturaHouseholdSegment		Household segment (optional)
+	 * householdSegment add.
+	 * @param	objectToAdd	KalturaHouseholdSegment		householdSegment details (optional)
 	 **/
-	add: function(householdSegment){
+	add: function(objectToAdd){
 		var kparams = new Object();
-		kparams.householdSegment = householdSegment;
+		kparams.objectToAdd = objectToAdd;
 		return new KalturaRequestBuilder("householdsegment", "add", kparams);
 	},
 	
 	/**
-	 * Deletes a segment from a household.
-	 * @param	householdId	int		Household id (optional)
-	 * @param	segmentId	int		Segemnt id (optional)
+	 * Remove segment from household.
+	 * @param	id	int		Segment identifier (optional)
 	 **/
-	deleteAction: function(householdId, segmentId){
+	deleteAction: function(id){
 		var kparams = new Object();
-		kparams.householdId = householdId;
-		kparams.segmentId = segmentId;
+		kparams.id = id;
 		return new KalturaRequestBuilder("householdsegment", "delete", kparams);
 	},
 	
 	/**
-	 * Retrieve all the segments that apply for given household.
+	 * Gets all HouseholdSegment items for a household.
+	 * @param	filter	KalturaHouseholdSegmentFilter		Request filter (optional, default: null)
 	 **/
-	listAction: function(){
+	listAction: function(filter){
+		if(!filter)
+			filter = null;
 		var kparams = new Object();
+		if (filter != null)
+			kparams.filter = filter;
 		return new KalturaRequestBuilder("householdsegment", "list", kparams);
 	}
 }
