@@ -5,16 +5,16 @@
 var KalturaSystemService = {
 	/**
 	 * Clear local server cache.
-	 * @param	action	string		action to perform, possible values: clear_all / keys / getKey (optional, default: null)
+	 * @param	clearCacheAction	string		clear cache action to perform, possible values: clear_all / keys / getKey (optional, default: null)
 	 * @param	key	string		key to get in case you send action getKey (optional, default: null)
 	 **/
-	clearLocalServerCache: function(action, key){
-		if(!action)
-			action = null;
+	clearLocalServerCache: function(clearCacheAction, key){
+		if(!clearCacheAction)
+			clearCacheAction = null;
 		if(!key)
 			key = null;
 		var kparams = new Object();
-		kparams.action = action;
+		kparams.clearCacheAction = clearCacheAction;
 		kparams.key = key;
 		return new KalturaRequestBuilder("system", "clearLocalServerCache", kparams);
 	},
