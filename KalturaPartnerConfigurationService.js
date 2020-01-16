@@ -14,11 +14,8 @@ var KalturaPartnerConfigurationService = {
 	},
 	
 	/**
-	 * Update Partner Configuration.
-	 * @param	configuration	KalturaPartnerConfiguration		Partner Configuration
- *	            possible configuration type: 
- *	            'configuration': { 'value': 0, 'partner_configuration_type': { 'type': 'OSSAdapter', 'objectType': 'KalturaPartnerConfigurationHolder' },
- *	            'objectType': 'KalturaBillingPartnerConfig'} (optional)
+	 * Update/set Partner Configuration.
+	 * @param	configuration	KalturaPartnerConfiguration		Partner Configuration to update (optional)
 	 **/
 	update: function(configuration){
 		var kparams = new Object();

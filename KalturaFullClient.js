@@ -3428,11 +3428,8 @@ var KalturaPartnerConfigurationService = {
 	},
 	
 	/**
-	 * Update Partner Configuration.
-	 * @param	configuration	KalturaPartnerConfiguration		Partner Configuration
- *	            possible configuration type: 
- *	            'configuration': { 'value': 0, 'partner_configuration_type': { 'type': 'OSSAdapter', 'objectType': 'KalturaPartnerConfigurationHolder' },
- *	            'objectType': 'KalturaBillingPartnerConfig'} (optional)
+	 * Update/set Partner Configuration.
+	 * @param	configuration	KalturaPartnerConfiguration		Partner Configuration to update (optional)
 	 **/
 	update: function(configuration){
 		var kparams = new Object();
@@ -4866,16 +4863,16 @@ var KalturaSubscriptionSetService = {
 var KalturaSystemService = {
 	/**
 	 * Clear local server cache.
-	 * @param	clearCacheAction	string		clear cache action to perform, possible values: clear_all / keys / getKey (optional, default: null)
+	 * @param	action	string		action to perform, possible values: clear_all / keys / getKey (optional, default: null)
 	 * @param	key	string		key to get in case you send action getKey (optional, default: null)
 	 **/
-	clearLocalServerCache: function(clearCacheAction, key){
-		if(!clearCacheAction)
-			clearCacheAction = null;
+	clearLocalServerCache: function(action, key){
+		if(!action)
+			action = null;
 		if(!key)
 			key = null;
 		var kparams = new Object();
-		kparams.clearCacheAction = clearCacheAction;
+		kparams.action = action;
 		kparams.key = key;
 		return new KalturaRequestBuilder("system", "clearLocalServerCache", kparams);
 	},
@@ -6205,8 +6202,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:20-01-15');
-	this.setApiVersion('5.3.1.14558');
+	this.setClientTag('ajax:20-01-16');
+	this.setApiVersion('5.3.0.14535');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
