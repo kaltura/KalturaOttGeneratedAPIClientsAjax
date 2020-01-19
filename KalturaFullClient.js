@@ -4111,7 +4111,7 @@ var KalturaRegionService = {
 	
 	/**
 	 * Returns all regions for the partner.
-	 * @param	filter	KalturaRegionFilter		Regions filter (optional)
+	 * @param	filter	KalturaBaseRegionFilter		Regions filter (optional)
 	 **/
 	listAction: function(filter){
 		var kparams = new Object();
@@ -6097,8 +6097,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:20-01-15');
-	this.setApiVersion('5.2.6.6120');
+	this.setClientTag('ajax:20-01-19');
+	this.setApiVersion('5.2.6.6121');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
