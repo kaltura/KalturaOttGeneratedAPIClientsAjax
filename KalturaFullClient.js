@@ -4168,7 +4168,7 @@ var KalturaRegionService = {
 	
 	/**
 	 * Returns all regions for the partner.
-	 * @param	filter	KalturaRegionFilter		Regions filter (optional)
+	 * @param	filter	KalturaBaseRegionFilter		Regions filter (optional)
 	 * @param	pager	KalturaFilterPager		Paging the request (optional, default: null)
 	 **/
 	listAction: function(filter, pager){
@@ -6206,7 +6206,7 @@ var MD5 = function (string) {
 function KalturaClient(config){
 	this.init(config);
 	this.setClientTag('ajax:20-01-19');
-	this.setApiVersion('5.3.1.14567');
+	this.setApiVersion('5.3.1.14560');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
