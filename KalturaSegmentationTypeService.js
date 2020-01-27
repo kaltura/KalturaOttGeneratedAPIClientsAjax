@@ -25,7 +25,7 @@ var KalturaSegmentationTypeService = {
 	
 	/**
 	 * Lists all segmentation types in group.
-	 * @param	filter	KalturaSegmentationTypeFilter		Segmentation type filter - basically empty (optional, default: null)
+	 * @param	filter	KalturaBaseSegmentationTypeFilter		Segmentation type filter - basically empty (optional, default: null)
 	 * @param	pager	KalturaFilterPager		Simple pager (optional, default: null)
 	 **/
 	listAction: function(filter, pager){
