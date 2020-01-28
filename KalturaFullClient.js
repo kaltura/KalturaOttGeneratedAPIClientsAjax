@@ -264,24 +264,6 @@ var KalturaAssetService = {
 	},
 	
 	/**
-	 * This action delivers all data relevant for player.
-	 * @param	assetId	string		Asset identifier (optional)
-	 * @param	assetType	string		Asset type (optional, enum: KalturaAssetType)
-	 * @param	contextDataParams	KalturaPlaybackContextOptions		Parameters for the request (optional)
-	 * @param	sourceType	string		Filter sources by type (optional, default: null)
-	 **/
-	getPlaybackManifest: function(assetId, assetType, contextDataParams, sourceType){
-		if(!sourceType)
-			sourceType = null;
-		var kparams = new Object();
-		kparams.assetId = assetId;
-		kparams.assetType = assetType;
-		kparams.contextDataParams = contextDataParams;
-		kparams.sourceType = sourceType;
-		return new KalturaRequestBuilder("asset", "getPlaybackManifest", kparams);
-	},
-	
-	/**
 	 * Returns media or EPG assets. Filters by media identifiers or by EPG internal or external identifier..
 	 * @param	filter	KalturaAssetFilter		Filtering the assets request (optional, default: null)
 	 * @param	pager	KalturaFilterPager		Paging the request (optional, default: null)
@@ -4186,7 +4168,7 @@ var KalturaRegionService = {
 	
 	/**
 	 * Returns all regions for the partner.
-	 * @param	filter	KalturaBaseRegionFilter		Regions filter (optional)
+	 * @param	filter	KalturaRegionFilter		Regions filter (optional)
 	 * @param	pager	KalturaFilterPager		Paging the request (optional, default: null)
 	 **/
 	listAction: function(filter, pager){
@@ -4386,7 +4368,7 @@ var KalturaSegmentationTypeService = {
 	
 	/**
 	 * Lists all segmentation types in group.
-	 * @param	filter	KalturaBaseSegmentationTypeFilter		Segmentation type filter - basically empty (optional, default: null)
+	 * @param	filter	KalturaSegmentationTypeFilter		Segmentation type filter - basically empty (optional, default: null)
 	 * @param	pager	KalturaFilterPager		Simple pager (optional, default: null)
 	 **/
 	listAction: function(filter, pager){
@@ -4884,16 +4866,16 @@ var KalturaSubscriptionSetService = {
 var KalturaSystemService = {
 	/**
 	 * Clear local server cache.
-	 * @param	clearCacheAction	string		clear cache action to perform, possible values: clear_all / keys / getKey (optional, default: null)
+	 * @param	action	string		action to perform, possible values: clear_all / keys / getKey (optional, default: null)
 	 * @param	key	string		key to get in case you send action getKey (optional, default: null)
 	 **/
-	clearLocalServerCache: function(clearCacheAction, key){
-		if(!clearCacheAction)
-			clearCacheAction = null;
+	clearLocalServerCache: function(action, key){
+		if(!action)
+			action = null;
 		if(!key)
 			key = null;
 		var kparams = new Object();
-		kparams.clearCacheAction = clearCacheAction;
+		kparams.action = action;
 		kparams.key = key;
 		return new KalturaRequestBuilder("system", "clearLocalServerCache", kparams);
 	},
@@ -6223,8 +6205,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:20-01-27');
-	this.setApiVersion('5.3.1.14605');
+	this.setClientTag('ajax:20-01-28');
+	this.setApiVersion('5.3.0.14533');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
