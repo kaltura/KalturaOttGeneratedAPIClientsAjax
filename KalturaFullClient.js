@@ -3446,11 +3446,8 @@ var KalturaPartnerConfigurationService = {
 	},
 	
 	/**
-	 * Update Partner Configuration.
-	 * @param	configuration	KalturaPartnerConfiguration		Partner Configuration
- *	            possible configuration type: 
- *	            'configuration': { 'value': 0, 'partner_configuration_type': { 'type': 'OSSAdapter', 'objectType': 'KalturaPartnerConfigurationHolder' },
- *	            'objectType': 'KalturaBillingPartnerConfig'} (optional)
+	 * Update/set Partner Configuration.
+	 * @param	configuration	KalturaPartnerConfiguration		Partner Configuration to update (optional)
 	 **/
 	update: function(configuration){
 		var kparams = new Object();
@@ -6224,7 +6221,7 @@ var MD5 = function (string) {
 function KalturaClient(config){
 	this.init(config);
 	this.setClientTag('ajax:20-02-04');
-	this.setApiVersion('5.3.1.14623');
+	this.setApiVersion('5.3.1.14634');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
