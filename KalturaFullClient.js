@@ -264,24 +264,6 @@ var KalturaAssetService = {
 	},
 	
 	/**
-	 * This action delivers all data relevant for player.
-	 * @param	assetId	string		Asset identifier (optional)
-	 * @param	assetType	string		Asset type (optional, enum: KalturaAssetType)
-	 * @param	contextDataParams	KalturaPlaybackContextOptions		Parameters for the request (optional)
-	 * @param	sourceType	string		Filter sources by type (optional, default: null)
-	 **/
-	getPlaybackManifest: function(assetId, assetType, contextDataParams, sourceType){
-		if(!sourceType)
-			sourceType = null;
-		var kparams = new Object();
-		kparams.assetId = assetId;
-		kparams.assetType = assetType;
-		kparams.contextDataParams = contextDataParams;
-		kparams.sourceType = sourceType;
-		return new KalturaRequestBuilder("asset", "getPlaybackManifest", kparams);
-	},
-	
-	/**
 	 * Returns media or EPG assets. Filters by media identifiers or by EPG internal or external identifier..
 	 * @param	filter	KalturaAssetFilter		Filtering the assets request (optional, default: null)
 	 * @param	pager	KalturaFilterPager		Paging the request (optional, default: null)
@@ -3446,8 +3428,11 @@ var KalturaPartnerConfigurationService = {
 	},
 	
 	/**
-	 * Update/set Partner Configuration.
-	 * @param	configuration	KalturaPartnerConfiguration		Partner Configuration to update (optional)
+	 * Update Partner Configuration.
+	 * @param	configuration	KalturaPartnerConfiguration		Partner Configuration
+ *	            possible configuration type: 
+ *	            'configuration': { 'value': 0, 'partner_configuration_type': { 'type': 'OSSAdapter', 'objectType': 'KalturaPartnerConfigurationHolder' },
+ *	            'objectType': 'KalturaBillingPartnerConfig'} (optional)
 	 **/
 	update: function(configuration){
 		var kparams = new Object();
@@ -4383,7 +4368,7 @@ var KalturaSegmentationTypeService = {
 	
 	/**
 	 * Lists all segmentation types in group.
-	 * @param	filter	KalturaBaseSegmentationTypeFilter		Segmentation type filter - basically empty (optional, default: null)
+	 * @param	filter	KalturaSegmentationTypeFilter		Segmentation type filter - basically empty (optional, default: null)
 	 * @param	pager	KalturaFilterPager		Simple pager (optional, default: null)
 	 **/
 	listAction: function(filter, pager){
@@ -6221,7 +6206,7 @@ var MD5 = function (string) {
 function KalturaClient(config){
 	this.init(config);
 	this.setClientTag('ajax:20-02-05');
-	this.setApiVersion('5.3.1.14662');
+	this.setApiVersion('5.3.1.14595');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
