@@ -34,6 +34,16 @@ var KalturaAnnouncementService = {
 	},
 	
 	/**
+	 * Get announcement by Id.
+	 * @param	id	int		Announcement id (optional)
+	 **/
+	get: function(id){
+		var kparams = new Object();
+		kparams.id = id;
+		return new KalturaRequestBuilder("announcement", "get", kparams);
+	},
+	
+	/**
 	 * Lists all announcements in the system..
 	 * @param	filter	KalturaAnnouncementFilter		Filter object (optional)
 	 * @param	pager	KalturaFilterPager		Paging the request (optional, default: null)
