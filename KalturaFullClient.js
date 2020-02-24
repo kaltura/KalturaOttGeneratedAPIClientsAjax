@@ -34,16 +34,6 @@ var KalturaAnnouncementService = {
 	},
 	
 	/**
-	 * Get announcement by Id.
-	 * @param	id	int		Announcement id (optional)
-	 **/
-	get: function(id){
-		var kparams = new Object();
-		kparams.id = id;
-		return new KalturaRequestBuilder("announcement", "get", kparams);
-	},
-	
-	/**
 	 * Lists all announcements in the system..
 	 * @param	filter	KalturaAnnouncementFilter		Filter object (optional)
 	 * @param	pager	KalturaFilterPager		Paging the request (optional, default: null)
@@ -6230,8 +6220,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:20-02-12');
-	this.setApiVersion('5.3.2.14681');
+	this.setClientTag('ajax:20-02-24');
+	this.setApiVersion('5.3.2.14684');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
