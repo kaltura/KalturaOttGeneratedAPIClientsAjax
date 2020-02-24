@@ -837,15 +837,18 @@ var KalturaCategoryItemService = {
 	/**
 	 * Gets all categoryItem items.
 	 * @param	filter	KalturaCategoryItemFilter		Request filter (optional, default: null)
-	 * @param	pager	KalturaFilterPager		Request pager (optional)
+	 * @param	pager	KalturaFilterPager		Request pager (optional, default: null)
 	 **/
 	listAction: function(filter, pager){
 		if(!filter)
 			filter = null;
+		if(!pager)
+			pager = null;
 		var kparams = new Object();
 		if (filter != null)
 			kparams.filter = filter;
-		kparams.pager = pager;
+		if (pager != null)
+			kparams.pager = pager;
 		return new KalturaRequestBuilder("categoryitem", "list", kparams);
 	}
 }
@@ -857,10 +860,12 @@ var KalturaCategoryTreeService = {
 	/**
 	 * Duplicate category Item.
 	 * @param	categoryItemId	int		Category item identifier (optional)
+	 * @param	name	string		Root category name (optional)
 	 **/
-	duplicate: function(categoryItemId){
+	duplicate: function(categoryItemId, name){
 		var kparams = new Object();
 		kparams.categoryItemId = categoryItemId;
+		kparams.name = name;
 		return new KalturaRequestBuilder("categorytree", "duplicate", kparams);
 	},
 	
@@ -6297,8 +6302,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:20-02-23');
-	this.setApiVersion('5.3.2.14726');
+	this.setClientTag('ajax:20-02-24');
+	this.setApiVersion('5.3.2.14772');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**

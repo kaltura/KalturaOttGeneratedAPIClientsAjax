@@ -38,15 +38,18 @@ var KalturaCategoryItemService = {
 	/**
 	 * Gets all categoryItem items.
 	 * @param	filter	KalturaCategoryItemFilter		Request filter (optional, default: null)
-	 * @param	pager	KalturaFilterPager		Request pager (optional)
+	 * @param	pager	KalturaFilterPager		Request pager (optional, default: null)
 	 **/
 	listAction: function(filter, pager){
 		if(!filter)
 			filter = null;
+		if(!pager)
+			pager = null;
 		var kparams = new Object();
 		if (filter != null)
 			kparams.filter = filter;
-		kparams.pager = pager;
+		if (pager != null)
+			kparams.pager = pager;
 		return new KalturaRequestBuilder("categoryitem", "list", kparams);
 	}
 }
