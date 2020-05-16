@@ -4900,6 +4900,18 @@ var KalturaSsoAdapterProfileService = {
 	},
 	
 	/**
+	 * Request validation against 3rd party.
+	 * @param	intent	string		intent (optional)
+	 * @param	adapterData	array		adapter Data (optional)
+	 **/
+	invoke: function(intent, adapterData){
+		var kparams = new Object();
+		kparams.intent = intent;
+		kparams.adapterData = adapterData;
+		return new KalturaRequestBuilder("ssoadapterprofile", "invoke", kparams);
+	},
+	
+	/**
 	 * Returns all sso adapters for partner : id + name.
 	 **/
 	listAction: function(){
@@ -6360,8 +6372,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:20-05-03');
-	this.setApiVersion('5.3.4.27908');
+	this.setClientTag('ajax:20-05-16');
+	this.setApiVersion('5.3.5.27995');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
