@@ -1913,9 +1913,14 @@ var KalturaExternalChannelProfileService = {
 	
 	/**
 	 * Returns all External channels for partner.
+	 * @param	filter	KalturaExternalChannelProfileFilter		External channel profile filter (optional, default: null)
 	 **/
-	listAction: function(){
+	listAction: function(filter){
+		if(!filter)
+			filter = null;
 		var kparams = new Object();
+		if (filter != null)
+			kparams.filter = filter;
 		return new KalturaRequestBuilder("externalchannelprofile", "list", kparams);
 	},
 	
@@ -6372,8 +6377,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:20-05-18');
-	this.setApiVersion('5.3.5.27997');
+	this.setClientTag('ajax:20-05-27');
+	this.setApiVersion('5.3.5.28047');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
