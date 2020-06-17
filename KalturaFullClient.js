@@ -2396,10 +2396,14 @@ var KalturaHouseholdPaymentGatewayService = {
 	/**
 	 * Resumes all the entitlements of the given payment gateway.
 	 * @param	paymentGatewayId	int		Payment gateway ID (optional)
+	 * @param	adapterData	array		Adapter data (optional, default: null)
 	 **/
-	resume: function(paymentGatewayId){
+	resume: function(paymentGatewayId, adapterData){
+		if(!adapterData)
+			adapterData = null;
 		var kparams = new Object();
 		kparams.paymentGatewayId = paymentGatewayId;
+		kparams.adapterData = adapterData;
 		return new KalturaRequestBuilder("householdpaymentgateway", "resume", kparams);
 	},
 	
@@ -2418,10 +2422,15 @@ var KalturaHouseholdPaymentGatewayService = {
 	/**
 	 * Suspends all the entitlements of the given payment gateway.
 	 * @param	paymentGatewayId	int		Payment gateway ID (optional)
+	 * @param	suspendSettings	KalturaSuspendSettings		suspend settings (optional, default: null)
 	 **/
-	suspend: function(paymentGatewayId){
+	suspend: function(paymentGatewayId, suspendSettings){
+		if(!suspendSettings)
+			suspendSettings = null;
 		var kparams = new Object();
 		kparams.paymentGatewayId = paymentGatewayId;
+		if (suspendSettings != null)
+			kparams.suspendSettings = suspendSettings;
 		return new KalturaRequestBuilder("householdpaymentgateway", "suspend", kparams);
 	}
 }
@@ -6372,8 +6381,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:20-05-26');
-	this.setApiVersion('5.3.5.28005');
+	this.setClientTag('ajax:20-06-17');
+	this.setApiVersion('5.3.5.28021');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
