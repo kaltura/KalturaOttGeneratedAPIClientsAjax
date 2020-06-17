@@ -18,10 +18,12 @@ var KalturaCategoryTreeService = {
 	/**
 	 * Retrive category tree..
 	 * @param	categoryItemId	int		Category item identifier (optional)
+	 * @param	filter	bool		filter categories dates (optional)
 	 **/
-	get: function(categoryItemId){
+	get: function(categoryItemId, filter){
 		var kparams = new Object();
 		kparams.categoryItemId = categoryItemId;
+		kparams.filter = filter;
 		return new KalturaRequestBuilder("categorytree", "get", kparams);
 	}
 }
