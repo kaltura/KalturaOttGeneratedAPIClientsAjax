@@ -872,14 +872,10 @@ var KalturaCategoryTreeService = {
 	/**
 	 * Retrive category tree..
 	 * @param	categoryItemId	int		Category item identifier (optional)
-	 * @param	filter	bool		filter categories dates (optional, default: false)
 	 **/
-	get: function(categoryItemId, filter){
-		if(!filter)
-			filter = false;
+	get: function(categoryItemId){
 		var kparams = new Object();
 		kparams.categoryItemId = categoryItemId;
-		kparams.filter = filter;
 		return new KalturaRequestBuilder("categorytree", "get", kparams);
 	}
 }
@@ -6382,7 +6378,7 @@ var MD5 = function (string) {
 function KalturaClient(config){
 	this.init(config);
 	this.setClientTag('ajax:20-06-22');
-	this.setApiVersion('5.3.7.28132');
+	this.setApiVersion('5.3.6.28111');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
