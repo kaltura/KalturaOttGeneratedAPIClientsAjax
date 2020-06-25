@@ -439,6 +439,16 @@ var KalturaAssetHistoryService = {
 	},
 	
 	/**
+	 * Get next episode by last watch asset in given seriesId.
+	 * @param	seriesId	string		series Id to search for next episode (optional)
+	 **/
+	getNextEpisode: function(seriesId){
+		var kparams = new Object();
+		kparams.seriesId = seriesId;
+		return new KalturaRequestBuilder("assethistory", "getNextEpisode", kparams);
+	},
+	
+	/**
 	 * Get recently watched media for user, ordered by recently watched first..
 	 * @param	filter	KalturaAssetHistoryFilter		Filter parameters for filtering out the result (optional, default: null)
 	 * @param	pager	KalturaFilterPager		Page size and index. Number of assets to return per page. Possible range 5 ≤ size ≥ 50. If omitted - will be set to 25. If a value > 50 provided – will set to 50 (optional, default: null)
@@ -6379,8 +6389,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:20-06-21');
-	this.setApiVersion('5.3.6.28134');
+	this.setClientTag('ajax:20-06-25');
+	this.setApiVersion('5.3.7.28139');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
