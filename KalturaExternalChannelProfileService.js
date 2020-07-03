@@ -25,14 +25,9 @@ var KalturaExternalChannelProfileService = {
 	
 	/**
 	 * Returns all External channels for partner.
-	 * @param	filter	KalturaExternalChannelProfileFilter		External channel profile filter (optional, default: null)
 	 **/
-	listAction: function(filter){
-		if(!filter)
-			filter = null;
+	listAction: function(){
 		var kparams = new Object();
-		if (filter != null)
-			kparams.filter = filter;
 		return new KalturaRequestBuilder("externalchannelprofile", "list", kparams);
 	},
 	

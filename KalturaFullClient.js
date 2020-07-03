@@ -799,92 +799,6 @@ var KalturaBusinessModuleRuleService = {
 }
 
 /**
- *Class definition for the Kaltura service: categoryItem.
- **/
-var KalturaCategoryItemService = {
-	/**
-	 * categoryItem add.
-	 * @param	objectToAdd	KalturaCategoryItem		categoryItem details (optional)
-	 **/
-	add: function(objectToAdd){
-		var kparams = new Object();
-		kparams.objectToAdd = objectToAdd;
-		return new KalturaRequestBuilder("categoryitem", "add", kparams);
-	},
-	
-	/**
-	 * categoryItem update.
-	 * @param	id	int		Category identifier (optional)
-	 * @param	objectToUpdate	KalturaCategoryItem		categoryItem details (optional)
-	 **/
-	update: function(id, objectToUpdate){
-		var kparams = new Object();
-		kparams.id = id;
-		kparams.objectToUpdate = objectToUpdate;
-		return new KalturaRequestBuilder("categoryitem", "update", kparams);
-	},
-	
-	/**
-	 * Remove category.
-	 * @param	id	int		Category identifier (optional)
-	 **/
-	deleteAction: function(id){
-		var kparams = new Object();
-		kparams.id = id;
-		return new KalturaRequestBuilder("categoryitem", "delete", kparams);
-	},
-	
-	/**
-	 * Gets all categoryItem items.
-	 * @param	filter	KalturaCategoryItemFilter		Request filter (optional, default: null)
-	 * @param	pager	KalturaFilterPager		Request pager (optional, default: null)
-	 **/
-	listAction: function(filter, pager){
-		if(!filter)
-			filter = null;
-		if(!pager)
-			pager = null;
-		var kparams = new Object();
-		if (filter != null)
-			kparams.filter = filter;
-		if (pager != null)
-			kparams.pager = pager;
-		return new KalturaRequestBuilder("categoryitem", "list", kparams);
-	}
-}
-
-/**
- *Class definition for the Kaltura service: categoryTree.
- **/
-var KalturaCategoryTreeService = {
-	/**
-	 * Duplicate category Item.
-	 * @param	categoryItemId	int		Category item identifier (optional)
-	 * @param	name	string		Root category name (optional)
-	 **/
-	duplicate: function(categoryItemId, name){
-		var kparams = new Object();
-		kparams.categoryItemId = categoryItemId;
-		kparams.name = name;
-		return new KalturaRequestBuilder("categorytree", "duplicate", kparams);
-	},
-	
-	/**
-	 * Retrive category tree..
-	 * @param	categoryItemId	int		Category item identifier (optional)
-	 * @param	filter	bool		filter categories dates (optional, default: false)
-	 **/
-	get: function(categoryItemId, filter){
-		if(!filter)
-			filter = false;
-		var kparams = new Object();
-		kparams.categoryItemId = categoryItemId;
-		kparams.filter = filter;
-		return new KalturaRequestBuilder("categorytree", "get", kparams);
-	}
-}
-
-/**
  *Class definition for the Kaltura service: cdnAdapterProfile.
  **/
 var KalturaCdnAdapterProfileService = {
@@ -1917,14 +1831,9 @@ var KalturaExternalChannelProfileService = {
 	
 	/**
 	 * Returns all External channels for partner.
-	 * @param	filter	KalturaExternalChannelProfileFilter		External channel profile filter (optional, default: null)
 	 **/
-	listAction: function(filter){
-		if(!filter)
-			filter = null;
+	listAction: function(){
 		var kparams = new Object();
-		if (filter != null)
-			kparams.filter = filter;
 		return new KalturaRequestBuilder("externalchannelprofile", "list", kparams);
 	},
 	
@@ -2780,64 +2689,6 @@ var KalturaIngestProfileService = {
 		kparams.ingestProfileId = ingestProfileId;
 		kparams.ingestProfile = ingestProfile;
 		return new KalturaRequestBuilder("ingestprofile", "update", kparams);
-	}
-}
-
-/**
- *Class definition for the Kaltura service: iot.
- **/
-var KalturaIotService = {
-	/**
-	 * Get iot Client Configuration.
-	 **/
-	getClientConfiguration: function(){
-		var kparams = new Object();
-		return new KalturaRequestBuilder("iot", "getClientConfiguration", kparams);
-	},
-	
-	/**
-	 * Register IOT device.
-	 **/
-	register: function(){
-		var kparams = new Object();
-		return new KalturaRequestBuilder("iot", "register", kparams);
-	}
-}
-
-/**
- *Class definition for the Kaltura service: iotProfile.
- **/
-var KalturaIotProfileService = {
-	/**
-	 * Add an object.
-	 * @param	objectToAdd	KalturaIotProfile		Object to add (optional)
-	 **/
-	add: function(objectToAdd){
-		var kparams = new Object();
-		kparams.objectToAdd = objectToAdd;
-		return new KalturaRequestBuilder("iotprofile", "add", kparams);
-	},
-	
-	/**
-	 * Update an object.
-	 * @param	id	int		Object ID to update (optional)
-	 * @param	objectToUpdate	KalturaIotProfile		Object to update (optional)
-	 **/
-	update: function(id, objectToUpdate){
-		var kparams = new Object();
-		kparams.id = id;
-		kparams.objectToUpdate = objectToUpdate;
-		return new KalturaRequestBuilder("iotprofile", "update", kparams);
-	},
-	
-	/**
-	 * Get an object.
-	 * @param	id	int		Object ID to get (optional)
-	 **/
-	get: function(id){
-		var kparams = new Object();
-		kparams.id = id;
-		return new KalturaRequestBuilder("iotprofile", "get", kparams);
 	}
 }
 
@@ -4909,18 +4760,6 @@ var KalturaSsoAdapterProfileService = {
 	},
 	
 	/**
-	 * Request validation against 3rd party.
-	 * @param	intent	string		intent (optional)
-	 * @param	adapterData	array		adapter Data (optional)
-	 **/
-	invoke: function(intent, adapterData){
-		var kparams = new Object();
-		kparams.intent = intent;
-		kparams.adapterData = adapterData;
-		return new KalturaRequestBuilder("ssoadapterprofile", "invoke", kparams);
-	},
-	
-	/**
 	 * Returns all sso adapters for partner : id + name.
 	 **/
 	listAction: function(){
@@ -6381,8 +6220,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:20-06-30');
-	this.setApiVersion('5.3.7.28150');
+	this.setClientTag('ajax:20-07-02');
+	this.setApiVersion('5.3.2.27493');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
