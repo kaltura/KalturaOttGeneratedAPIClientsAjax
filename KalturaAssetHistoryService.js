@@ -17,12 +17,12 @@ var KalturaAssetHistoryService = {
 	},
 	
 	/**
-	 * Get next episode by last watch asset in given seriesId.
-	 * @param	seriesId	string		series Id to search for next episode (optional)
+	 * Get next episode by last watch asset in given assetId.
+	 * @param	assetId	int		asset Id of series to search for next episode (optional)
 	 **/
-	getNextEpisode: function(seriesId){
+	getNextEpisode: function(assetId){
 		var kparams = new Object();
-		kparams.seriesId = seriesId;
+		kparams.assetId = assetId;
 		return new KalturaRequestBuilder("assethistory", "getNextEpisode", kparams);
 	},
 	

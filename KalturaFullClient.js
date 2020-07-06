@@ -439,12 +439,12 @@ var KalturaAssetHistoryService = {
 	},
 	
 	/**
-	 * Get next episode by last watch asset in given seriesId.
-	 * @param	seriesId	string		series Id to search for next episode (optional)
+	 * Get next episode by last watch asset in given assetId.
+	 * @param	assetId	int		asset Id of series to search for next episode (optional)
 	 **/
-	getNextEpisode: function(seriesId){
+	getNextEpisode: function(assetId){
 		var kparams = new Object();
-		kparams.seriesId = seriesId;
+		kparams.assetId = assetId;
 		return new KalturaRequestBuilder("assethistory", "getNextEpisode", kparams);
 	},
 	
@@ -6389,8 +6389,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:20-06-25');
-	this.setApiVersion('5.3.7.28139');
+	this.setClientTag('ajax:20-07-06');
+	this.setApiVersion('5.3.7.28145');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
