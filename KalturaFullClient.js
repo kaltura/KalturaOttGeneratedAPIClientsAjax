@@ -439,6 +439,16 @@ var KalturaAssetHistoryService = {
 	},
 	
 	/**
+	 * Get next episode by last watch asset in given assetId.
+	 * @param	assetId	int		asset Id of series to search for next episode (optional)
+	 **/
+	getNextEpisode: function(assetId){
+		var kparams = new Object();
+		kparams.assetId = assetId;
+		return new KalturaRequestBuilder("assethistory", "getNextEpisode", kparams);
+	},
+	
+	/**
 	 * Get recently watched media for user, ordered by recently watched first..
 	 * @param	filter	KalturaAssetHistoryFilter		Filter parameters for filtering out the result (optional, default: null)
 	 * @param	pager	KalturaFilterPager		Page size and index. Number of assets to return per page. Possible range 5 ≤ size ≥ 50. If omitted - will be set to 25. If a value > 50 provided – will set to 50 (optional, default: null)
@@ -2405,10 +2415,14 @@ var KalturaHouseholdPaymentGatewayService = {
 	/**
 	 * Resumes all the entitlements of the given payment gateway.
 	 * @param	paymentGatewayId	int		Payment gateway ID (optional)
+	 * @param	adapterData	array		Adapter data (optional, default: null)
 	 **/
-	resume: function(paymentGatewayId){
+	resume: function(paymentGatewayId, adapterData){
+		if(!adapterData)
+			adapterData = null;
 		var kparams = new Object();
 		kparams.paymentGatewayId = paymentGatewayId;
+		kparams.adapterData = adapterData;
 		return new KalturaRequestBuilder("householdpaymentgateway", "resume", kparams);
 	},
 	
@@ -2427,10 +2441,15 @@ var KalturaHouseholdPaymentGatewayService = {
 	/**
 	 * Suspends all the entitlements of the given payment gateway.
 	 * @param	paymentGatewayId	int		Payment gateway ID (optional)
+	 * @param	suspendSettings	KalturaSuspendSettings		suspend settings (optional, default: null)
 	 **/
-	suspend: function(paymentGatewayId){
+	suspend: function(paymentGatewayId, suspendSettings){
+		if(!suspendSettings)
+			suspendSettings = null;
 		var kparams = new Object();
 		kparams.paymentGatewayId = paymentGatewayId;
+		if (suspendSettings != null)
+			kparams.suspendSettings = suspendSettings;
 		return new KalturaRequestBuilder("householdpaymentgateway", "suspend", kparams);
 	}
 }
@@ -6381,8 +6400,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:20-06-30');
-	this.setApiVersion('5.3.7.28150');
+	this.setClientTag('ajax:20-07-09');
+	this.setApiVersion('5.3.7.28193');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**

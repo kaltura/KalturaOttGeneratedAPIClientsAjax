@@ -17,6 +17,16 @@ var KalturaAssetHistoryService = {
 	},
 	
 	/**
+	 * Get next episode by last watch asset in given assetId.
+	 * @param	assetId	int		asset Id of series to search for next episode (optional)
+	 **/
+	getNextEpisode: function(assetId){
+		var kparams = new Object();
+		kparams.assetId = assetId;
+		return new KalturaRequestBuilder("assethistory", "getNextEpisode", kparams);
+	},
+	
+	/**
 	 * Get recently watched media for user, ordered by recently watched first..
 	 * @param	filter	KalturaAssetHistoryFilter		Filter parameters for filtering out the result (optional, default: null)
 	 * @param	pager	KalturaFilterPager		Page size and index. Number of assets to return per page. Possible range 5 ≤ size ≥ 50. If omitted - will be set to 25. If a value > 50 provided – will set to 50 (optional, default: null)
