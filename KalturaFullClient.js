@@ -3818,6 +3818,18 @@ var KalturaPermissionService = {
 	},
 	
 	/**
+	 * Adds permission item to permission.
+	 * @param	permissionId	int		Permission ID to add to (optional)
+	 * @param	permissionItemId	int		Permission item ID to add (optional)
+	 **/
+	addPermissionItem: function(permissionId, permissionItemId){
+		var kparams = new Object();
+		kparams.permissionId = permissionId;
+		kparams.permissionItemId = permissionItemId;
+		return new KalturaRequestBuilder("permission", "addPermissionItem", kparams);
+	},
+	
+	/**
 	 * Deletes an existing permission.
 	 * @param	id	int		Permission ID to delete (optional)
 	 **/
@@ -3846,6 +3858,41 @@ var KalturaPermissionService = {
 		if (filter != null)
 			kparams.filter = filter;
 		return new KalturaRequestBuilder("permission", "list", kparams);
+	},
+	
+	/**
+	 * Removes permission item from permission.
+	 * @param	permissionId	int		Permission ID to remove from (optional)
+	 * @param	permissionItemId	int		Permission item ID to remove (optional)
+	 **/
+	removePermissionItem: function(permissionId, permissionItemId){
+		var kparams = new Object();
+		kparams.permissionId = permissionId;
+		kparams.permissionItemId = permissionItemId;
+		return new KalturaRequestBuilder("permission", "removePermissionItem", kparams);
+	}
+}
+
+/**
+ *Class definition for the Kaltura service: permissionItem.
+ **/
+var KalturaPermissionItemService = {
+	/**
+	 * Return a list of permission items with filtering options.
+	 * @param	filter	KalturaPermissionItemFilter		Filter (optional, default: null)
+	 * @param	pager	KalturaFilterPager		Pager (optional, default: null)
+	 **/
+	listAction: function(filter, pager){
+		if(!filter)
+			filter = null;
+		if(!pager)
+			pager = null;
+		var kparams = new Object();
+		if (filter != null)
+			kparams.filter = filter;
+		if (pager != null)
+			kparams.pager = pager;
+		return new KalturaRequestBuilder("permissionitem", "list", kparams);
 	}
 }
 
@@ -6400,8 +6447,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:20-07-09');
-	this.setApiVersion('5.3.7.28193');
+	this.setClientTag('ajax:20-07-29');
+	this.setApiVersion('5.4.0.28224');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
