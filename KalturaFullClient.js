@@ -3392,9 +3392,14 @@ var KalturaOttUserService = {
 	
 	/**
 	 * Logout the calling user..
+	 * @param	adapterData	map		adapter data (optional, default: null)
 	 **/
-	logout: function(){
+	logout: function(adapterData){
+		if(!adapterData)
+			adapterData = null;
 		var kparams = new Object();
+		if (adapterData != null)
+			kparams.adapterData = adapterData;
 		return new KalturaRequestBuilder("ottuser", "logout", kparams);
 	},
 	
@@ -5666,14 +5671,23 @@ var KalturaUserInterestService = {
  **/
 var KalturaUserLoginPinService = {
 	/**
-	 * Generate a time and usage expiry login-PIN that can allow a single login per PIN. If an active login-PIN already exists. Calling this API again for same user will add another login-PIN.
+	 * Generate a time and usage expiry login-PIN that can allow a single/multiple login/s per PIN. 
+ *	            If an active login-PIN already exists. Calling this API again for same user will add another login-PIN.
 	 * @param	secret	string		Additional security parameter for optional enhanced security (optional, default: null)
+	 * @param	pinUsages	int		Optional number of pin usages (optional, default: null)
+	 * @param	pinDuration	int		Optional duration in minutes of the pin (optional, default: null)
 	 **/
-	add: function(secret){
+	add: function(secret, pinUsages, pinDuration){
 		if(!secret)
 			secret = null;
+		if(!pinUsages)
+			pinUsages = null;
+		if(!pinDuration)
+			pinDuration = null;
 		var kparams = new Object();
 		kparams.secret = secret;
+		kparams.pinUsages = pinUsages;
+		kparams.pinDuration = pinDuration;
 		return new KalturaRequestBuilder("userloginpin", "add", kparams);
 	},
 	
@@ -5699,13 +5713,21 @@ var KalturaUserLoginPinService = {
 	 * Set a time and usage expiry login-PIN that can allow a single login per PIN. If an active login-PIN already exists. Calling this API again for same user will add another login-PIN.
 	 * @param	pinCode	string		Device Identifier (optional)
 	 * @param	secret	string		Additional security parameter to validate the login (optional, default: null)
+	 * @param	pinUsages	int		Optional number of pin usages (optional, default: null)
+	 * @param	pinDuration	int		Optional duration in seconds of the pin (optional, default: null)
 	 **/
-	update: function(pinCode, secret){
+	update: function(pinCode, secret, pinUsages, pinDuration){
 		if(!secret)
 			secret = null;
+		if(!pinUsages)
+			pinUsages = null;
+		if(!pinDuration)
+			pinDuration = null;
 		var kparams = new Object();
 		kparams.pinCode = pinCode;
 		kparams.secret = secret;
+		kparams.pinUsages = pinUsages;
+		kparams.pinDuration = pinDuration;
 		return new KalturaRequestBuilder("userloginpin", "update", kparams);
 	}
 }
@@ -6400,8 +6422,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:20-07-09');
-	this.setApiVersion('5.3.7.28193');
+	this.setClientTag('ajax:20-07-30');
+	this.setApiVersion('5.4.0.28257');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**

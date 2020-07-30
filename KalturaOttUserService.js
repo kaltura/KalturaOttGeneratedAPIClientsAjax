@@ -127,9 +127,14 @@ var KalturaOttUserService = {
 	
 	/**
 	 * Logout the calling user..
+	 * @param	adapterData	map		adapter data (optional, default: null)
 	 **/
-	logout: function(){
+	logout: function(adapterData){
+		if(!adapterData)
+			adapterData = null;
 		var kparams = new Object();
+		if (adapterData != null)
+			kparams.adapterData = adapterData;
 		return new KalturaRequestBuilder("ottuser", "logout", kparams);
 	},
 	
