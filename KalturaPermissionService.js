@@ -14,6 +14,18 @@ var KalturaPermissionService = {
 	},
 	
 	/**
+	 * Adds permission item to permission.
+	 * @param	permissionId	int		Permission ID to add to (optional)
+	 * @param	permissionItemId	int		Permission item ID to add (optional)
+	 **/
+	addPermissionItem: function(permissionId, permissionItemId){
+		var kparams = new Object();
+		kparams.permissionId = permissionId;
+		kparams.permissionItemId = permissionItemId;
+		return new KalturaRequestBuilder("permission", "addPermissionItem", kparams);
+	},
+	
+	/**
 	 * Deletes an existing permission.
 	 * @param	id	int		Permission ID to delete (optional)
 	 **/
@@ -42,5 +54,17 @@ var KalturaPermissionService = {
 		if (filter != null)
 			kparams.filter = filter;
 		return new KalturaRequestBuilder("permission", "list", kparams);
+	},
+	
+	/**
+	 * Removes permission item from permission.
+	 * @param	permissionId	int		Permission ID to remove from (optional)
+	 * @param	permissionItemId	int		Permission item ID to remove (optional)
+	 **/
+	removePermissionItem: function(permissionId, permissionItemId){
+		var kparams = new Object();
+		kparams.permissionId = permissionId;
+		kparams.permissionItemId = permissionItemId;
+		return new KalturaRequestBuilder("permission", "removePermissionItem", kparams);
 	}
 }
