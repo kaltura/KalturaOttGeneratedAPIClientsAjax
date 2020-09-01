@@ -3106,10 +3106,19 @@ var KalturaNotificationService = {
 	/**
 	 * Sends SMS notification to user.
 	 * @param	message	string		Message to send (optional)
+	 * @param	phoneNumber	string		Optional phoneNumber (optional, default: null)
+	 * @param	adapterData	map		Data used by the adapter (optional, default: null)
 	 **/
-	sendSms: function(message){
+	sendSms: function(message, phoneNumber, adapterData){
+		if(!phoneNumber)
+			phoneNumber = null;
+		if(!adapterData)
+			adapterData = null;
 		var kparams = new Object();
 		kparams.message = message;
+		kparams.phoneNumber = phoneNumber;
+		if (adapterData != null)
+			kparams.adapterData = adapterData;
 		return new KalturaRequestBuilder("notification", "sendSms", kparams);
 	},
 	
@@ -4748,6 +4757,73 @@ var KalturaSessionService = {
 		var kparams = new Object();
 		kparams.userIdToSwitch = userIdToSwitch;
 		return new KalturaRequestBuilder("session", "switchUser", kparams);
+	}
+}
+
+/**
+ *Class definition for the Kaltura service: smsAdapterProfile.
+ **/
+var KalturaSmsAdapterProfileService = {
+	/**
+	 * Add an object.
+	 * @param	objectToAdd	KalturaSmsAdapterProfile		Object to add (optional)
+	 **/
+	add: function(objectToAdd){
+		var kparams = new Object();
+		kparams.objectToAdd = objectToAdd;
+		return new KalturaRequestBuilder("smsadapterprofile", "add", kparams);
+	},
+	
+	/**
+	 * Update an object.
+	 * @param	id	int		Object ID to update (optional)
+	 * @param	objectToUpdate	KalturaSmsAdapterProfile		Object to update (optional)
+	 **/
+	update: function(id, objectToUpdate){
+		var kparams = new Object();
+		kparams.id = id;
+		kparams.objectToUpdate = objectToUpdate;
+		return new KalturaRequestBuilder("smsadapterprofile", "update", kparams);
+	},
+	
+	/**
+	 * Get an object.
+	 * @param	id	int		Object ID to get (optional)
+	 **/
+	get: function(id){
+		var kparams = new Object();
+		kparams.id = id;
+		return new KalturaRequestBuilder("smsadapterprofile", "get", kparams);
+	},
+	
+	/**
+	 * .
+	 * @param	filter	KalturaSmsAdapterProfileFilter		Request filter (optional)
+	 **/
+	listAction: function(filter){
+		var kparams = new Object();
+		kparams.filter = filter;
+		return new KalturaRequestBuilder("smsadapterprofile", "list", kparams);
+	},
+	
+	/**
+	 * Delete an object.
+	 * @param	id	int		Object ID to delete (optional)
+	 **/
+	deleteAction: function(id){
+		var kparams = new Object();
+		kparams.id = id;
+		return new KalturaRequestBuilder("smsadapterprofile", "delete", kparams);
+	},
+	
+	/**
+	 * Generate Sms Adapter shared secret.
+	 * @param	smsAdapterId	int		Sms Adapter identifier (optional)
+	 **/
+	generateSharedSecret: function(smsAdapterId){
+		var kparams = new Object();
+		kparams.smsAdapterId = smsAdapterId;
+		return new KalturaRequestBuilder("smsadapterprofile", "generateSharedSecret", kparams);
 	}
 }
 
@@ -6469,8 +6545,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:20-08-26');
-	this.setApiVersion('5.5.0.28283');
+	this.setClientTag('ajax:20-09-01');
+	this.setApiVersion('5.5.0.28291');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
