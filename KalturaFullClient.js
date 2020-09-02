@@ -2130,6 +2130,21 @@ var KalturaHouseholdService = {
 	},
 	
 	/**
+	 * Get recently watched media for user, ordered by recently watched first..
+	 * @param	filter	KalturaHouseholdFilter		Filter parameters for filtering out the result (optional)
+	 * @param	pager	KalturaFilterPager		Page size and index. Number of assets to return per page. Possible range 5 ≤ size ≥ 50. If omitted - will be set to 25. If a value > 50 provided – will set to 50 (optional, default: null)
+	 **/
+	listAction: function(filter, pager){
+		if(!pager)
+			pager = null;
+		var kparams = new Object();
+		kparams.filter = filter;
+		if (pager != null)
+			kparams.pager = pager;
+		return new KalturaRequestBuilder("household", "list", kparams);
+	},
+	
+	/**
 	 * Purge a household. Delete all of the household information, including users, devices, entitlements, payment methods and notification date..
 	 * @param	id	int		Household identifier (optional)
 	 **/
@@ -6469,8 +6484,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:20-08-26');
-	this.setApiVersion('5.5.0.28283');
+	this.setClientTag('ajax:20-09-02');
+	this.setApiVersion('5.5.0.28298');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
