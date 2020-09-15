@@ -58,14 +58,10 @@ var KalturaHouseholdPaymentGatewayService = {
 	/**
 	 * Resumes all the entitlements of the given payment gateway.
 	 * @param	paymentGatewayId	int		Payment gateway ID (optional)
-	 * @param	adapterData	array		Adapter data (optional, default: null)
 	 **/
-	resume: function(paymentGatewayId, adapterData){
-		if(!adapterData)
-			adapterData = null;
+	resume: function(paymentGatewayId){
 		var kparams = new Object();
 		kparams.paymentGatewayId = paymentGatewayId;
-		kparams.adapterData = adapterData;
 		return new KalturaRequestBuilder("householdpaymentgateway", "resume", kparams);
 	},
 	
@@ -84,15 +80,10 @@ var KalturaHouseholdPaymentGatewayService = {
 	/**
 	 * Suspends all the entitlements of the given payment gateway.
 	 * @param	paymentGatewayId	int		Payment gateway ID (optional)
-	 * @param	suspendSettings	KalturaSuspendSettings		suspend settings (optional, default: null)
 	 **/
-	suspend: function(paymentGatewayId, suspendSettings){
-		if(!suspendSettings)
-			suspendSettings = null;
+	suspend: function(paymentGatewayId){
 		var kparams = new Object();
 		kparams.paymentGatewayId = paymentGatewayId;
-		if (suspendSettings != null)
-			kparams.suspendSettings = suspendSettings;
 		return new KalturaRequestBuilder("householdpaymentgateway", "suspend", kparams);
 	}
 }
