@@ -1694,6 +1694,21 @@ var KalturaDynamicListService = {
 		if (pager != null)
 			kparams.pager = pager;
 		return new KalturaRequestBuilder("dynamiclist", "list", kparams);
+	},
+	
+	/**
+	 * Add new bulk upload batch job Conversion profile id can be specified in the API..
+	 * @param	fileData	HTMLElement		fileData (optional)
+	 * @param	jobData	KalturaBulkUploadExcelJobData		jobData (optional)
+	 * @param	bulkUploadAssetData	KalturaBulkUploadAssetData		bulkUploadAssetData (optional)
+	 **/
+	addFromBulkUpload: function(fileData, jobData, bulkUploadAssetData){
+		var kparams = new Object();
+		var kfiles = new Object();
+		kfiles.fileData = fileData;
+		kparams.jobData = jobData;
+		kparams.bulkUploadAssetData = bulkUploadAssetData;
+		return new KalturaRequestBuilder("dynamiclist", "addFromBulkUpload", kparams, kfiles);
 	}
 }
 
@@ -6721,8 +6736,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:20-09-15');
-	this.setApiVersion('5.6.0.28472');
+	this.setClientTag('ajax:20-09-16');
+	this.setApiVersion('5.6.0.28480');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
