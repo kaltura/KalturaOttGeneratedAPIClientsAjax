@@ -847,10 +847,15 @@ var KalturaCampaignService = {
 	/**
 	 * .
 	 * @param	filter	KalturaCampaignFilter		Request filter (optional)
+	 * @param	pager	KalturaFilterPager		Request pager (optional, default: null)
 	 **/
-	listAction: function(filter){
+	listAction: function(filter, pager){
+		if(!pager)
+			pager = null;
 		var kparams = new Object();
 		kparams.filter = filter;
+		if (pager != null)
+			kparams.pager = pager;
 		return new KalturaRequestBuilder("campaign", "list", kparams);
 	},
 	
@@ -1602,14 +1607,16 @@ var KalturaDeviceReferenceDataService = {
 	
 	/**
 	 * .
-	 * @param	filter	KalturaDeviceReferenceDataFilter		Request filter (optional, default: null)
+	 * @param	filter	KalturaDeviceReferenceDataFilter		Request filter (optional)
+	 * @param	pager	KalturaFilterPager		Request pager (optional, default: null)
 	 **/
-	listAction: function(filter){
-		if(!filter)
-			filter = null;
+	listAction: function(filter, pager){
+		if(!pager)
+			pager = null;
 		var kparams = new Object();
-		if (filter != null)
-			kparams.filter = filter;
+		kparams.filter = filter;
+		if (pager != null)
+			kparams.pager = pager;
 		return new KalturaRequestBuilder("devicereferencedata", "list", kparams);
 	}
 }
@@ -6736,8 +6743,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:20-09-24');
-	this.setApiVersion('5.6.0.28513');
+	this.setClientTag('ajax:20-10-04');
+	this.setApiVersion('5.6.0.28591');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**

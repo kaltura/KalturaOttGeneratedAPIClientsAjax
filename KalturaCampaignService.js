@@ -38,10 +38,15 @@ var KalturaCampaignService = {
 	/**
 	 * .
 	 * @param	filter	KalturaCampaignFilter		Request filter (optional)
+	 * @param	pager	KalturaFilterPager		Request pager (optional, default: null)
 	 **/
-	listAction: function(filter){
+	listAction: function(filter, pager){
+		if(!pager)
+			pager = null;
 		var kparams = new Object();
 		kparams.filter = filter;
+		if (pager != null)
+			kparams.pager = pager;
 		return new KalturaRequestBuilder("campaign", "list", kparams);
 	},
 	
