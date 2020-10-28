@@ -809,6 +809,70 @@ var KalturaBusinessModuleRuleService = {
 }
 
 /**
+ *Class definition for the Kaltura service: campaign.
+ **/
+var KalturaCampaignService = {
+	/**
+	 * Add an object.
+	 * @param	objectToAdd	KalturaCampaign		Object to add (optional)
+	 **/
+	add: function(objectToAdd){
+		var kparams = new Object();
+		kparams.objectToAdd = objectToAdd;
+		return new KalturaRequestBuilder("campaign", "add", kparams);
+	},
+	
+	/**
+	 * Update an object.
+	 * @param	id	int		Object ID to update (optional)
+	 * @param	objectToUpdate	KalturaCampaign		Object to update (optional)
+	 **/
+	update: function(id, objectToUpdate){
+		var kparams = new Object();
+		kparams.id = id;
+		kparams.objectToUpdate = objectToUpdate;
+		return new KalturaRequestBuilder("campaign", "update", kparams);
+	},
+	
+	/**
+	 * Delete an object.
+	 * @param	id	int		Object ID to delete (optional)
+	 **/
+	deleteAction: function(id){
+		var kparams = new Object();
+		kparams.id = id;
+		return new KalturaRequestBuilder("campaign", "delete", kparams);
+	},
+	
+	/**
+	 * .
+	 * @param	filter	KalturaCampaignFilter		Request filter (optional)
+	 * @param	pager	KalturaFilterPager		Request pager (optional, default: null)
+	 **/
+	listAction: function(filter, pager){
+		if(!pager)
+			pager = null;
+		var kparams = new Object();
+		kparams.filter = filter;
+		if (pager != null)
+			kparams.pager = pager;
+		return new KalturaRequestBuilder("campaign", "list", kparams);
+	},
+	
+	/**
+	 * Set campaign&#39;s state.
+	 * @param	campaignId	int		campaign Id (optional)
+	 * @param	newState	string		new campaign state (optional, enum: KalturaObjectState)
+	 **/
+	setState: function(campaignId, newState){
+		var kparams = new Object();
+		kparams.campaignId = campaignId;
+		kparams.newState = newState;
+		return new KalturaRequestBuilder("campaign", "setState", kparams);
+	}
+}
+
+/**
  *Class definition for the Kaltura service: categoryItem.
  **/
 var KalturaCategoryItemService = {
@@ -1506,6 +1570,58 @@ var KalturaDeviceFamilyService = {
 }
 
 /**
+ *Class definition for the Kaltura service: deviceReferenceData.
+ **/
+var KalturaDeviceReferenceDataService = {
+	/**
+	 * Add an object.
+	 * @param	objectToAdd	KalturaDeviceReferenceData		Object to add (optional)
+	 **/
+	add: function(objectToAdd){
+		var kparams = new Object();
+		kparams.objectToAdd = objectToAdd;
+		return new KalturaRequestBuilder("devicereferencedata", "add", kparams);
+	},
+	
+	/**
+	 * Update an object.
+	 * @param	id	int		Object ID to update (optional)
+	 * @param	objectToUpdate	KalturaDeviceReferenceData		Object to update (optional)
+	 **/
+	update: function(id, objectToUpdate){
+		var kparams = new Object();
+		kparams.id = id;
+		kparams.objectToUpdate = objectToUpdate;
+		return new KalturaRequestBuilder("devicereferencedata", "update", kparams);
+	},
+	
+	/**
+	 * Delete an object.
+	 * @param	id	int		Object ID to delete (optional)
+	 **/
+	deleteAction: function(id){
+		var kparams = new Object();
+		kparams.id = id;
+		return new KalturaRequestBuilder("devicereferencedata", "delete", kparams);
+	},
+	
+	/**
+	 * .
+	 * @param	filter	KalturaDeviceReferenceDataFilter		Request filter (optional)
+	 * @param	pager	KalturaFilterPager		Request pager (optional, default: null)
+	 **/
+	listAction: function(filter, pager){
+		if(!pager)
+			pager = null;
+		var kparams = new Object();
+		kparams.filter = filter;
+		if (pager != null)
+			kparams.pager = pager;
+		return new KalturaRequestBuilder("devicereferencedata", "list", kparams);
+	}
+}
+
+/**
  *Class definition for the Kaltura service: discountDetails.
  **/
 var KalturaDiscountDetailsService = {
@@ -1533,6 +1649,73 @@ var KalturaDrmProfileService = {
 	listAction: function(){
 		var kparams = new Object();
 		return new KalturaRequestBuilder("drmprofile", "list", kparams);
+	}
+}
+
+/**
+ *Class definition for the Kaltura service: dynamicList.
+ **/
+var KalturaDynamicListService = {
+	/**
+	 * Add an object.
+	 * @param	objectToAdd	KalturaDynamicList		Object to add (optional)
+	 **/
+	add: function(objectToAdd){
+		var kparams = new Object();
+		kparams.objectToAdd = objectToAdd;
+		return new KalturaRequestBuilder("dynamiclist", "add", kparams);
+	},
+	
+	/**
+	 * Update an object.
+	 * @param	id	int		Object ID to update (optional)
+	 * @param	objectToUpdate	KalturaDynamicList		Object to update (optional)
+	 **/
+	update: function(id, objectToUpdate){
+		var kparams = new Object();
+		kparams.id = id;
+		kparams.objectToUpdate = objectToUpdate;
+		return new KalturaRequestBuilder("dynamiclist", "update", kparams);
+	},
+	
+	/**
+	 * Delete an object.
+	 * @param	id	int		Object ID to delete (optional)
+	 **/
+	deleteAction: function(id){
+		var kparams = new Object();
+		kparams.id = id;
+		return new KalturaRequestBuilder("dynamiclist", "delete", kparams);
+	},
+	
+	/**
+	 * .
+	 * @param	filter	KalturaDynamicListFilter		Request filter (optional)
+	 * @param	pager	KalturaFilterPager		Request pager (optional, default: null)
+	 **/
+	listAction: function(filter, pager){
+		if(!pager)
+			pager = null;
+		var kparams = new Object();
+		kparams.filter = filter;
+		if (pager != null)
+			kparams.pager = pager;
+		return new KalturaRequestBuilder("dynamiclist", "list", kparams);
+	},
+	
+	/**
+	 * Add new bulk upload batch job Conversion profile id can be specified in the API..
+	 * @param	fileData	HTMLElement		fileData (optional)
+	 * @param	jobData	KalturaBulkUploadExcelJobData		jobData (optional)
+	 * @param	bulkUploadData	KalturaBulkUploadDynamicListData		bulkUploadData (optional)
+	 **/
+	addFromBulkUpload: function(fileData, jobData, bulkUploadData){
+		var kparams = new Object();
+		var kfiles = new Object();
+		kfiles.fileData = fileData;
+		kparams.jobData = jobData;
+		kparams.bulkUploadData = bulkUploadData;
+		return new KalturaRequestBuilder("dynamiclist", "addFromBulkUpload", kparams, kfiles);
 	}
 }
 
@@ -6560,8 +6743,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:20-10-05');
-	this.setApiVersion('5.6.0.28388');
+	this.setClientTag('ajax:20-10-28');
+	this.setApiVersion('5.7.0.28654');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
