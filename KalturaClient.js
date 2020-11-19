@@ -598,7 +598,7 @@ var MD5 = function (string) {
 function KalturaClient(config){
 	this.init(config);
 	this.setClientTag('ajax:20-11-19');
-	this.setApiVersion('5.8.0.28720');
+	this.setApiVersion('5.8.0.28728');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
