@@ -5287,6 +5287,24 @@ var KalturaSsoAdapterProfileService = {
 }
 
 /**
+ *Class definition for the Kaltura service: streamingDevice.
+ **/
+var KalturaStreamingDeviceService = {
+	/**
+	 * Lists of devices that are streaming at that moment.
+	 * @param	filter	KalturaStreamingDeviceFilter		Segmentation type filter - basically empty (optional, default: null)
+	 **/
+	listAction: function(filter){
+		if(!filter)
+			filter = null;
+		var kparams = new Object();
+		if (filter != null)
+			kparams.filter = filter;
+		return new KalturaRequestBuilder("streamingdevice", "list", kparams);
+	}
+}
+
+/**
  *Class definition for the Kaltura service: subscription.
  **/
 var KalturaSubscriptionService = {
@@ -6743,8 +6761,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:20-11-19');
-	this.setApiVersion('5.8.0.28728');
+	this.setClientTag('ajax:20-12-01');
+	this.setApiVersion('5.8.0.28736');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
