@@ -4153,7 +4153,7 @@ var KalturaPermissionService = {
 	
 	/**
 	 * Retrieving permissions by identifiers, if filter is empty, returns all partner permissions.
-	 * @param	filter	KalturaPermissionFilter		Filter for permissions (optional, default: null)
+	 * @param	filter	KalturaBasePermissionFilter		Filter for permissions (optional, default: null)
 	 **/
 	listAction: function(filter){
 		if(!filter)
@@ -4174,6 +4174,18 @@ var KalturaPermissionService = {
 		kparams.permissionId = permissionId;
 		kparams.permissionItemId = permissionItemId;
 		return new KalturaRequestBuilder("permission", "removePermissionItem", kparams);
+	},
+	
+	/**
+	 * Update an existing permission..
+	 * @param	id	int		Permission  Identifier (optional)
+	 * @param	permission	KalturaPermission		Permission object (optional)
+	 **/
+	update: function(id, permission){
+		var kparams = new Object();
+		kparams.id = id;
+		kparams.permission = permission;
+		return new KalturaRequestBuilder("permission", "update", kparams);
 	}
 }
 
@@ -5512,14 +5524,6 @@ var KalturaSystemService = {
 	},
 	
 	/**
-	 * Gets the current level of the KLogger.
-	 **/
-	getLogLevel: function(){
-		var kparams = new Object();
-		return new KalturaRequestBuilder("system", "getLogLevel", kparams);
-	},
-	
-	/**
 	 * Returns current server timestamp.
 	 **/
 	getTime: function(){
@@ -5553,16 +5557,6 @@ var KalturaSystemService = {
 	ping: function(){
 		var kparams = new Object();
 		return new KalturaRequestBuilder("system", "ping", kparams);
-	},
-	
-	/**
-	 * Sets the current level of the KLogger.
-	 * @param	level	string		Possible levels: trace, debug, info, warning, error, all (optional, enum: KalturaLogLevel)
-	 **/
-	setLogLevel: function(level){
-		var kparams = new Object();
-		kparams.level = level;
-		return new KalturaRequestBuilder("system", "setLogLevel", kparams);
 	}
 }
 
@@ -6853,8 +6847,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:21-02-02');
-	this.setApiVersion('6.1.0.28832');
+	this.setClientTag('ajax:21-02-15');
+	this.setApiVersion('6.1.0.28846');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**

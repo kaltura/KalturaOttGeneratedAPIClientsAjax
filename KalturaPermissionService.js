@@ -45,7 +45,7 @@ var KalturaPermissionService = {
 	
 	/**
 	 * Retrieving permissions by identifiers, if filter is empty, returns all partner permissions.
-	 * @param	filter	KalturaPermissionFilter		Filter for permissions (optional, default: null)
+	 * @param	filter	KalturaBasePermissionFilter		Filter for permissions (optional, default: null)
 	 **/
 	listAction: function(filter){
 		if(!filter)
@@ -66,5 +66,17 @@ var KalturaPermissionService = {
 		kparams.permissionId = permissionId;
 		kparams.permissionItemId = permissionItemId;
 		return new KalturaRequestBuilder("permission", "removePermissionItem", kparams);
+	},
+	
+	/**
+	 * Update an existing permission..
+	 * @param	id	int		Permission  Identifier (optional)
+	 * @param	permission	KalturaPermission		Permission object (optional)
+	 **/
+	update: function(id, permission){
+		var kparams = new Object();
+		kparams.id = id;
+		kparams.permission = permission;
+		return new KalturaRequestBuilder("permission", "update", kparams);
 	}
 }
