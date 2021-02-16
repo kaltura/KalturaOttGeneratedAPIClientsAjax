@@ -30,19 +30,10 @@ var KalturaNotificationService = {
 	/**
 	 * Sends SMS notification to user.
 	 * @param	message	string		Message to send (optional)
-	 * @param	phoneNumber	string		Optional phoneNumber (optional, default: null)
-	 * @param	adapterData	map		Data used by the adapter (optional, default: null)
 	 **/
-	sendSms: function(message, phoneNumber, adapterData){
-		if(!phoneNumber)
-			phoneNumber = null;
-		if(!adapterData)
-			adapterData = null;
+	sendSms: function(message){
 		var kparams = new Object();
 		kparams.message = message;
-		kparams.phoneNumber = phoneNumber;
-		if (adapterData != null)
-			kparams.adapterData = adapterData;
 		return new KalturaRequestBuilder("notification", "sendSms", kparams);
 	},
 	
