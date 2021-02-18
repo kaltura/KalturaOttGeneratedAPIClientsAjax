@@ -1540,16 +1540,6 @@ var KalturaCouponService = {
 		var kparams = new Object();
 		kparams.code = code;
 		return new KalturaRequestBuilder("coupon", "get", kparams);
-	},
-	
-	/**
-	 * Lists coupon codes..
-	 * @param	filter	KalturaCouponFilter		Filter options (optional)
-	 **/
-	listAction: function(filter){
-		var kparams = new Object();
-		kparams.filter = filter;
-		return new KalturaRequestBuilder("coupon", "list", kparams);
 	}
 }
 
@@ -5512,14 +5502,6 @@ var KalturaSystemService = {
 	},
 	
 	/**
-	 * Gets the current level of the KLogger.
-	 **/
-	getLogLevel: function(){
-		var kparams = new Object();
-		return new KalturaRequestBuilder("system", "getLogLevel", kparams);
-	},
-	
-	/**
 	 * Returns current server timestamp.
 	 **/
 	getTime: function(){
@@ -5553,16 +5535,6 @@ var KalturaSystemService = {
 	ping: function(){
 		var kparams = new Object();
 		return new KalturaRequestBuilder("system", "ping", kparams);
-	},
-	
-	/**
-	 * Sets the current level of the KLogger.
-	 * @param	level	string		Possible levels: trace, debug, info, warning, error, all (optional, enum: KalturaLogLevel)
-	 **/
-	setLogLevel: function(level){
-		var kparams = new Object();
-		kparams.level = level;
-		return new KalturaRequestBuilder("system", "setLogLevel", kparams);
 	}
 }
 
@@ -6853,8 +6825,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:21-02-02');
-	this.setApiVersion('6.1.0.28832');
+	this.setClientTag('ajax:21-02-18');
+	this.setApiVersion('6.1.0.28866');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
