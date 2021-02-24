@@ -1540,16 +1540,6 @@ var KalturaCouponService = {
 		var kparams = new Object();
 		kparams.code = code;
 		return new KalturaRequestBuilder("coupon", "get", kparams);
-	},
-	
-	/**
-	 * Lists coupon codes..
-	 * @param	filter	KalturaCouponFilter		Filter options (optional)
-	 **/
-	listAction: function(filter){
-		var kparams = new Object();
-		kparams.filter = filter;
-		return new KalturaRequestBuilder("coupon", "list", kparams);
 	}
 }
 
@@ -6865,8 +6855,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:21-02-15');
-	this.setApiVersion('6.1.0.28847');
+	this.setClientTag('ajax:21-02-24');
+	this.setApiVersion('6.1.0.28923');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
