@@ -809,70 +809,6 @@ var KalturaBusinessModuleRuleService = {
 }
 
 /**
- *Class definition for the Kaltura service: campaign.
- **/
-var KalturaCampaignService = {
-	/**
-	 * Add an object.
-	 * @param	objectToAdd	KalturaCampaign		Object to add (optional)
-	 **/
-	add: function(objectToAdd){
-		var kparams = new Object();
-		kparams.objectToAdd = objectToAdd;
-		return new KalturaRequestBuilder("campaign", "add", kparams);
-	},
-	
-	/**
-	 * Update an object.
-	 * @param	id	int		Object ID to update (optional)
-	 * @param	objectToUpdate	KalturaCampaign		Object to update (optional)
-	 **/
-	update: function(id, objectToUpdate){
-		var kparams = new Object();
-		kparams.id = id;
-		kparams.objectToUpdate = objectToUpdate;
-		return new KalturaRequestBuilder("campaign", "update", kparams);
-	},
-	
-	/**
-	 * Delete an object.
-	 * @param	id	int		Object ID to delete (optional)
-	 **/
-	deleteAction: function(id){
-		var kparams = new Object();
-		kparams.id = id;
-		return new KalturaRequestBuilder("campaign", "delete", kparams);
-	},
-	
-	/**
-	 * .
-	 * @param	filter	KalturaCampaignFilter		Request filter (optional)
-	 * @param	pager	KalturaFilterPager		Request pager (optional, default: null)
-	 **/
-	listAction: function(filter, pager){
-		if(!pager)
-			pager = null;
-		var kparams = new Object();
-		kparams.filter = filter;
-		if (pager != null)
-			kparams.pager = pager;
-		return new KalturaRequestBuilder("campaign", "list", kparams);
-	},
-	
-	/**
-	 * Set campaign&#39;s state.
-	 * @param	campaignId	int		campaign Id (optional)
-	 * @param	newState	string		new campaign state (optional, enum: KalturaObjectState)
-	 **/
-	setState: function(campaignId, newState){
-		var kparams = new Object();
-		kparams.campaignId = campaignId;
-		kparams.newState = newState;
-		return new KalturaRequestBuilder("campaign", "setState", kparams);
-	}
-}
-
-/**
  *Class definition for the Kaltura service: categoryItem.
  **/
 var KalturaCategoryItemService = {
@@ -955,98 +891,6 @@ var KalturaCategoryTreeService = {
 		kparams.categoryItemId = categoryItemId;
 		kparams.filter = filter;
 		return new KalturaRequestBuilder("categorytree", "get", kparams);
-	},
-	
-	/**
-	 * Retrieve default category tree of deviceFamilyId by KS or specific one if versionId is set..
-	 * @param	versionId	int		Category version id of tree (optional, default: null)
-	 **/
-	getByVersion: function(versionId){
-		if(!versionId)
-			versionId = null;
-		var kparams = new Object();
-		kparams.versionId = versionId;
-		return new KalturaRequestBuilder("categorytree", "getByVersion", kparams);
-	}
-}
-
-/**
- *Class definition for the Kaltura service: categoryVersion.
- **/
-var KalturaCategoryVersionService = {
-	/**
-	 * categoryVersion add.
-	 * @param	objectToAdd	KalturaCategoryVersion		categoryVersion details (optional)
-	 **/
-	add: function(objectToAdd){
-		var kparams = new Object();
-		kparams.objectToAdd = objectToAdd;
-		return new KalturaRequestBuilder("categoryversion", "add", kparams);
-	},
-	
-	/**
-	 * categoryVersion update.
-	 * @param	id	int		Category version identifier (optional)
-	 * @param	objectToUpdate	KalturaCategoryVersion		categoryVersion details (optional)
-	 **/
-	update: function(id, objectToUpdate){
-		var kparams = new Object();
-		kparams.id = id;
-		kparams.objectToUpdate = objectToUpdate;
-		return new KalturaRequestBuilder("categoryversion", "update", kparams);
-	},
-	
-	/**
-	 * Remove category version.
-	 * @param	id	int		Category version identifier (optional)
-	 **/
-	deleteAction: function(id){
-		var kparams = new Object();
-		kparams.id = id;
-		return new KalturaRequestBuilder("categoryversion", "delete", kparams);
-	},
-	
-	/**
-	 * Gets all category versions.
-	 * @param	filter	KalturaCategoryVersionFilter		Request filter (optional)
-	 * @param	pager	KalturaFilterPager		Request pager (optional, default: null)
-	 **/
-	listAction: function(filter, pager){
-		if(!pager)
-			pager = null;
-		var kparams = new Object();
-		kparams.filter = filter;
-		if (pager != null)
-			kparams.pager = pager;
-		return new KalturaRequestBuilder("categoryversion", "list", kparams);
-	},
-	
-	/**
-	 * Acreate new tree for this categoryItem.
-	 * @param	categoryItemId	int		the categoryItemId to create the tree accordingly (optional)
-	 * @param	name	string		Name of version (optional)
-	 * @param	comment	string		Comment of version (optional)
-	 **/
-	createTree: function(categoryItemId, name, comment){
-		var kparams = new Object();
-		kparams.categoryItemId = categoryItemId;
-		kparams.name = name;
-		kparams.comment = comment;
-		return new KalturaRequestBuilder("categoryversion", "createTree", kparams);
-	},
-	
-	/**
-	 * Set new default category version.
-	 * @param	id	int		category version id to set as default (optional)
-	 * @param	force	bool		force to set even if version is older then currenct version (optional, default: false)
-	 **/
-	setDefault: function(id, force){
-		if(!force)
-			force = false;
-		var kparams = new Object();
-		kparams.id = id;
-		kparams.force = force;
-		return new KalturaRequestBuilder("categoryversion", "setDefault", kparams);
 	}
 }
 
@@ -1652,58 +1496,6 @@ var KalturaDeviceFamilyService = {
 }
 
 /**
- *Class definition for the Kaltura service: deviceReferenceData.
- **/
-var KalturaDeviceReferenceDataService = {
-	/**
-	 * Add an object.
-	 * @param	objectToAdd	KalturaDeviceReferenceData		Object to add (optional)
-	 **/
-	add: function(objectToAdd){
-		var kparams = new Object();
-		kparams.objectToAdd = objectToAdd;
-		return new KalturaRequestBuilder("devicereferencedata", "add", kparams);
-	},
-	
-	/**
-	 * Update an object.
-	 * @param	id	int		Object ID to update (optional)
-	 * @param	objectToUpdate	KalturaDeviceReferenceData		Object to update (optional)
-	 **/
-	update: function(id, objectToUpdate){
-		var kparams = new Object();
-		kparams.id = id;
-		kparams.objectToUpdate = objectToUpdate;
-		return new KalturaRequestBuilder("devicereferencedata", "update", kparams);
-	},
-	
-	/**
-	 * Delete an object.
-	 * @param	id	int		Object ID to delete (optional)
-	 **/
-	deleteAction: function(id){
-		var kparams = new Object();
-		kparams.id = id;
-		return new KalturaRequestBuilder("devicereferencedata", "delete", kparams);
-	},
-	
-	/**
-	 * .
-	 * @param	filter	KalturaDeviceReferenceDataFilter		Request filter (optional)
-	 * @param	pager	KalturaFilterPager		Request pager (optional, default: null)
-	 **/
-	listAction: function(filter, pager){
-		if(!pager)
-			pager = null;
-		var kparams = new Object();
-		kparams.filter = filter;
-		if (pager != null)
-			kparams.pager = pager;
-		return new KalturaRequestBuilder("devicereferencedata", "list", kparams);
-	}
-}
-
-/**
  *Class definition for the Kaltura service: discountDetails.
  **/
 var KalturaDiscountDetailsService = {
@@ -1731,73 +1523,6 @@ var KalturaDrmProfileService = {
 	listAction: function(){
 		var kparams = new Object();
 		return new KalturaRequestBuilder("drmprofile", "list", kparams);
-	}
-}
-
-/**
- *Class definition for the Kaltura service: dynamicList.
- **/
-var KalturaDynamicListService = {
-	/**
-	 * Add an object.
-	 * @param	objectToAdd	KalturaDynamicList		Object to add (optional)
-	 **/
-	add: function(objectToAdd){
-		var kparams = new Object();
-		kparams.objectToAdd = objectToAdd;
-		return new KalturaRequestBuilder("dynamiclist", "add", kparams);
-	},
-	
-	/**
-	 * Update an object.
-	 * @param	id	int		Object ID to update (optional)
-	 * @param	objectToUpdate	KalturaDynamicList		Object to update (optional)
-	 **/
-	update: function(id, objectToUpdate){
-		var kparams = new Object();
-		kparams.id = id;
-		kparams.objectToUpdate = objectToUpdate;
-		return new KalturaRequestBuilder("dynamiclist", "update", kparams);
-	},
-	
-	/**
-	 * Delete an object.
-	 * @param	id	int		Object ID to delete (optional)
-	 **/
-	deleteAction: function(id){
-		var kparams = new Object();
-		kparams.id = id;
-		return new KalturaRequestBuilder("dynamiclist", "delete", kparams);
-	},
-	
-	/**
-	 * .
-	 * @param	filter	KalturaDynamicListFilter		Request filter (optional)
-	 * @param	pager	KalturaFilterPager		Request pager (optional, default: null)
-	 **/
-	listAction: function(filter, pager){
-		if(!pager)
-			pager = null;
-		var kparams = new Object();
-		kparams.filter = filter;
-		if (pager != null)
-			kparams.pager = pager;
-		return new KalturaRequestBuilder("dynamiclist", "list", kparams);
-	},
-	
-	/**
-	 * Add new bulk upload batch job Conversion profile id can be specified in the API..
-	 * @param	fileData	HTMLElement		fileData (optional)
-	 * @param	jobData	KalturaBulkUploadExcelJobData		jobData (optional)
-	 * @param	bulkUploadData	KalturaBulkUploadDynamicListData		bulkUploadData (optional)
-	 **/
-	addFromBulkUpload: function(fileData, jobData, bulkUploadData){
-		var kparams = new Object();
-		var kfiles = new Object();
-		kfiles.fileData = fileData;
-		kparams.jobData = jobData;
-		kparams.bulkUploadData = bulkUploadData;
-		return new KalturaRequestBuilder("dynamiclist", "addFromBulkUpload", kparams, kfiles);
 	}
 }
 
@@ -2061,24 +1786,6 @@ var KalturaEntitlementService = {
 		kparams.id = id;
 		kparams.entitlement = entitlement;
 		return new KalturaRequestBuilder("entitlement", "update", kparams);
-	}
-}
-
-/**
- *Class definition for the Kaltura service: epg.
- **/
-var KalturaEpgService = {
-	/**
-	 * Returns EPG assets..
-	 * @param	filter	KalturaEpgFilter		Filters by EPG live asset identifier and date in unix timestamp, e.g. 1610928000(January 18, 2021 0:00:00), 1611014400(January 19, 2021 0:00:00) (optional, default: null)
-	 **/
-	listAction: function(filter){
-		if(!filter)
-			filter = null;
-		var kparams = new Object();
-		if (filter != null)
-			kparams.filter = filter;
-		return new KalturaRequestBuilder("epg", "list", kparams);
 	}
 }
 
@@ -2410,21 +2117,6 @@ var KalturaHouseholdService = {
 		var kparams = new Object();
 		kparams.id = id;
 		return new KalturaRequestBuilder("household", "get", kparams);
-	},
-	
-	/**
-	 * Get recently watched media for user, ordered by recently watched first..
-	 * @param	filter	KalturaHouseholdFilter		Filter parameters for filtering out the result (optional)
-	 * @param	pager	KalturaFilterPager		Page size and index. Number of assets to return per page. Possible range 5 ≤ size ≥ 50. If omitted - will be set to 25. If a value > 50 provided – will set to 50 (optional, default: null)
-	 **/
-	listAction: function(filter, pager){
-		if(!pager)
-			pager = null;
-		var kparams = new Object();
-		kparams.filter = filter;
-		if (pager != null)
-			kparams.pager = pager;
-		return new KalturaRequestBuilder("household", "list", kparams);
 	},
 	
 	/**
@@ -3404,19 +3096,10 @@ var KalturaNotificationService = {
 	/**
 	 * Sends SMS notification to user.
 	 * @param	message	string		Message to send (optional)
-	 * @param	phoneNumber	string		Optional phoneNumber (optional, default: null)
-	 * @param	adapterData	map		Data used by the adapter (optional, default: null)
 	 **/
-	sendSms: function(message, phoneNumber, adapterData){
-		if(!phoneNumber)
-			phoneNumber = null;
-		if(!adapterData)
-			adapterData = null;
+	sendSms: function(message){
 		var kparams = new Object();
 		kparams.message = message;
-		kparams.phoneNumber = phoneNumber;
-		if (adapterData != null)
-			kparams.adapterData = adapterData;
 		return new KalturaRequestBuilder("notification", "sendSms", kparams);
 	},
 	
@@ -3699,14 +3382,9 @@ var KalturaOttUserService = {
 	
 	/**
 	 * Logout the calling user..
-	 * @param	adapterData	map		adapter data (optional, default: null)
 	 **/
-	logout: function(adapterData){
-		if(!adapterData)
-			adapterData = null;
+	logout: function(){
 		var kparams = new Object();
-		if (adapterData != null)
-			kparams.adapterData = adapterData;
 		return new KalturaRequestBuilder("ottuser", "logout", kparams);
 	},
 	
@@ -4130,18 +3808,6 @@ var KalturaPermissionService = {
 	},
 	
 	/**
-	 * Adds permission item to permission.
-	 * @param	permissionId	int		Permission ID to add to (optional)
-	 * @param	permissionItemId	int		Permission item ID to add (optional)
-	 **/
-	addPermissionItem: function(permissionId, permissionItemId){
-		var kparams = new Object();
-		kparams.permissionId = permissionId;
-		kparams.permissionItemId = permissionItemId;
-		return new KalturaRequestBuilder("permission", "addPermissionItem", kparams);
-	},
-	
-	/**
 	 * Deletes an existing permission.
 	 * @param	id	int		Permission ID to delete (optional)
 	 **/
@@ -4161,7 +3827,7 @@ var KalturaPermissionService = {
 	
 	/**
 	 * Retrieving permissions by identifiers, if filter is empty, returns all partner permissions.
-	 * @param	filter	KalturaBasePermissionFilter		Filter for permissions (optional, default: null)
+	 * @param	filter	KalturaPermissionFilter		Filter for permissions (optional, default: null)
 	 **/
 	listAction: function(filter){
 		if(!filter)
@@ -4170,53 +3836,6 @@ var KalturaPermissionService = {
 		if (filter != null)
 			kparams.filter = filter;
 		return new KalturaRequestBuilder("permission", "list", kparams);
-	},
-	
-	/**
-	 * Removes permission item from permission.
-	 * @param	permissionId	int		Permission ID to remove from (optional)
-	 * @param	permissionItemId	int		Permission item ID to remove (optional)
-	 **/
-	removePermissionItem: function(permissionId, permissionItemId){
-		var kparams = new Object();
-		kparams.permissionId = permissionId;
-		kparams.permissionItemId = permissionItemId;
-		return new KalturaRequestBuilder("permission", "removePermissionItem", kparams);
-	},
-	
-	/**
-	 * Update an existing permission..
-	 * @param	id	int		Permission  Identifier (optional)
-	 * @param	permission	KalturaPermission		Permission object (optional)
-	 **/
-	update: function(id, permission){
-		var kparams = new Object();
-		kparams.id = id;
-		kparams.permission = permission;
-		return new KalturaRequestBuilder("permission", "update", kparams);
-	}
-}
-
-/**
- *Class definition for the Kaltura service: permissionItem.
- **/
-var KalturaPermissionItemService = {
-	/**
-	 * Return a list of permission items with filtering options.
-	 * @param	filter	KalturaPermissionItemFilter		Filter (optional, default: null)
-	 * @param	pager	KalturaFilterPager		Pager (optional, default: null)
-	 **/
-	listAction: function(filter, pager){
-		if(!filter)
-			filter = null;
-		if(!pager)
-			pager = null;
-		var kparams = new Object();
-		if (filter != null)
-			kparams.filter = filter;
-		if (pager != null)
-			kparams.pager = pager;
-		return new KalturaRequestBuilder("permissionitem", "list", kparams);
 	}
 }
 
@@ -5071,73 +4690,6 @@ var KalturaSessionService = {
 }
 
 /**
- *Class definition for the Kaltura service: smsAdapterProfile.
- **/
-var KalturaSmsAdapterProfileService = {
-	/**
-	 * Add an object.
-	 * @param	objectToAdd	KalturaSmsAdapterProfile		Object to add (optional)
-	 **/
-	add: function(objectToAdd){
-		var kparams = new Object();
-		kparams.objectToAdd = objectToAdd;
-		return new KalturaRequestBuilder("smsadapterprofile", "add", kparams);
-	},
-	
-	/**
-	 * Update an object.
-	 * @param	id	int		Object ID to update (optional)
-	 * @param	objectToUpdate	KalturaSmsAdapterProfile		Object to update (optional)
-	 **/
-	update: function(id, objectToUpdate){
-		var kparams = new Object();
-		kparams.id = id;
-		kparams.objectToUpdate = objectToUpdate;
-		return new KalturaRequestBuilder("smsadapterprofile", "update", kparams);
-	},
-	
-	/**
-	 * Get an object.
-	 * @param	id	int		Object ID to get (optional)
-	 **/
-	get: function(id){
-		var kparams = new Object();
-		kparams.id = id;
-		return new KalturaRequestBuilder("smsadapterprofile", "get", kparams);
-	},
-	
-	/**
-	 * .
-	 * @param	filter	KalturaSmsAdapterProfileFilter		Request filter (optional)
-	 **/
-	listAction: function(filter){
-		var kparams = new Object();
-		kparams.filter = filter;
-		return new KalturaRequestBuilder("smsadapterprofile", "list", kparams);
-	},
-	
-	/**
-	 * Delete an object.
-	 * @param	id	int		Object ID to delete (optional)
-	 **/
-	deleteAction: function(id){
-		var kparams = new Object();
-		kparams.id = id;
-		return new KalturaRequestBuilder("smsadapterprofile", "delete", kparams);
-	},
-	
-	/**
-	 * Generate Sms Adapter shared secret.
-	 * @param	smsAdapterId	int		Sms Adapter identifier (optional)
-	 **/
-	generateSharedSecret: function(smsAdapterId){
-		var kparams = new Object();
-		kparams.smsAdapterId = smsAdapterId;
-		return new KalturaRequestBuilder("smsadapterprofile", "generateSharedSecret", kparams);
-	}
-}
-
-/**
  *Class definition for the Kaltura service: socialAction.
  **/
 var KalturaSocialActionService = {
@@ -5399,24 +4951,6 @@ var KalturaSsoAdapterProfileService = {
 }
 
 /**
- *Class definition for the Kaltura service: streamingDevice.
- **/
-var KalturaStreamingDeviceService = {
-	/**
-	 * Lists of devices that are streaming at that moment.
-	 * @param	filter	KalturaStreamingDeviceFilter		Segmentation type filter - basically empty (optional, default: null)
-	 **/
-	listAction: function(filter){
-		if(!filter)
-			filter = null;
-		var kparams = new Object();
-		if (filter != null)
-			kparams.filter = filter;
-		return new KalturaRequestBuilder("streamingdevice", "list", kparams);
-	}
-}
-
-/**
  *Class definition for the Kaltura service: subscription.
  **/
 var KalturaSubscriptionService = {
@@ -5532,6 +5066,14 @@ var KalturaSystemService = {
 	},
 	
 	/**
+	 * Gets the current level of the KLogger.
+	 **/
+	getLogLevel: function(){
+		var kparams = new Object();
+		return new KalturaRequestBuilder("system", "getLogLevel", kparams);
+	},
+	
+	/**
 	 * Returns current server timestamp.
 	 **/
 	getTime: function(){
@@ -5565,6 +5107,16 @@ var KalturaSystemService = {
 	ping: function(){
 		var kparams = new Object();
 		return new KalturaRequestBuilder("system", "ping", kparams);
+	},
+	
+	/**
+	 * Sets the current level of the KLogger.
+	 * @param	level	string		Possible levels: trace, debug, info, warning, error, all (optional, enum: KalturaLogLevel)
+	 **/
+	setLogLevel: function(level){
+		var kparams = new Object();
+		kparams.level = level;
+		return new KalturaRequestBuilder("system", "setLogLevel", kparams);
 	}
 }
 
@@ -6104,23 +5656,14 @@ var KalturaUserInterestService = {
  **/
 var KalturaUserLoginPinService = {
 	/**
-	 * Generate a time and usage expiry login-PIN that can allow a single/multiple login/s per PIN. 
- *	            If an active login-PIN already exists. Calling this API again for same user will add another login-PIN.
+	 * Generate a time and usage expiry login-PIN that can allow a single login per PIN. If an active login-PIN already exists. Calling this API again for same user will add another login-PIN.
 	 * @param	secret	string		Additional security parameter for optional enhanced security (optional, default: null)
-	 * @param	pinUsages	int		Optional number of pin usages (optional, default: null)
-	 * @param	pinDuration	int		Optional duration in minutes of the pin (optional, default: null)
 	 **/
-	add: function(secret, pinUsages, pinDuration){
+	add: function(secret){
 		if(!secret)
 			secret = null;
-		if(!pinUsages)
-			pinUsages = null;
-		if(!pinDuration)
-			pinDuration = null;
 		var kparams = new Object();
 		kparams.secret = secret;
-		kparams.pinUsages = pinUsages;
-		kparams.pinDuration = pinDuration;
 		return new KalturaRequestBuilder("userloginpin", "add", kparams);
 	},
 	
@@ -6146,21 +5689,13 @@ var KalturaUserLoginPinService = {
 	 * Set a time and usage expiry login-PIN that can allow a single login per PIN. If an active login-PIN already exists. Calling this API again for same user will add another login-PIN.
 	 * @param	pinCode	string		Device Identifier (optional)
 	 * @param	secret	string		Additional security parameter to validate the login (optional, default: null)
-	 * @param	pinUsages	int		Optional number of pin usages (optional, default: null)
-	 * @param	pinDuration	int		Optional duration in seconds of the pin (optional, default: null)
 	 **/
-	update: function(pinCode, secret, pinUsages, pinDuration){
+	update: function(pinCode, secret){
 		if(!secret)
 			secret = null;
-		if(!pinUsages)
-			pinUsages = null;
-		if(!pinDuration)
-			pinDuration = null;
 		var kparams = new Object();
 		kparams.pinCode = pinCode;
 		kparams.secret = secret;
-		kparams.pinUsages = pinUsages;
-		kparams.pinDuration = pinDuration;
 		return new KalturaRequestBuilder("userloginpin", "update", kparams);
 	}
 }
@@ -6855,8 +6390,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:21-03-15');
-	this.setApiVersion('6.2.0.28984');
+	this.setClientTag('ajax:21-03-25');
+	this.setApiVersion('5.4.0.28290');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
