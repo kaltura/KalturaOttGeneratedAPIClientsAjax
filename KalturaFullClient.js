@@ -352,12 +352,15 @@ var KalturaAssetFileService = {
 	 * @param	contextType	string		Playback context type (optional, enum: KalturaPlaybackContextType)
 	 * @param	ks	string		Kaltura session for the user, not mandatory for anonymous user (optional, default: null)
 	 * @param	tokenizedUrl	string		Tokenized Url, not mandatory (optional, default: null)
+	 * @param	isAltUrl	bool		Is alternative url (optional, default: false)
 	 **/
-	playManifest: function(partnerId, assetId, assetType, assetFileId, contextType, ks, tokenizedUrl){
+	playManifest: function(partnerId, assetId, assetType, assetFileId, contextType, ks, tokenizedUrl, isAltUrl){
 		if(!ks)
 			ks = null;
 		if(!tokenizedUrl)
 			tokenizedUrl = null;
+		if(!isAltUrl)
+			isAltUrl = false;
 		var kparams = new Object();
 		kparams.partnerId = partnerId;
 		kparams.assetId = assetId;
@@ -366,6 +369,7 @@ var KalturaAssetFileService = {
 		kparams.contextType = contextType;
 		kparams.ks = ks;
 		kparams.tokenizedUrl = tokenizedUrl;
+		kparams.isAltUrl = isAltUrl;
 		return new KalturaRequestBuilder("assetfile", "playManifest", kparams);
 	}
 }
@@ -5532,6 +5536,24 @@ var KalturaSystemService = {
 	},
 	
 	/**
+	 * Returns the epoch value of an invalidation key if it was found.
+	 * @param	invalidationKey	string		the invalidation key to fetch it's value (optional)
+	 * @param	layeredCacheConfigName	string		the layered cache config name of the invalidation key (optional, default: null)
+	 * @param	groupId	int		groupId (optional)
+	 **/
+	getInvalidationKeyValue: function(invalidationKey, layeredCacheConfigName, groupId){
+		if(!layeredCacheConfigName)
+			layeredCacheConfigName = null;
+		if(!groupId)
+			groupId = 0;
+		var kparams = new Object();
+		kparams.invalidationKey = invalidationKey;
+		kparams.layeredCacheConfigName = layeredCacheConfigName;
+		kparams.groupId = groupId;
+		return new KalturaRequestBuilder("system", "getInvalidationKeyValue", kparams);
+	},
+	
+	/**
 	 * Returns the current layered cache group config of the sent groupId. You need to send groupId only if you wish to get it for a specific groupId and not the one the KS belongs to..
 	 * @param	groupId	int		groupId (optional)
 	 **/
@@ -6877,8 +6899,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:21-03-25');
-	this.setApiVersion('6.2.0.29023');
+	this.setClientTag('ajax:21-04-06');
+	this.setApiVersion('6.3.0.29037');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
