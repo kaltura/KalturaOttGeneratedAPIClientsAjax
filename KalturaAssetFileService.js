@@ -24,12 +24,15 @@ var KalturaAssetFileService = {
 	 * @param	contextType	string		Playback context type (optional, enum: KalturaPlaybackContextType)
 	 * @param	ks	string		Kaltura session for the user, not mandatory for anonymous user (optional, default: null)
 	 * @param	tokenizedUrl	string		Tokenized Url, not mandatory (optional, default: null)
+	 * @param	isAltUrl	bool		Is alternative url (optional, default: false)
 	 **/
-	playManifest: function(partnerId, assetId, assetType, assetFileId, contextType, ks, tokenizedUrl){
+	playManifest: function(partnerId, assetId, assetType, assetFileId, contextType, ks, tokenizedUrl, isAltUrl){
 		if(!ks)
 			ks = null;
 		if(!tokenizedUrl)
 			tokenizedUrl = null;
+		if(!isAltUrl)
+			isAltUrl = false;
 		var kparams = new Object();
 		kparams.partnerId = partnerId;
 		kparams.assetId = assetId;
@@ -38,6 +41,7 @@ var KalturaAssetFileService = {
 		kparams.contextType = contextType;
 		kparams.ks = ks;
 		kparams.tokenizedUrl = tokenizedUrl;
+		kparams.isAltUrl = isAltUrl;
 		return new KalturaRequestBuilder("assetfile", "playManifest", kparams);
 	}
 }
