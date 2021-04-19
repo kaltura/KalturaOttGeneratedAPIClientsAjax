@@ -20,36 +20,6 @@ var KalturaSystemService = {
 	},
 	
 	/**
-	 * Returns the epoch value of an invalidation key if it was found.
-	 * @param	invalidationKey	string		the invalidation key to fetch it's value (optional)
-	 * @param	layeredCacheConfigName	string		the layered cache config name of the invalidation key (optional, default: null)
-	 * @param	groupId	int		groupId (optional)
-	 **/
-	getInvalidationKeyValue: function(invalidationKey, layeredCacheConfigName, groupId){
-		if(!layeredCacheConfigName)
-			layeredCacheConfigName = null;
-		if(!groupId)
-			groupId = 0;
-		var kparams = new Object();
-		kparams.invalidationKey = invalidationKey;
-		kparams.layeredCacheConfigName = layeredCacheConfigName;
-		kparams.groupId = groupId;
-		return new KalturaRequestBuilder("system", "getInvalidationKeyValue", kparams);
-	},
-	
-	/**
-	 * Returns the current layered cache group config of the sent groupId. You need to send groupId only if you wish to get it for a specific groupId and not the one the KS belongs to..
-	 * @param	groupId	int		groupId (optional)
-	 **/
-	getLayeredCacheGroupConfig: function(groupId){
-		if(!groupId)
-			groupId = 0;
-		var kparams = new Object();
-		kparams.groupId = groupId;
-		return new KalturaRequestBuilder("system", "getLayeredCacheGroupConfig", kparams);
-	},
-	
-	/**
 	 * Returns current server timestamp.
 	 **/
 	getTime: function(){
@@ -75,16 +45,6 @@ var KalturaSystemService = {
 		var kparams = new Object();
 		kparams.groupId = groupId;
 		return new KalturaRequestBuilder("system", "incrementLayeredCacheGroupConfigVersion", kparams);
-	},
-	
-	/**
-	 * Returns true if the invalidation key was invalidated successfully or false otherwise..
-	 * @param	key	string		the invalidation key to invalidate (optional)
-	 **/
-	invalidateLayeredCacheInvalidationKey: function(key){
-		var kparams = new Object();
-		kparams.key = key;
-		return new KalturaRequestBuilder("system", "invalidateLayeredCacheInvalidationKey", kparams);
 	},
 	
 	/**

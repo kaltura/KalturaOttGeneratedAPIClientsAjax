@@ -352,15 +352,12 @@ var KalturaAssetFileService = {
 	 * @param	contextType	string		Playback context type (optional, enum: KalturaPlaybackContextType)
 	 * @param	ks	string		Kaltura session for the user, not mandatory for anonymous user (optional, default: null)
 	 * @param	tokenizedUrl	string		Tokenized Url, not mandatory (optional, default: null)
-	 * @param	isAltUrl	bool		Is alternative url (optional, default: false)
 	 **/
-	playManifest: function(partnerId, assetId, assetType, assetFileId, contextType, ks, tokenizedUrl, isAltUrl){
+	playManifest: function(partnerId, assetId, assetType, assetFileId, contextType, ks, tokenizedUrl){
 		if(!ks)
 			ks = null;
 		if(!tokenizedUrl)
 			tokenizedUrl = null;
-		if(!isAltUrl)
-			isAltUrl = false;
 		var kparams = new Object();
 		kparams.partnerId = partnerId;
 		kparams.assetId = assetId;
@@ -369,7 +366,6 @@ var KalturaAssetFileService = {
 		kparams.contextType = contextType;
 		kparams.ks = ks;
 		kparams.tokenizedUrl = tokenizedUrl;
-		kparams.isAltUrl = isAltUrl;
 		return new KalturaRequestBuilder("assetfile", "playManifest", kparams);
 	}
 }
@@ -3945,11 +3941,36 @@ var KalturaPartnerConfigurationService = {
  **/
 var KalturaPartnerService = {
 	/**
+	 * Add a partner with default user.
+	 * @param	partner	KalturaPartner		partner (optional)
+	 * @param	partnerSetup	KalturaPartnerSetup		mandatory parameters to create partner (optional)
+	 **/
+	add: function(partner, partnerSetup){
+		var kparams = new Object();
+		kparams.partner = partner;
+		kparams.partnerSetup = partnerSetup;
+		return new KalturaRequestBuilder("partner", "add", kparams);
+	},
+	
+	/**
 	 * Returns a login session for external system (like OVP).
 	 **/
 	externalLogin: function(){
 		var kparams = new Object();
 		return new KalturaRequestBuilder("partner", "externalLogin", kparams);
+	},
+	
+	/**
+	 * Internal API !!! Returns the list of active Partners.
+	 * @param	filter	KalturaPartnerFilter		Filter (optional, default: null)
+	 **/
+	listAction: function(filter){
+		if(!filter)
+			filter = null;
+		var kparams = new Object();
+		if (filter != null)
+			kparams.filter = filter;
+		return new KalturaRequestBuilder("partner", "list", kparams);
 	}
 }
 
@@ -5536,36 +5557,6 @@ var KalturaSystemService = {
 	},
 	
 	/**
-	 * Returns the epoch value of an invalidation key if it was found.
-	 * @param	invalidationKey	string		the invalidation key to fetch it's value (optional)
-	 * @param	layeredCacheConfigName	string		the layered cache config name of the invalidation key (optional, default: null)
-	 * @param	groupId	int		groupId (optional)
-	 **/
-	getInvalidationKeyValue: function(invalidationKey, layeredCacheConfigName, groupId){
-		if(!layeredCacheConfigName)
-			layeredCacheConfigName = null;
-		if(!groupId)
-			groupId = 0;
-		var kparams = new Object();
-		kparams.invalidationKey = invalidationKey;
-		kparams.layeredCacheConfigName = layeredCacheConfigName;
-		kparams.groupId = groupId;
-		return new KalturaRequestBuilder("system", "getInvalidationKeyValue", kparams);
-	},
-	
-	/**
-	 * Returns the current layered cache group config of the sent groupId. You need to send groupId only if you wish to get it for a specific groupId and not the one the KS belongs to..
-	 * @param	groupId	int		groupId (optional)
-	 **/
-	getLayeredCacheGroupConfig: function(groupId){
-		if(!groupId)
-			groupId = 0;
-		var kparams = new Object();
-		kparams.groupId = groupId;
-		return new KalturaRequestBuilder("system", "getLayeredCacheGroupConfig", kparams);
-	},
-	
-	/**
 	 * Returns current server timestamp.
 	 **/
 	getTime: function(){
@@ -5591,16 +5582,6 @@ var KalturaSystemService = {
 		var kparams = new Object();
 		kparams.groupId = groupId;
 		return new KalturaRequestBuilder("system", "incrementLayeredCacheGroupConfigVersion", kparams);
-	},
-	
-	/**
-	 * Returns true if the invalidation key was invalidated successfully or false otherwise..
-	 * @param	key	string		the invalidation key to invalidate (optional)
-	 **/
-	invalidateLayeredCacheInvalidationKey: function(key){
-		var kparams = new Object();
-		kparams.key = key;
-		return new KalturaRequestBuilder("system", "invalidateLayeredCacheInvalidationKey", kparams);
 	},
 	
 	/**
@@ -6900,7 +6881,7 @@ var MD5 = function (string) {
 function KalturaClient(config){
 	this.init(config);
 	this.setClientTag('ajax:21-04-19');
-	this.setApiVersion('6.3.0.29047');
+	this.setApiVersion('6.2.0.29064');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
