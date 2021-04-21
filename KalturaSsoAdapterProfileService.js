@@ -34,18 +34,6 @@ var KalturaSsoAdapterProfileService = {
 	},
 	
 	/**
-	 * Request validation against 3rd party.
-	 * @param	intent	string		intent (optional)
-	 * @param	adapterData	array		adapter Data (optional)
-	 **/
-	invoke: function(intent, adapterData){
-		var kparams = new Object();
-		kparams.intent = intent;
-		kparams.adapterData = adapterData;
-		return new KalturaRequestBuilder("ssoadapterprofile", "invoke", kparams);
-	},
-	
-	/**
 	 * Returns all sso adapters for partner : id + name.
 	 **/
 	listAction: function(){
