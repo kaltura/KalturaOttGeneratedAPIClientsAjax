@@ -14,6 +14,30 @@ var KalturaRegionService = {
 	},
 	
 	/**
+	 * Adds a linear channel to the list of regions..
+	 * @param	linearChannelId	int		The identifier of the linear channel (optional)
+	 * @param	regionChannelNumbers	array		List of regions and number of linear channel in it. (optional)
+	 **/
+	linearchannelbulkadd: function(linearChannelId, regionChannelNumbers){
+		var kparams = new Object();
+		kparams.linearChannelId = linearChannelId;
+		kparams.regionChannelNumbers = regionChannelNumbers;
+		return new KalturaRequestBuilder("region", "linearchannelbulkadd", kparams);
+	},
+	
+	/**
+	 * Deletes a linear channel from the list of regions..
+	 * @param	linearChannelId	int		The identifier of the linear channel (optional)
+	 * @param	regionIds	string		List of identifiers of regions. (optional)
+	 **/
+	linearchannelbulkdelete: function(linearChannelId, regionIds){
+		var kparams = new Object();
+		kparams.linearChannelId = linearChannelId;
+		kparams.regionIds = regionIds;
+		return new KalturaRequestBuilder("region", "linearchannelbulkdelete", kparams);
+	},
+	
+	/**
 	 * Delete an existing region.
 	 * @param	id	int		Region ID to delete (optional)
 	 **/

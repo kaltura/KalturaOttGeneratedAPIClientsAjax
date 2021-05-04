@@ -4629,6 +4629,17 @@ var KalturaRecordingService = {
 	},
 	
 	/**
+	 * Delete list of user&#39;s recordings. Recording can be deleted only in status Recorded.
+ *	            Possible error codes for each recording: RecordingNotFound = 3039, RecordingStatusNotValid = 3043, Error = 1.
+	 * @param	recordingIds	string		Recording identifiers. Up to 40 private copies and up to 100 shared copies can be deleted withing a call. (optional)
+	 **/
+	bulkdelete: function(recordingIds){
+		var kparams = new Object();
+		kparams.recordingIds = recordingIds;
+		return new KalturaRequestBuilder("recording", "bulkdelete", kparams);
+	},
+	
+	/**
 	 * Cancel a previously requested recording. Cancel recording can be called for recording in status Scheduled or Recording Only.
 	 * @param	id	int		Recording identifier (optional)
 	 **/
@@ -4712,6 +4723,30 @@ var KalturaRegionService = {
 		var kparams = new Object();
 		kparams.region = region;
 		return new KalturaRequestBuilder("region", "add", kparams);
+	},
+	
+	/**
+	 * Adds a linear channel to the list of regions..
+	 * @param	linearChannelId	int		The identifier of the linear channel (optional)
+	 * @param	regionChannelNumbers	array		List of regions and number of linear channel in it. (optional)
+	 **/
+	linearchannelbulkadd: function(linearChannelId, regionChannelNumbers){
+		var kparams = new Object();
+		kparams.linearChannelId = linearChannelId;
+		kparams.regionChannelNumbers = regionChannelNumbers;
+		return new KalturaRequestBuilder("region", "linearchannelbulkadd", kparams);
+	},
+	
+	/**
+	 * Deletes a linear channel from the list of regions..
+	 * @param	linearChannelId	int		The identifier of the linear channel (optional)
+	 * @param	regionIds	string		List of identifiers of regions. (optional)
+	 **/
+	linearchannelbulkdelete: function(linearChannelId, regionIds){
+		var kparams = new Object();
+		kparams.linearChannelId = linearChannelId;
+		kparams.regionIds = regionIds;
+		return new KalturaRequestBuilder("region", "linearchannelbulkdelete", kparams);
 	},
 	
 	/**
@@ -6899,8 +6934,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:21-04-19');
-	this.setApiVersion('6.3.0.29047');
+	this.setClientTag('ajax:21-05-03');
+	this.setApiVersion('6.4.0.29129');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
