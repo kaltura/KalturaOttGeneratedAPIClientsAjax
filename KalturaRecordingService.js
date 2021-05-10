@@ -14,6 +14,17 @@ var KalturaRecordingService = {
 	},
 	
 	/**
+	 * Delete list of user&#39;s recordings. Recording can be deleted only in status Recorded.
+ *	            Possible error codes for each recording: RecordingNotFound = 3039, RecordingStatusNotValid = 3043, Error = 1.
+	 * @param	recordingIds	string		Recording identifiers. Up to 40 private copies and up to 100 shared copies can be deleted withing a call. (optional)
+	 **/
+	bulkdelete: function(recordingIds){
+		var kparams = new Object();
+		kparams.recordingIds = recordingIds;
+		return new KalturaRequestBuilder("recording", "bulkdelete", kparams);
+	},
+	
+	/**
 	 * Cancel a previously requested recording. Cancel recording can be called for recording in status Scheduled or Recording Only.
 	 * @param	id	int		Recording identifier (optional)
 	 **/
