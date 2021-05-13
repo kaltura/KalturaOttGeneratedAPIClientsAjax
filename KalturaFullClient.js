@@ -352,15 +352,12 @@ var KalturaAssetFileService = {
 	 * @param	contextType	string		Playback context type (optional, enum: KalturaPlaybackContextType)
 	 * @param	ks	string		Kaltura session for the user, not mandatory for anonymous user (optional, default: null)
 	 * @param	tokenizedUrl	string		Tokenized Url, not mandatory (optional, default: null)
-	 * @param	isAltUrl	bool		Is alternative url (optional, default: false)
 	 **/
-	playManifest: function(partnerId, assetId, assetType, assetFileId, contextType, ks, tokenizedUrl, isAltUrl){
+	playManifest: function(partnerId, assetId, assetType, assetFileId, contextType, ks, tokenizedUrl){
 		if(!ks)
 			ks = null;
 		if(!tokenizedUrl)
 			tokenizedUrl = null;
-		if(!isAltUrl)
-			isAltUrl = false;
 		var kparams = new Object();
 		kparams.partnerId = partnerId;
 		kparams.assetId = assetId;
@@ -369,7 +366,6 @@ var KalturaAssetFileService = {
 		kparams.contextType = contextType;
 		kparams.ks = ks;
 		kparams.tokenizedUrl = tokenizedUrl;
-		kparams.isAltUrl = isAltUrl;
 		return new KalturaRequestBuilder("assetfile", "playManifest", kparams);
 	}
 }
@@ -4629,17 +4625,6 @@ var KalturaRecordingService = {
 	},
 	
 	/**
-	 * Delete list of user&#39;s recordings. Recording can be deleted only in status Recorded.
- *	            Possible error codes for each recording: RecordingNotFound = 3039, RecordingStatusNotValid = 3043, Error = 1.
-	 * @param	recordingIds	string		Recording identifiers. Up to 40 private copies and up to 100 shared copies can be deleted withing a call. (optional)
-	 **/
-	bulkdelete: function(recordingIds){
-		var kparams = new Object();
-		kparams.recordingIds = recordingIds;
-		return new KalturaRequestBuilder("recording", "bulkdelete", kparams);
-	},
-	
-	/**
 	 * Cancel a previously requested recording. Cancel recording can be called for recording in status Scheduled or Recording Only.
 	 * @param	id	int		Recording identifier (optional)
 	 **/
@@ -5571,36 +5556,6 @@ var KalturaSystemService = {
 	},
 	
 	/**
-	 * Returns the epoch value of an invalidation key if it was found.
-	 * @param	invalidationKey	string		the invalidation key to fetch it's value (optional)
-	 * @param	layeredCacheConfigName	string		the layered cache config name of the invalidation key (optional, default: null)
-	 * @param	groupId	int		groupId (optional)
-	 **/
-	getInvalidationKeyValue: function(invalidationKey, layeredCacheConfigName, groupId){
-		if(!layeredCacheConfigName)
-			layeredCacheConfigName = null;
-		if(!groupId)
-			groupId = 0;
-		var kparams = new Object();
-		kparams.invalidationKey = invalidationKey;
-		kparams.layeredCacheConfigName = layeredCacheConfigName;
-		kparams.groupId = groupId;
-		return new KalturaRequestBuilder("system", "getInvalidationKeyValue", kparams);
-	},
-	
-	/**
-	 * Returns the current layered cache group config of the sent groupId. You need to send groupId only if you wish to get it for a specific groupId and not the one the KS belongs to..
-	 * @param	groupId	int		groupId (optional)
-	 **/
-	getLayeredCacheGroupConfig: function(groupId){
-		if(!groupId)
-			groupId = 0;
-		var kparams = new Object();
-		kparams.groupId = groupId;
-		return new KalturaRequestBuilder("system", "getLayeredCacheGroupConfig", kparams);
-	},
-	
-	/**
 	 * Returns current server timestamp.
 	 **/
 	getTime: function(){
@@ -5626,16 +5581,6 @@ var KalturaSystemService = {
 		var kparams = new Object();
 		kparams.groupId = groupId;
 		return new KalturaRequestBuilder("system", "incrementLayeredCacheGroupConfigVersion", kparams);
-	},
-	
-	/**
-	 * Returns true if the invalidation key was invalidated successfully or false otherwise..
-	 * @param	key	string		the invalidation key to invalidate (optional)
-	 **/
-	invalidateLayeredCacheInvalidationKey: function(key){
-		var kparams = new Object();
-		kparams.key = key;
-		return new KalturaRequestBuilder("system", "invalidateLayeredCacheInvalidationKey", kparams);
 	},
 	
 	/**
@@ -6934,8 +6879,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:21-05-10');
-	this.setApiVersion('6.4.0.29135');
+	this.setClientTag('ajax:21-05-12');
+	this.setApiVersion('6.2.0.29004');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
