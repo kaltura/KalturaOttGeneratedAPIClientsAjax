@@ -3945,36 +3945,11 @@ var KalturaPartnerConfigurationService = {
  **/
 var KalturaPartnerService = {
 	/**
-	 * Add a partner with default user.
-	 * @param	partner	KalturaPartner		partner (optional)
-	 * @param	partnerSetup	KalturaPartnerSetup		mandatory parameters to create partner (optional)
-	 **/
-	add: function(partner, partnerSetup){
-		var kparams = new Object();
-		kparams.partner = partner;
-		kparams.partnerSetup = partnerSetup;
-		return new KalturaRequestBuilder("partner", "add", kparams);
-	},
-	
-	/**
 	 * Returns a login session for external system (like OVP).
 	 **/
 	externalLogin: function(){
 		var kparams = new Object();
 		return new KalturaRequestBuilder("partner", "externalLogin", kparams);
-	},
-	
-	/**
-	 * Internal API !!! Returns the list of active Partners.
-	 * @param	filter	KalturaPartnerFilter		Filter (optional, default: null)
-	 **/
-	listAction: function(filter){
-		if(!filter)
-			filter = null;
-		var kparams = new Object();
-		if (filter != null)
-			kparams.filter = filter;
-		return new KalturaRequestBuilder("partner", "list", kparams);
 	}
 }
 
@@ -6959,7 +6934,7 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:21-05-13');
+	this.setClientTag('ajax:21-05-22');
 	this.setApiVersion('6.4.0.29137');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
