@@ -2640,6 +2640,26 @@ var KalturaHouseholdDeviceService = {
  **/
 var KalturaHouseholdLimitationsService = {
 	/**
+	 * Add household limitation.
+	 * @param	householdLimitations	KalturaHouseholdLimitations		Household limitations (optional)
+	 **/
+	add: function(householdLimitations){
+		var kparams = new Object();
+		kparams.householdLimitations = householdLimitations;
+		return new KalturaRequestBuilder("householdlimitations", "add", kparams);
+	},
+	
+	/**
+	 * Delete household limitation.
+	 * @param	householdLimitationsId	int		Id of household limitation (optional)
+	 **/
+	deleteAction: function(householdLimitationsId){
+		var kparams = new Object();
+		kparams.householdLimitationsId = householdLimitationsId;
+		return new KalturaRequestBuilder("householdlimitations", "delete", kparams);
+	},
+	
+	/**
 	 * Get the limitation module by id.
 	 * @param	id	int		Household limitations module identifier (optional)
 	 **/
@@ -6959,8 +6979,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:21-05-13');
-	this.setApiVersion('6.4.0.29137');
+	this.setClientTag('ajax:21-05-23');
+	this.setApiVersion('6.4.0.29148');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
