@@ -2618,6 +2618,18 @@ var KalturaHouseholdDeviceService = {
 	},
 	
 	/**
+	 * Deletes dynamic data item with key  for device with identifier ..
+	 * @param	udid	string		Unique identifier of device. (optional)
+	 * @param	key	string		Key of dynamic data item. (optional)
+	 **/
+	deleteDynamicData: function(udid, key){
+		var kparams = new Object();
+		kparams.udid = udid;
+		kparams.key = key;
+		return new KalturaRequestBuilder("householddevice", "deleteDynamicData", kparams);
+	},
+	
+	/**
 	 * Generates device pin to use when adding a device to household by pin.
 	 * @param	udid	string		Device UDID (optional)
 	 * @param	brandId	int		Device brand identifier (optional)
@@ -2692,6 +2704,20 @@ var KalturaHouseholdDeviceService = {
 		kparams.udid = udid;
 		kparams.status = status;
 		return new KalturaRequestBuilder("householddevice", "updateStatus", kparams);
+	},
+	
+	/**
+	 * Adds or updates dynamic data item for device with identifier udid. If it is needed to update several items, use a multi-request to avoid race conditions..
+	 * @param	udid	string		Unique identifier of device. (optional)
+	 * @param	key	string		Key of dynamic data item. Max length of key is 125 characters. (optional)
+	 * @param	value	KalturaStringValue		Value of dynamic data item. Max length of value is 255 characters. (optional)
+	 **/
+	upsertDynamicData: function(udid, key, value){
+		var kparams = new Object();
+		kparams.udid = udid;
+		kparams.key = key;
+		kparams.value = value;
+		return new KalturaRequestBuilder("householddevice", "upsertDynamicData", kparams);
 	}
 }
 
@@ -2699,6 +2725,26 @@ var KalturaHouseholdDeviceService = {
  *Class definition for the Kaltura service: householdLimitations.
  **/
 var KalturaHouseholdLimitationsService = {
+	/**
+	 * Add household limitation.
+	 * @param	householdLimitations	KalturaHouseholdLimitations		Household limitations (optional)
+	 **/
+	add: function(householdLimitations){
+		var kparams = new Object();
+		kparams.householdLimitations = householdLimitations;
+		return new KalturaRequestBuilder("householdlimitations", "add", kparams);
+	},
+	
+	/**
+	 * Delete household limitation.
+	 * @param	householdLimitationsId	int		Id of household limitation (optional)
+	 **/
+	deleteAction: function(householdLimitationsId){
+		var kparams = new Object();
+		kparams.householdLimitationsId = householdLimitationsId;
+		return new KalturaRequestBuilder("householdlimitations", "delete", kparams);
+	},
+	
 	/**
 	 * Get the limitation module by id.
 	 * @param	id	int		Household limitations module identifier (optional)
@@ -3686,6 +3732,16 @@ var KalturaOttUserService = {
 	},
 	
 	/**
+	 * Deletes dynamic data item for a user..
+	 * @param	key	string		Key of dynamic data item. (optional)
+	 **/
+	deleteDynamicData: function(key){
+		var kparams = new Object();
+		kparams.key = key;
+		return new KalturaRequestBuilder("ottuser", "deleteDynamicData", kparams);
+	},
+	
+	/**
 	 * Retrieving users&#39; data.
 	 **/
 	get: function(){
@@ -3845,9 +3901,10 @@ var KalturaOttUserService = {
 	},
 	
 	/**
-	 * Update user dynamic data.
-	 * @param	key	string		Type of dynamicData (optional)
-	 * @param	value	KalturaStringValue		Value of dynamicData (optional)
+	 * Update user dynamic data. If it is needed to update several items, use a multi-request to avoid race conditions.
+ *	            This API endpoint will deprecated soon. Please use UpsertDynamicData instead of it..
+	 * @param	key	string		Type of dynamicData. Max length of key is 50 characters. (optional)
+	 * @param	value	KalturaStringValue		Value of dynamicData. Max length of value is 512 characters. (optional)
 	 **/
 	updateDynamicData: function(key, value){
 		var kparams = new Object();
@@ -3880,6 +3937,18 @@ var KalturaOttUserService = {
 		kparams.userId = userId;
 		kparams.password = password;
 		return new KalturaRequestBuilder("ottuser", "updatePassword", kparams);
+	},
+	
+	/**
+	 * Adds or updates dynamic data item for a user. If it is needed to update several items, use a multi-request to avoid race conditions..
+	 * @param	key	string		Key of dynamic data item. Max length of key is 50 characters. (optional)
+	 * @param	value	KalturaStringValue		Value of dynamic data item. Max length of value is 512 characters. (optional)
+	 **/
+	upsertDynamicData: function(key, value){
+		var kparams = new Object();
+		kparams.key = key;
+		kparams.value = value;
+		return new KalturaRequestBuilder("ottuser", "upsertDynamicData", kparams);
 	}
 }
 
@@ -4494,6 +4563,26 @@ var KalturaPlaybackProfileService = {
  *Class definition for the Kaltura service: ppv.
  **/
 var KalturaPpvService = {
+	/**
+	 * Internal API !!! Insert new ppv for partner.
+	 * @param	ppv	KalturaPpv		ppv object (optional)
+	 **/
+	add: function(ppv){
+		var kparams = new Object();
+		kparams.ppv = ppv;
+		return new KalturaRequestBuilder("ppv", "add", kparams);
+	},
+	
+	/**
+	 * Internal API !!! Delete ppv.
+	 * @param	id	int		PPV id (optional)
+	 **/
+	deleteAction: function(id){
+		var kparams = new Object();
+		kparams.id = id;
+		return new KalturaRequestBuilder("ppv", "delete", kparams);
+	},
+	
 	/**
 	 * Returns ppv object by internal identifier.
 	 * @param	id	int		ppv identifier (optional)
@@ -7125,8 +7214,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:21-05-24');
-	this.setApiVersion('6.4.0.29304');
+	this.setClientTag('ajax:21-06-07');
+	this.setApiVersion('6.5.0.29354');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
