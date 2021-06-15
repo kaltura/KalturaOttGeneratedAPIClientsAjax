@@ -5165,6 +5165,16 @@ var KalturaSeriesRecordingService = {
 		if (filter != null)
 			kparams.filter = filter;
 		return new KalturaRequestBuilder("seriesrecording", "list", kparams);
+	},
+	
+	/**
+	 * Enable EPG recording that was canceled as part of series.
+	 * @param	epgId	int		EPG program identifies (optional)
+	 **/
+	rebookCanceledByEpgId: function(epgId){
+		var kparams = new Object();
+		kparams.epgId = epgId;
+		return new KalturaRequestBuilder("seriesrecording", "rebookCanceledByEpgId", kparams);
 	}
 }
 
@@ -7028,8 +7038,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:21-06-07');
-	this.setApiVersion('6.5.0.29158');
+	this.setClientTag('ajax:21-06-15');
+	this.setApiVersion('6.5.0.29161');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
