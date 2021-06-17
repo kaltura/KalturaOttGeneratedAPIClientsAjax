@@ -352,15 +352,12 @@ var KalturaAssetFileService = {
 	 * @param	contextType	string		Playback context type (optional, enum: KalturaPlaybackContextType)
 	 * @param	ks	string		Kaltura session for the user, not mandatory for anonymous user (optional, default: null)
 	 * @param	tokenizedUrl	string		Tokenized Url, not mandatory (optional, default: null)
-	 * @param	isAltUrl	bool		Is alternative url (optional, default: false)
 	 **/
-	playManifest: function(partnerId, assetId, assetType, assetFileId, contextType, ks, tokenizedUrl, isAltUrl){
+	playManifest: function(partnerId, assetId, assetType, assetFileId, contextType, ks, tokenizedUrl){
 		if(!ks)
 			ks = null;
 		if(!tokenizedUrl)
 			tokenizedUrl = null;
-		if(!isAltUrl)
-			isAltUrl = false;
 		var kparams = new Object();
 		kparams.partnerId = partnerId;
 		kparams.assetId = assetId;
@@ -369,7 +366,6 @@ var KalturaAssetFileService = {
 		kparams.contextType = contextType;
 		kparams.ks = ks;
 		kparams.tokenizedUrl = tokenizedUrl;
-		kparams.isAltUrl = isAltUrl;
 		return new KalturaRequestBuilder("assetfile", "playManifest", kparams);
 	}
 }
@@ -2558,18 +2554,6 @@ var KalturaHouseholdDeviceService = {
 	},
 	
 	/**
-	 * Deletes dynamic data item with key  for device with identifier ..
-	 * @param	udid	string		Unique identifier of device. (optional)
-	 * @param	key	string		Key of dynamic data item. (optional)
-	 **/
-	deleteDynamicData: function(udid, key){
-		var kparams = new Object();
-		kparams.udid = udid;
-		kparams.key = key;
-		return new KalturaRequestBuilder("householddevice", "deleteDynamicData", kparams);
-	},
-	
-	/**
 	 * Generates device pin to use when adding a device to household by pin.
 	 * @param	udid	string		Device UDID (optional)
 	 * @param	brandId	int		Device brand identifier (optional)
@@ -2644,20 +2628,6 @@ var KalturaHouseholdDeviceService = {
 		kparams.udid = udid;
 		kparams.status = status;
 		return new KalturaRequestBuilder("householddevice", "updateStatus", kparams);
-	},
-	
-	/**
-	 * Adds or updates dynamic data item for device with identifier udid. If it is needed to update several items, use a multi-request to avoid race conditions..
-	 * @param	udid	string		Unique identifier of device. (optional)
-	 * @param	key	string		Key of dynamic data item. Max length of key is 125 characters. (optional)
-	 * @param	value	KalturaStringValue		Value of dynamic data item. Max length of value is 255 characters. (optional)
-	 **/
-	upsertDynamicData: function(udid, key, value){
-		var kparams = new Object();
-		kparams.udid = udid;
-		kparams.key = key;
-		kparams.value = value;
-		return new KalturaRequestBuilder("householddevice", "upsertDynamicData", kparams);
 	}
 }
 
@@ -2665,26 +2635,6 @@ var KalturaHouseholdDeviceService = {
  *Class definition for the Kaltura service: householdLimitations.
  **/
 var KalturaHouseholdLimitationsService = {
-	/**
-	 * Add household limitation.
-	 * @param	householdLimitations	KalturaHouseholdLimitations		Household limitations (optional)
-	 **/
-	add: function(householdLimitations){
-		var kparams = new Object();
-		kparams.householdLimitations = householdLimitations;
-		return new KalturaRequestBuilder("householdlimitations", "add", kparams);
-	},
-	
-	/**
-	 * Delete household limitation.
-	 * @param	householdLimitationsId	int		Id of household limitation (optional)
-	 **/
-	deleteAction: function(householdLimitationsId){
-		var kparams = new Object();
-		kparams.householdLimitationsId = householdLimitationsId;
-		return new KalturaRequestBuilder("householdlimitations", "delete", kparams);
-	},
-	
 	/**
 	 * Get the limitation module by id.
 	 * @param	id	int		Household limitations module identifier (optional)
@@ -3672,16 +3622,6 @@ var KalturaOttUserService = {
 	},
 	
 	/**
-	 * Deletes dynamic data item for a user..
-	 * @param	key	string		Key of dynamic data item. (optional)
-	 **/
-	deleteDynamicData: function(key){
-		var kparams = new Object();
-		kparams.key = key;
-		return new KalturaRequestBuilder("ottuser", "deleteDynamicData", kparams);
-	},
-	
-	/**
 	 * Retrieving users&#39; data.
 	 **/
 	get: function(){
@@ -3841,10 +3781,9 @@ var KalturaOttUserService = {
 	},
 	
 	/**
-	 * Update user dynamic data. If it is needed to update several items, use a multi-request to avoid race conditions.
- *	            This API endpoint will deprecated soon. Please use UpsertDynamicData instead of it..
-	 * @param	key	string		Type of dynamicData. Max length of key is 50 characters. (optional)
-	 * @param	value	KalturaStringValue		Value of dynamicData. Max length of value is 512 characters. (optional)
+	 * Update user dynamic data.
+	 * @param	key	string		Type of dynamicData (optional)
+	 * @param	value	KalturaStringValue		Value of dynamicData (optional)
 	 **/
 	updateDynamicData: function(key, value){
 		var kparams = new Object();
@@ -3877,18 +3816,6 @@ var KalturaOttUserService = {
 		kparams.userId = userId;
 		kparams.password = password;
 		return new KalturaRequestBuilder("ottuser", "updatePassword", kparams);
-	},
-	
-	/**
-	 * Adds or updates dynamic data item for a user. If it is needed to update several items, use a multi-request to avoid race conditions..
-	 * @param	key	string		Key of dynamic data item. Max length of key is 50 characters. (optional)
-	 * @param	value	KalturaStringValue		Value of dynamic data item. Max length of value is 512 characters. (optional)
-	 **/
-	upsertDynamicData: function(key, value){
-		var kparams = new Object();
-		kparams.key = key;
-		kparams.value = value;
-		return new KalturaRequestBuilder("ottuser", "upsertDynamicData", kparams);
 	}
 }
 
@@ -4014,36 +3941,11 @@ var KalturaPartnerConfigurationService = {
  **/
 var KalturaPartnerService = {
 	/**
-	 * Add a partner with default user.
-	 * @param	partner	KalturaPartner		partner (optional)
-	 * @param	partnerSetup	KalturaPartnerSetup		mandatory parameters to create partner (optional)
-	 **/
-	add: function(partner, partnerSetup){
-		var kparams = new Object();
-		kparams.partner = partner;
-		kparams.partnerSetup = partnerSetup;
-		return new KalturaRequestBuilder("partner", "add", kparams);
-	},
-	
-	/**
 	 * Returns a login session for external system (like OVP).
 	 **/
 	externalLogin: function(){
 		var kparams = new Object();
 		return new KalturaRequestBuilder("partner", "externalLogin", kparams);
-	},
-	
-	/**
-	 * Internal API !!! Returns the list of active Partners.
-	 * @param	filter	KalturaPartnerFilter		Filter (optional, default: null)
-	 **/
-	listAction: function(filter){
-		if(!filter)
-			filter = null;
-		var kparams = new Object();
-		if (filter != null)
-			kparams.filter = filter;
-		return new KalturaRequestBuilder("partner", "list", kparams);
 	}
 }
 
@@ -4720,17 +4622,6 @@ var KalturaRecordingService = {
 		var kparams = new Object();
 		kparams.recording = recording;
 		return new KalturaRequestBuilder("recording", "add", kparams);
-	},
-	
-	/**
-	 * Delete list of user&#39;s recordings. Recording can be deleted only in status Recorded.
- *	            Possible error codes for each recording: RecordingNotFound = 3039, RecordingStatusNotValid = 3043, Error = 1.
-	 * @param	recordingIds	string		Recording identifiers. Up to 40 private copies and up to 100 shared copies can be deleted withing a call. (optional)
-	 **/
-	bulkdelete: function(recordingIds){
-		var kparams = new Object();
-		kparams.recordingIds = recordingIds;
-		return new KalturaRequestBuilder("recording", "bulkdelete", kparams);
 	},
 	
 	/**
@@ -5665,36 +5556,6 @@ var KalturaSystemService = {
 	},
 	
 	/**
-	 * Returns the epoch value of an invalidation key if it was found.
-	 * @param	invalidationKey	string		the invalidation key to fetch it's value (optional)
-	 * @param	layeredCacheConfigName	string		the layered cache config name of the invalidation key (optional, default: null)
-	 * @param	groupId	int		groupId (optional)
-	 **/
-	getInvalidationKeyValue: function(invalidationKey, layeredCacheConfigName, groupId){
-		if(!layeredCacheConfigName)
-			layeredCacheConfigName = null;
-		if(!groupId)
-			groupId = 0;
-		var kparams = new Object();
-		kparams.invalidationKey = invalidationKey;
-		kparams.layeredCacheConfigName = layeredCacheConfigName;
-		kparams.groupId = groupId;
-		return new KalturaRequestBuilder("system", "getInvalidationKeyValue", kparams);
-	},
-	
-	/**
-	 * Returns the current layered cache group config of the sent groupId. You need to send groupId only if you wish to get it for a specific groupId and not the one the KS belongs to..
-	 * @param	groupId	int		groupId (optional)
-	 **/
-	getLayeredCacheGroupConfig: function(groupId){
-		if(!groupId)
-			groupId = 0;
-		var kparams = new Object();
-		kparams.groupId = groupId;
-		return new KalturaRequestBuilder("system", "getLayeredCacheGroupConfig", kparams);
-	},
-	
-	/**
 	 * Returns current server timestamp.
 	 **/
 	getTime: function(){
@@ -5720,16 +5581,6 @@ var KalturaSystemService = {
 		var kparams = new Object();
 		kparams.groupId = groupId;
 		return new KalturaRequestBuilder("system", "incrementLayeredCacheGroupConfigVersion", kparams);
-	},
-	
-	/**
-	 * Returns true if the invalidation key was invalidated successfully or false otherwise..
-	 * @param	key	string		the invalidation key to invalidate (optional)
-	 **/
-	invalidateLayeredCacheInvalidationKey: function(key){
-		var kparams = new Object();
-		kparams.key = key;
-		return new KalturaRequestBuilder("system", "invalidateLayeredCacheInvalidationKey", kparams);
 	},
 	
 	/**
@@ -7028,8 +6879,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:21-06-07');
-	this.setApiVersion('6.5.0.29158');
+	this.setClientTag('ajax:21-06-17');
+	this.setApiVersion('6.2.0.29009');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
