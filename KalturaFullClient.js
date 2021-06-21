@@ -4086,6 +4086,16 @@ var KalturaPartnerService = {
 	},
 	
 	/**
+	 * Internal API !!! Delete Partner.
+	 * @param	id	int		Partner id (optional)
+	 **/
+	deleteAction: function(id){
+		var kparams = new Object();
+		kparams.id = id;
+		return new KalturaRequestBuilder("partner", "delete", kparams);
+	},
+	
+	/**
 	 * Returns a login session for external system (like OVP).
 	 **/
 	externalLogin: function(){
@@ -7205,7 +7215,7 @@ var MD5 = function (string) {
 function KalturaClient(config){
 	this.init(config);
 	this.setClientTag('ajax:21-06-21');
-	this.setApiVersion('6.5.0.29187');
+	this.setApiVersion('6.5.0.29174');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**

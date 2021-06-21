@@ -16,6 +16,16 @@ var KalturaPartnerService = {
 	},
 	
 	/**
+	 * Internal API !!! Delete Partner.
+	 * @param	id	int		Partner id (optional)
+	 **/
+	deleteAction: function(id){
+		var kparams = new Object();
+		kparams.id = id;
+		return new KalturaRequestBuilder("partner", "delete", kparams);
+	},
+	
+	/**
 	 * Returns a login session for external system (like OVP).
 	 **/
 	externalLogin: function(){
