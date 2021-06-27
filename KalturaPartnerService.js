@@ -16,14 +16,6 @@ var KalturaPartnerService = {
 	},
 	
 	/**
-	 * Internal API !!! create ElasticSearch indexes for partner.
-	 **/
-	createIndexes: function(){
-		var kparams = new Object();
-		return new KalturaRequestBuilder("partner", "createIndexes", kparams);
-	},
-	
-	/**
 	 * Internal API !!! Delete Partner.
 	 * @param	id	int		Partner id (optional)
 	 **/
