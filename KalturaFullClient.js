@@ -4086,6 +4086,14 @@ var KalturaPartnerService = {
 	},
 	
 	/**
+	 * Internal API !!! create ElasticSearch indexes for partner.
+	 **/
+	createIndexes: function(){
+		var kparams = new Object();
+		return new KalturaRequestBuilder("partner", "createIndexes", kparams);
+	},
+	
+	/**
 	 * Internal API !!! Delete Partner.
 	 * @param	id	int		Partner id (optional)
 	 **/
@@ -7234,8 +7242,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:21-06-27');
-	this.setApiVersion('6.5.0.29176');
+	this.setClientTag('ajax:21-06-28');
+	this.setApiVersion('6.5.0.29184');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
