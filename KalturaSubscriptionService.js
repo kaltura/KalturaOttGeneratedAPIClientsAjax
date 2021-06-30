@@ -7,10 +7,10 @@ var KalturaSubscriptionService = {
 	 * Internal API !!! Insert new subscription for partner.
 	 * @param	subscription	KalturaSubscriptionInternal		subscription object (optional)
 	 **/
-	add: function(subscription){
+	addInternal: function(subscription){
 		var kparams = new Object();
 		kparams.subscription = subscription;
-		return new KalturaRequestBuilder("subscription", "add", kparams);
+		return new KalturaRequestBuilder("subscription", "addInternal", kparams);
 	},
 	
 	/**

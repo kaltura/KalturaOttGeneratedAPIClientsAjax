@@ -5718,10 +5718,10 @@ var KalturaSubscriptionService = {
 	 * Internal API !!! Insert new subscription for partner.
 	 * @param	subscription	KalturaSubscriptionInternal		subscription object (optional)
 	 **/
-	add: function(subscription){
+	addInternal: function(subscription){
 		var kparams = new Object();
 		kparams.subscription = subscription;
-		return new KalturaRequestBuilder("subscription", "add", kparams);
+		return new KalturaRequestBuilder("subscription", "addInternal", kparams);
 	},
 	
 	/**
@@ -7242,8 +7242,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:21-06-29');
-	this.setApiVersion('6.5.0.29194');
+	this.setClientTag('ajax:21-06-30');
+	this.setApiVersion('6.5.0.29195');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
