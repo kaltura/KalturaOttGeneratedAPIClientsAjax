@@ -5716,12 +5716,12 @@ var KalturaStreamingDeviceService = {
 var KalturaSubscriptionService = {
 	/**
 	 * Internal API !!! Insert new subscription for partner.
-	 * @param	subscription	KalturaSubscriptionInternal		subscription object (optional)
+	 * @param	subscription	KalturaSubscription		subscription object (optional)
 	 **/
-	addInternal: function(subscription){
+	add: function(subscription){
 		var kparams = new Object();
 		kparams.subscription = subscription;
-		return new KalturaRequestBuilder("subscription", "addInternal", kparams);
+		return new KalturaRequestBuilder("subscription", "add", kparams);
 	},
 	
 	/**
@@ -7242,8 +7242,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:21-06-30');
-	this.setApiVersion('6.5.0.29195');
+	this.setClientTag('ajax:21-07-04');
+	this.setApiVersion('6.6.0.29208');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
