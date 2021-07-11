@@ -352,15 +352,12 @@ var KalturaAssetFileService = {
 	 * @param	contextType	string		Playback context type (optional, enum: KalturaPlaybackContextType)
 	 * @param	ks	string		Kaltura session for the user, not mandatory for anonymous user (optional, default: null)
 	 * @param	tokenizedUrl	string		Tokenized Url, not mandatory (optional, default: null)
-	 * @param	isAltUrl	bool		Is alternative url (optional, default: false)
 	 **/
-	playManifest: function(partnerId, assetId, assetType, assetFileId, contextType, ks, tokenizedUrl, isAltUrl){
+	playManifest: function(partnerId, assetId, assetType, assetFileId, contextType, ks, tokenizedUrl){
 		if(!ks)
 			ks = null;
 		if(!tokenizedUrl)
 			tokenizedUrl = null;
-		if(!isAltUrl)
-			isAltUrl = false;
 		var kparams = new Object();
 		kparams.partnerId = partnerId;
 		kparams.assetId = assetId;
@@ -369,7 +366,6 @@ var KalturaAssetFileService = {
 		kparams.contextType = contextType;
 		kparams.ks = ks;
 		kparams.tokenizedUrl = tokenizedUrl;
-		kparams.isAltUrl = isAltUrl;
 		return new KalturaRequestBuilder("assetfile", "playManifest", kparams);
 	}
 }
@@ -1257,26 +1253,6 @@ var KalturaChannelService = {
  **/
 var KalturaCollectionService = {
 	/**
-	 * Internal API !!! Insert new collection for partner.
-	 * @param	collection	KalturaCollection		collection object (optional)
-	 **/
-	add: function(collection){
-		var kparams = new Object();
-		kparams.collection = collection;
-		return new KalturaRequestBuilder("collection", "add", kparams);
-	},
-	
-	/**
-	 * Internal API !!! Delete collection.
-	 * @param	id	int		Collection id (optional)
-	 **/
-	deleteAction: function(id){
-		var kparams = new Object();
-		kparams.id = id;
-		return new KalturaRequestBuilder("collection", "delete", kparams);
-	},
-	
-	/**
 	 * Returns a list of subscriptions requested by Subscription ID or file ID.
 	 * @param	filter	KalturaCollectionFilter		Filter request (optional, default: null)
 	 * @param	pager	KalturaFilterPager		Page size and index (optional, default: null)
@@ -1732,26 +1708,6 @@ var KalturaDeviceReferenceDataService = {
  **/
 var KalturaDiscountDetailsService = {
 	/**
-	 * Internal API !!! Insert new DiscountDetails for partner.
-	 * @param	discountDetails	KalturaDiscountDetails		Discount details Object (optional)
-	 **/
-	add: function(discountDetails){
-		var kparams = new Object();
-		kparams.discountDetails = discountDetails;
-		return new KalturaRequestBuilder("discountdetails", "add", kparams);
-	},
-	
-	/**
-	 * Internal API !!! Delete DiscountDetails.
-	 * @param	id	int		DiscountDetails id (optional)
-	 **/
-	deleteAction: function(id){
-		var kparams = new Object();
-		kparams.id = id;
-		return new KalturaRequestBuilder("discountdetails", "delete", kparams);
-	},
-	
-	/**
 	 * Returns the list of available discounts details, can be filtered by discount codes.
 	 * @param	filter	KalturaDiscountDetailsFilter		Filter (optional, default: null)
 	 **/
@@ -1769,26 +1725,6 @@ var KalturaDiscountDetailsService = {
  *Class definition for the Kaltura service: drmProfile.
  **/
 var KalturaDrmProfileService = {
-	/**
-	 * Internal API !!! Insert new DrmProfile.
-	 * @param	drmProfile	KalturaDrmProfile		Drm adapter Object (optional)
-	 **/
-	add: function(drmProfile){
-		var kparams = new Object();
-		kparams.drmProfile = drmProfile;
-		return new KalturaRequestBuilder("drmprofile", "add", kparams);
-	},
-	
-	/**
-	 * Internal API !!! Delete DrmProfile.
-	 * @param	id	int		Drm adapter id (optional)
-	 **/
-	deleteAction: function(id){
-		var kparams = new Object();
-		kparams.id = id;
-		return new KalturaRequestBuilder("drmprofile", "delete", kparams);
-	},
-	
 	/**
 	 * Returns all DRM adapters for partner.
 	 **/
@@ -2618,18 +2554,6 @@ var KalturaHouseholdDeviceService = {
 	},
 	
 	/**
-	 * Deletes dynamic data item with key  for device with identifier ..
-	 * @param	udid	string		Unique identifier of device. (optional)
-	 * @param	key	string		Key of dynamic data item. (optional)
-	 **/
-	deleteDynamicData: function(udid, key){
-		var kparams = new Object();
-		kparams.udid = udid;
-		kparams.key = key;
-		return new KalturaRequestBuilder("householddevice", "deleteDynamicData", kparams);
-	},
-	
-	/**
 	 * Generates device pin to use when adding a device to household by pin.
 	 * @param	udid	string		Device UDID (optional)
 	 * @param	brandId	int		Device brand identifier (optional)
@@ -2704,20 +2628,6 @@ var KalturaHouseholdDeviceService = {
 		kparams.udid = udid;
 		kparams.status = status;
 		return new KalturaRequestBuilder("householddevice", "updateStatus", kparams);
-	},
-	
-	/**
-	 * Adds or updates dynamic data item for device with identifier udid. If it is needed to update several items, use a multi-request to avoid race conditions..
-	 * @param	udid	string		Unique identifier of device. (optional)
-	 * @param	key	string		Key of dynamic data item. Max length of key is 125 characters. (optional)
-	 * @param	value	KalturaStringValue		Value of dynamic data item. Max length of value is 255 characters. (optional)
-	 **/
-	upsertDynamicData: function(udid, key, value){
-		var kparams = new Object();
-		kparams.udid = udid;
-		kparams.key = key;
-		kparams.value = value;
-		return new KalturaRequestBuilder("householddevice", "upsertDynamicData", kparams);
 	}
 }
 
@@ -2725,26 +2635,6 @@ var KalturaHouseholdDeviceService = {
  *Class definition for the Kaltura service: householdLimitations.
  **/
 var KalturaHouseholdLimitationsService = {
-	/**
-	 * Add household limitation.
-	 * @param	householdLimitations	KalturaHouseholdLimitations		Household limitations (optional)
-	 **/
-	add: function(householdLimitations){
-		var kparams = new Object();
-		kparams.householdLimitations = householdLimitations;
-		return new KalturaRequestBuilder("householdlimitations", "add", kparams);
-	},
-	
-	/**
-	 * Delete household limitation.
-	 * @param	householdLimitationsId	int		Id of household limitation (optional)
-	 **/
-	deleteAction: function(householdLimitationsId){
-		var kparams = new Object();
-		kparams.householdLimitationsId = householdLimitationsId;
-		return new KalturaRequestBuilder("householdlimitations", "delete", kparams);
-	},
-	
 	/**
 	 * Get the limitation module by id.
 	 * @param	id	int		Household limitations module identifier (optional)
@@ -3732,16 +3622,6 @@ var KalturaOttUserService = {
 	},
 	
 	/**
-	 * Deletes dynamic data item for a user..
-	 * @param	key	string		Key of dynamic data item. (optional)
-	 **/
-	deleteDynamicData: function(key){
-		var kparams = new Object();
-		kparams.key = key;
-		return new KalturaRequestBuilder("ottuser", "deleteDynamicData", kparams);
-	},
-	
-	/**
 	 * Retrieving users&#39; data.
 	 **/
 	get: function(){
@@ -3901,10 +3781,9 @@ var KalturaOttUserService = {
 	},
 	
 	/**
-	 * Update user dynamic data. If it is needed to update several items, use a multi-request to avoid race conditions.
- *	            This API endpoint will deprecated soon. Please use UpsertDynamicData instead of it..
-	 * @param	key	string		Type of dynamicData. Max length of key is 50 characters. (optional)
-	 * @param	value	KalturaStringValue		Value of dynamicData. Max length of value is 512 characters. (optional)
+	 * Update user dynamic data.
+	 * @param	key	string		Type of dynamicData (optional)
+	 * @param	value	KalturaStringValue		Value of dynamicData (optional)
 	 **/
 	updateDynamicData: function(key, value){
 		var kparams = new Object();
@@ -3937,18 +3816,6 @@ var KalturaOttUserService = {
 		kparams.userId = userId;
 		kparams.password = password;
 		return new KalturaRequestBuilder("ottuser", "updatePassword", kparams);
-	},
-	
-	/**
-	 * Adds or updates dynamic data item for a user. If it is needed to update several items, use a multi-request to avoid race conditions..
-	 * @param	key	string		Key of dynamic data item. Max length of key is 50 characters. (optional)
-	 * @param	value	KalturaStringValue		Value of dynamic data item. Max length of value is 512 characters. (optional)
-	 **/
-	upsertDynamicData: function(key, value){
-		var kparams = new Object();
-		kparams.key = key;
-		kparams.value = value;
-		return new KalturaRequestBuilder("ottuser", "upsertDynamicData", kparams);
 	}
 }
 
@@ -4074,54 +3941,11 @@ var KalturaPartnerConfigurationService = {
  **/
 var KalturaPartnerService = {
 	/**
-	 * Add a partner with default user.
-	 * @param	partner	KalturaPartner		partner (optional)
-	 * @param	partnerSetup	KalturaPartnerSetup		mandatory parameters to create partner (optional)
-	 **/
-	add: function(partner, partnerSetup){
-		var kparams = new Object();
-		kparams.partner = partner;
-		kparams.partnerSetup = partnerSetup;
-		return new KalturaRequestBuilder("partner", "add", kparams);
-	},
-	
-	/**
-	 * Internal API !!! create ElasticSearch indexes for partner.
-	 **/
-	createIndexes: function(){
-		var kparams = new Object();
-		return new KalturaRequestBuilder("partner", "createIndexes", kparams);
-	},
-	
-	/**
-	 * Internal API !!! Delete Partner.
-	 * @param	id	int		Partner id (optional)
-	 **/
-	deleteAction: function(id){
-		var kparams = new Object();
-		kparams.id = id;
-		return new KalturaRequestBuilder("partner", "delete", kparams);
-	},
-	
-	/**
 	 * Returns a login session for external system (like OVP).
 	 **/
 	externalLogin: function(){
 		var kparams = new Object();
 		return new KalturaRequestBuilder("partner", "externalLogin", kparams);
-	},
-	
-	/**
-	 * Internal API !!! Returns the list of active Partners.
-	 * @param	filter	KalturaPartnerFilter		Filter (optional, default: null)
-	 **/
-	listAction: function(filter){
-		if(!filter)
-			filter = null;
-		var kparams = new Object();
-		if (filter != null)
-			kparams.filter = filter;
-		return new KalturaRequestBuilder("partner", "list", kparams);
 	}
 }
 
@@ -4606,62 +4430,9 @@ var KalturaPpvService = {
 }
 
 /**
- *Class definition for the Kaltura service: previewModule.
- **/
-var KalturaPreviewModuleService = {
-	/**
-	 * Internal API !!! Insert new PreviewModule for partner.
-	 * @param	previewModule	KalturaPreviewModule		Preview module object (optional)
-	 **/
-	add: function(previewModule){
-		var kparams = new Object();
-		kparams.previewModule = previewModule;
-		return new KalturaRequestBuilder("previewmodule", "add", kparams);
-	},
-	
-	/**
-	 * Internal API !!! Delete PreviewModule.
-	 * @param	id	int		PreviewModule id (optional)
-	 **/
-	deleteAction: function(id){
-		var kparams = new Object();
-		kparams.id = id;
-		return new KalturaRequestBuilder("previewmodule", "delete", kparams);
-	},
-	
-	/**
-	 * Internal API !!! Returns all PreviewModule.
-	 **/
-	listAction: function(){
-		var kparams = new Object();
-		return new KalturaRequestBuilder("previewmodule", "list", kparams);
-	}
-}
-
-/**
  *Class definition for the Kaltura service: priceDetails.
  **/
 var KalturaPriceDetailsService = {
-	/**
-	 * Internal API !!! Insert new PriceDetails for partner.
-	 * @param	priceDetails	KalturaPriceDetails		PriceDetails Object (optional)
-	 **/
-	add: function(priceDetails){
-		var kparams = new Object();
-		kparams.priceDetails = priceDetails;
-		return new KalturaRequestBuilder("pricedetails", "add", kparams);
-	},
-	
-	/**
-	 * Internal API !!! Delete PriceDetails.
-	 * @param	id	int		PriceDetails identifier (optional)
-	 **/
-	deleteAction: function(id){
-		var kparams = new Object();
-		kparams.id = id;
-		return new KalturaRequestBuilder("pricedetails", "delete", kparams);
-	},
-	
 	/**
 	 * Returns the list of available prices, can be filtered by price IDs.
 	 * @param	filter	KalturaPriceDetailsFilter		Filter (optional, default: null)
@@ -4680,26 +4451,6 @@ var KalturaPriceDetailsService = {
  *Class definition for the Kaltura service: pricePlan.
  **/
 var KalturaPricePlanService = {
-	/**
-	 * Internal API !!!  Insert new PriceDetails for partner.
-	 * @param	pricePlan	KalturaPricePlan		Price plan Object (optional)
-	 **/
-	add: function(pricePlan){
-		var kparams = new Object();
-		kparams.pricePlan = pricePlan;
-		return new KalturaRequestBuilder("priceplan", "add", kparams);
-	},
-	
-	/**
-	 * Internal API !!! Delete PricePlan.
-	 * @param	id	int		PricePlan identifier (optional)
-	 **/
-	deleteAction: function(id){
-		var kparams = new Object();
-		kparams.id = id;
-		return new KalturaRequestBuilder("priceplan", "delete", kparams);
-	},
-	
 	/**
 	 * Returns a list of price plans by IDs.
 	 * @param	filter	KalturaPricePlanFilter		Filter request (optional, default: null)
@@ -4871,17 +4622,6 @@ var KalturaRecordingService = {
 		var kparams = new Object();
 		kparams.recording = recording;
 		return new KalturaRequestBuilder("recording", "add", kparams);
-	},
-	
-	/**
-	 * Delete list of user&#39;s recordings. Recording can be deleted only in status Recorded.
- *	            Possible error codes for each recording: RecordingNotFound = 3039, RecordingStatusNotValid = 3043, Error = 1.
-	 * @param	recordingIds	string		Recording identifiers. Up to 40 private copies and up to 100 shared copies can be deleted withing a call. (optional)
-	 **/
-	bulkdelete: function(recordingIds){
-		var kparams = new Object();
-		kparams.recordingIds = recordingIds;
-		return new KalturaRequestBuilder("recording", "bulkdelete", kparams);
 	},
 	
 	/**
@@ -5316,16 +5056,6 @@ var KalturaSeriesRecordingService = {
 		if (filter != null)
 			kparams.filter = filter;
 		return new KalturaRequestBuilder("seriesrecording", "list", kparams);
-	},
-	
-	/**
-	 * Enable EPG recording that was canceled as part of series.
-	 * @param	epgId	int		EPG program identifies (optional)
-	 **/
-	rebookCanceledByEpgId: function(epgId){
-		var kparams = new Object();
-		kparams.epgId = epgId;
-		return new KalturaRequestBuilder("seriesrecording", "rebookCanceledByEpgId", kparams);
 	}
 }
 
@@ -5826,36 +5556,6 @@ var KalturaSystemService = {
 	},
 	
 	/**
-	 * Returns the epoch value of an invalidation key if it was found.
-	 * @param	invalidationKey	string		the invalidation key to fetch it's value (optional)
-	 * @param	layeredCacheConfigName	string		the layered cache config name of the invalidation key (optional, default: null)
-	 * @param	groupId	int		groupId (optional)
-	 **/
-	getInvalidationKeyValue: function(invalidationKey, layeredCacheConfigName, groupId){
-		if(!layeredCacheConfigName)
-			layeredCacheConfigName = null;
-		if(!groupId)
-			groupId = 0;
-		var kparams = new Object();
-		kparams.invalidationKey = invalidationKey;
-		kparams.layeredCacheConfigName = layeredCacheConfigName;
-		kparams.groupId = groupId;
-		return new KalturaRequestBuilder("system", "getInvalidationKeyValue", kparams);
-	},
-	
-	/**
-	 * Returns the current layered cache group config of the sent groupId. You need to send groupId only if you wish to get it for a specific groupId and not the one the KS belongs to..
-	 * @param	groupId	int		groupId (optional)
-	 **/
-	getLayeredCacheGroupConfig: function(groupId){
-		if(!groupId)
-			groupId = 0;
-		var kparams = new Object();
-		kparams.groupId = groupId;
-		return new KalturaRequestBuilder("system", "getLayeredCacheGroupConfig", kparams);
-	},
-	
-	/**
 	 * Returns current server timestamp.
 	 **/
 	getTime: function(){
@@ -5881,16 +5581,6 @@ var KalturaSystemService = {
 		var kparams = new Object();
 		kparams.groupId = groupId;
 		return new KalturaRequestBuilder("system", "incrementLayeredCacheGroupConfigVersion", kparams);
-	},
-	
-	/**
-	 * Returns true if the invalidation key was invalidated successfully or false otherwise..
-	 * @param	key	string		the invalidation key to invalidate (optional)
-	 **/
-	invalidateLayeredCacheInvalidationKey: function(key){
-		var kparams = new Object();
-		kparams.key = key;
-		return new KalturaRequestBuilder("system", "invalidateLayeredCacheInvalidationKey", kparams);
 	},
 	
 	/**
@@ -6327,39 +6017,6 @@ var KalturaUploadTokenService = {
 		kparams.uploadTokenId = uploadTokenId;
 		kfiles.fileData = fileData;
 		return new KalturaRequestBuilder("uploadtoken", "upload", kparams, kfiles);
-	}
-}
-
-/**
- *Class definition for the Kaltura service: usageModule.
- **/
-var KalturaUsageModuleService = {
-	/**
-	 * Internal API !!! Insert new UsageModule.
-	 * @param	usageModule	KalturaUsageModule		usage module Object (optional)
-	 **/
-	add: function(usageModule){
-		var kparams = new Object();
-		kparams.usageModule = usageModule;
-		return new KalturaRequestBuilder("usagemodule", "add", kparams);
-	},
-	
-	/**
-	 * Internal API !!! Delete UsageModule.
-	 * @param	id	int		UsageModule id (optional)
-	 **/
-	deleteAction: function(id){
-		var kparams = new Object();
-		kparams.id = id;
-		return new KalturaRequestBuilder("usagemodule", "delete", kparams);
-	},
-	
-	/**
-	 * Internal API !!! Returns the list of available usage module.
-	 **/
-	listAction: function(){
-		var kparams = new Object();
-		return new KalturaRequestBuilder("usagemodule", "list", kparams);
 	}
 }
 
@@ -7222,8 +6879,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:21-06-30');
-	this.setApiVersion('6.5.0.29184');
+	this.setClientTag('ajax:21-07-11');
+	this.setApiVersion('6.2.0.29013');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
