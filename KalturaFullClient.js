@@ -2356,8 +2356,7 @@ var KalturaFollowTvSeriesService = {
 	},
 	
 	/**
-	 * Delete a user&#39;s tv series follow.
- *	            Possible status codes: UserNotFollowing = 8012, NotFound = 500007, InvalidAssetId = 4024, AnnouncementNotFound = 8006.
+	 * Delete a user&#39;s tv series follow..
 	 * @param	assetId	int		Asset identifier (optional)
 	 **/
 	deleteAction: function(assetId){
@@ -7299,7 +7298,7 @@ var MD5 = function (string) {
 function KalturaClient(config){
 	this.init(config);
 	this.setClientTag('ajax:21-07-20');
-	this.setApiVersion('6.6.0.29202');
+	this.setApiVersion('6.6.0.29205');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
