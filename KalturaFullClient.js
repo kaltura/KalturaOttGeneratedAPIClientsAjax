@@ -1799,6 +1799,19 @@ var KalturaDrmProfileService = {
 }
 
 /**
+ *Class definition for the Kaltura service: duration.
+ **/
+var KalturaDurationService = {
+	/**
+	 * Get the list of optinal Duration codes.
+	 **/
+	listAction: function(){
+		var kparams = new Object();
+		return new KalturaRequestBuilder("duration", "list", kparams);
+	}
+}
+
+/**
  *Class definition for the Kaltura service: dynamicList.
  **/
 var KalturaDynamicListService = {
@@ -5715,6 +5728,26 @@ var KalturaStreamingDeviceService = {
  **/
 var KalturaSubscriptionService = {
 	/**
+	 * Internal API !!! Insert new subscription for partner.
+	 * @param	subscription	KalturaSubscription		subscription object (optional)
+	 **/
+	add: function(subscription){
+		var kparams = new Object();
+		kparams.subscription = subscription;
+		return new KalturaRequestBuilder("subscription", "add", kparams);
+	},
+	
+	/**
+	 * Internal API !!! Delete subscription.
+	 * @param	id	int		Subscription id (optional)
+	 **/
+	deleteAction: function(id){
+		var kparams = new Object();
+		kparams.id = id;
+		return new KalturaRequestBuilder("subscription", "delete", kparams);
+	},
+	
+	/**
 	 * Returns a list of subscriptions requested by Subscription ID or file ID.
 	 * @param	filter	KalturaSubscriptionFilter		Filter request (optional, default: null)
 	 * @param	pager	KalturaFilterPager		Page size and index (optional, default: null)
@@ -7222,8 +7255,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:21-06-30');
-	this.setApiVersion('6.5.0.29184');
+	this.setClientTag('ajax:21-07-21');
+	this.setApiVersion('6.6.0.29195');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
