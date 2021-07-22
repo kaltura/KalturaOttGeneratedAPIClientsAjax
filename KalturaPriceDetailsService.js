@@ -34,5 +34,17 @@ var KalturaPriceDetailsService = {
 		if (filter != null)
 			kparams.filter = filter;
 		return new KalturaRequestBuilder("pricedetails", "list", kparams);
+	},
+	
+	/**
+	 * update existing PriceDetails.
+	 * @param	id	int		id of priceDetails (optional)
+	 * @param	priceDetails	KalturaPriceDetails		priceDetails to update (optional)
+	 **/
+	update: function(id, priceDetails){
+		var kparams = new Object();
+		kparams.id = id;
+		kparams.priceDetails = priceDetails;
+		return new KalturaRequestBuilder("pricedetails", "update", kparams);
 	}
 }
