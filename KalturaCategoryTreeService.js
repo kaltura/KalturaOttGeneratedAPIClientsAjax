@@ -32,12 +32,16 @@ var KalturaCategoryTreeService = {
 	/**
 	 * Retrieve default category tree of deviceFamilyId by KS or specific one if versionId is set..
 	 * @param	versionId	int		Category version id of tree (optional, default: null)
+	 * @param	deviceFamilyId	int		deviceFamilyId related to category tree (optional, default: null)
 	 **/
-	getByVersion: function(versionId){
+	getByVersion: function(versionId, deviceFamilyId){
 		if(!versionId)
 			versionId = null;
+		if(!deviceFamilyId)
+			deviceFamilyId = null;
 		var kparams = new Object();
 		kparams.versionId = versionId;
+		kparams.deviceFamilyId = deviceFamilyId;
 		return new KalturaRequestBuilder("categorytree", "getByVersion", kparams);
 	}
 }
