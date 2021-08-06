@@ -15,8 +15,7 @@ var KalturaFollowTvSeriesService = {
 	},
 	
 	/**
-	 * Delete a user&#39;s tv series follow.
- *	            Possible status codes: UserNotFollowing = 8012, NotFound = 500007, InvalidAssetId = 4024, AnnouncementNotFound = 8006.
+	 * Delete a user&#39;s tv series follow..
 	 * @param	assetId	int		Asset identifier (optional)
 	 **/
 	deleteAction: function(assetId){
