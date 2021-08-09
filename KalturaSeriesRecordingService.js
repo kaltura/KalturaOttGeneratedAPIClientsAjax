@@ -80,15 +80,5 @@ var KalturaSeriesRecordingService = {
 		if (filter != null)
 			kparams.filter = filter;
 		return new KalturaRequestBuilder("seriesrecording", "list", kparams);
-	},
-	
-	/**
-	 * Enable EPG recording that was canceled as part of series.
-	 * @param	epgId	int		EPG program identifies (optional)
-	 **/
-	rebookCanceledByEpgId: function(epgId){
-		var kparams = new Object();
-		kparams.epgId = epgId;
-		return new KalturaRequestBuilder("seriesrecording", "rebookCanceledByEpgId", kparams);
 	}
 }
