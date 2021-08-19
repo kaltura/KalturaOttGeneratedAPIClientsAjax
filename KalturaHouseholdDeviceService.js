@@ -89,14 +89,19 @@ var KalturaHouseholdDeviceService = {
 	 * @param	partnerId	int		Partner Identifier (optional)
 	 * @param	pin	string		pin code (optional)
 	 * @param	udid	string		Device UDID (optional, default: null)
+	 * @param	extraParams	map		extra params (optional, default: null)
 	 **/
-	loginWithPin: function(partnerId, pin, udid){
+	loginWithPin: function(partnerId, pin, udid, extraParams){
 		if(!udid)
 			udid = null;
+		if(!extraParams)
+			extraParams = null;
 		var kparams = new Object();
 		kparams.partnerId = partnerId;
 		kparams.pin = pin;
 		kparams.udid = udid;
+		if (extraParams != null)
+			kparams.extraParams = extraParams;
 		return new KalturaRequestBuilder("householddevice", "loginWithPin", kparams);
 	},
 	

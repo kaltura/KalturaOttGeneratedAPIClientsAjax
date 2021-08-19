@@ -116,20 +116,25 @@ var KalturaAppTokenService = {
 	 * @param	userId	string		session user id, will be ignored if a different user id already defined on the application token (optional, default: null)
 	 * @param	expiry	int		session expiry (in seconds), could be overwritten by shorter expiry of the application token and the session-expiry that defined on the application token (optional, default: null)
 	 * @param	udid	string		Device UDID (optional, default: null)
+	 * @param	extraParams	map		extra params (optional, default: null)
 	 **/
-	startSession: function(id, tokenHash, userId, expiry, udid){
+	startSession: function(id, tokenHash, userId, expiry, udid, extraParams){
 		if(!userId)
 			userId = null;
 		if(!expiry)
 			expiry = null;
 		if(!udid)
 			udid = null;
+		if(!extraParams)
+			extraParams = null;
 		var kparams = new Object();
 		kparams.id = id;
 		kparams.tokenHash = tokenHash;
 		kparams.userId = userId;
 		kparams.expiry = expiry;
 		kparams.udid = udid;
+		if (extraParams != null)
+			kparams.extraParams = extraParams;
 		return new KalturaRequestBuilder("apptoken", "startSession", kparams);
 	}
 }
@@ -964,12 +969,16 @@ var KalturaCategoryTreeService = {
 	/**
 	 * Retrieve default category tree of deviceFamilyId by KS or specific one if versionId is set..
 	 * @param	versionId	int		Category version id of tree (optional, default: null)
+	 * @param	deviceFamilyId	int		deviceFamilyId related to category tree (optional, default: null)
 	 **/
-	getByVersion: function(versionId){
+	getByVersion: function(versionId, deviceFamilyId){
 		if(!versionId)
 			versionId = null;
+		if(!deviceFamilyId)
+			deviceFamilyId = null;
 		var kparams = new Object();
 		kparams.versionId = versionId;
+		kparams.deviceFamilyId = deviceFamilyId;
 		return new KalturaRequestBuilder("categorytree", "getByVersion", kparams);
 	}
 }
@@ -1799,6 +1808,19 @@ var KalturaDrmProfileService = {
 }
 
 /**
+ *Class definition for the Kaltura service: duration.
+ **/
+var KalturaDurationService = {
+	/**
+	 * Get the list of optinal Duration codes.
+	 **/
+	listAction: function(){
+		var kparams = new Object();
+		return new KalturaRequestBuilder("duration", "list", kparams);
+	}
+}
+
+/**
  *Class definition for the Kaltura service: dynamicList.
  **/
 var KalturaDynamicListService = {
@@ -2352,8 +2374,7 @@ var KalturaFollowTvSeriesService = {
 	},
 	
 	/**
-	 * Delete a user&#39;s tv series follow.
- *	            Possible status codes: UserNotFollowing = 8012, NotFound = 500007, InvalidAssetId = 4024, AnnouncementNotFound = 8006.
+	 * Delete a user&#39;s tv series follow..
 	 * @param	assetId	int		Asset identifier (optional)
 	 **/
 	deleteAction: function(assetId){
@@ -2671,14 +2692,19 @@ var KalturaHouseholdDeviceService = {
 	 * @param	partnerId	int		Partner Identifier (optional)
 	 * @param	pin	string		pin code (optional)
 	 * @param	udid	string		Device UDID (optional, default: null)
+	 * @param	extraParams	map		extra params (optional, default: null)
 	 **/
-	loginWithPin: function(partnerId, pin, udid){
+	loginWithPin: function(partnerId, pin, udid, extraParams){
 		if(!udid)
 			udid = null;
+		if(!extraParams)
+			extraParams = null;
 		var kparams = new Object();
 		kparams.partnerId = partnerId;
 		kparams.pin = pin;
 		kparams.udid = udid;
+		if (extraParams != null)
+			kparams.extraParams = extraParams;
 		return new KalturaRequestBuilder("householddevice", "loginWithPin", kparams);
 	},
 	
@@ -3269,6 +3295,58 @@ var KalturaIotProfileService = {
 }
 
 /**
+ *Class definition for the Kaltura service: label.
+ **/
+var KalturaLabelService = {
+	/**
+	 * Create a new label associated with a predefined entity attribute. Currently supports only labels on KalturaMediaFile..
+	 * @param	label	KalturaLabel		KalturaLabel object with defined Value. (optional)
+	 **/
+	add: function(label){
+		var kparams = new Object();
+		kparams.label = label;
+		return new KalturaRequestBuilder("label", "add", kparams);
+	},
+	
+	/**
+	 * Deletes the existing label by its identifier..
+	 * @param	id	int		The identifier of label. (optional)
+	 **/
+	deleteAction: function(id){
+		var kparams = new Object();
+		kparams.id = id;
+		return new KalturaRequestBuilder("label", "delete", kparams);
+	},
+	
+	/**
+	 * Gets list of labels which meet the filter criteria..
+	 * @param	filter	KalturaLabelFilter		Filter. (optional)
+	 * @param	pager	KalturaFilterPager		Page size and index. (optional, default: null)
+	 **/
+	listAction: function(filter, pager){
+		if(!pager)
+			pager = null;
+		var kparams = new Object();
+		kparams.filter = filter;
+		if (pager != null)
+			kparams.pager = pager;
+		return new KalturaRequestBuilder("label", "list", kparams);
+	},
+	
+	/**
+	 * Updates the existing label with a new value..
+	 * @param	id	int		The identifier of label. (optional)
+	 * @param	label	KalturaLabel		KalturaLabel object with new Value. (optional)
+	 **/
+	update: function(id, label){
+		var kparams = new Object();
+		kparams.id = id;
+		kparams.label = label;
+		return new KalturaRequestBuilder("label", "update", kparams);
+	}
+}
+
+/**
  *Class definition for the Kaltura service: language.
  **/
 var KalturaLanguageService = {
@@ -3713,13 +3791,18 @@ var KalturaOttUserService = {
 	 * Returns tokens (KS and refresh token) for anonymous access.
 	 * @param	partnerId	int		The partner ID (optional)
 	 * @param	udid	string		The caller device's UDID (optional, default: null)
+	 * @param	extraParams	map		extra params (optional, default: null)
 	 **/
-	anonymousLogin: function(partnerId, udid){
+	anonymousLogin: function(partnerId, udid, extraParams){
 		if(!udid)
 			udid = null;
+		if(!extraParams)
+			extraParams = null;
 		var kparams = new Object();
 		kparams.partnerId = partnerId;
 		kparams.udid = udid;
+		if (extraParams != null)
+			kparams.extraParams = extraParams;
 		return new KalturaRequestBuilder("ottuser", "anonymousLogin", kparams);
 	},
 	
@@ -3803,17 +3886,22 @@ var KalturaOttUserService = {
 	 * @param	pin	string		pin code (optional)
 	 * @param	udid	string		Device UDID (optional, default: null)
 	 * @param	secret	string		Additional security parameter to validate the login (optional, default: null)
+	 * @param	extraParams	map		extra params (optional, default: null)
 	 **/
-	loginWithPin: function(partnerId, pin, udid, secret){
+	loginWithPin: function(partnerId, pin, udid, secret, extraParams){
 		if(!udid)
 			udid = null;
 		if(!secret)
 			secret = null;
+		if(!extraParams)
+			extraParams = null;
 		var kparams = new Object();
 		kparams.partnerId = partnerId;
 		kparams.pin = pin;
 		kparams.udid = udid;
 		kparams.secret = secret;
+		if (extraParams != null)
+			kparams.extraParams = extraParams;
 		return new KalturaRequestBuilder("ottuser", "loginWithPin", kparams);
 	},
 	
@@ -5539,15 +5627,20 @@ var KalturaSocialService = {
 	 * @param	token	string		Social token (optional)
 	 * @param	type	string		Social network (optional, enum: KalturaSocialNetwork)
 	 * @param	udid	string		Device UDID (optional, default: null)
+	 * @param	extraParams	map		extra params (optional, default: null)
 	 **/
-	login: function(partnerId, token, type, udid){
+	login: function(partnerId, token, type, udid, extraParams){
 		if(!udid)
 			udid = null;
+		if(!extraParams)
+			extraParams = null;
 		var kparams = new Object();
 		kparams.partnerId = partnerId;
 		kparams.token = token;
 		kparams.type = type;
 		kparams.udid = udid;
+		if (extraParams != null)
+			kparams.extraParams = extraParams;
 		return new KalturaRequestBuilder("social", "login", kparams);
 	},
 	
@@ -5714,6 +5807,26 @@ var KalturaStreamingDeviceService = {
  *Class definition for the Kaltura service: subscription.
  **/
 var KalturaSubscriptionService = {
+	/**
+	 * Internal API !!! Insert new subscription for partner.
+	 * @param	subscription	KalturaSubscription		subscription object (optional)
+	 **/
+	add: function(subscription){
+		var kparams = new Object();
+		kparams.subscription = subscription;
+		return new KalturaRequestBuilder("subscription", "add", kparams);
+	},
+	
+	/**
+	 * Internal API !!! Delete subscription.
+	 * @param	id	int		Subscription id (optional)
+	 **/
+	deleteAction: function(id){
+		var kparams = new Object();
+		kparams.id = id;
+		return new KalturaRequestBuilder("subscription", "delete", kparams);
+	},
+	
 	/**
 	 * Returns a list of subscriptions requested by Subscription ID or file ID.
 	 * @param	filter	KalturaSubscriptionFilter		Filter request (optional, default: null)
@@ -6623,6 +6736,56 @@ var KalturaUserSegmentService = {
 		return new KalturaRequestBuilder("usersegment", "list", kparams);
 	}
 }
+
+/**
+ *Class definition for the Kaltura service: userSessionProfile.
+ **/
+var KalturaUserSessionProfileService = {
+	/**
+	 * Add new UserSessionProfile.
+	 * @param	userSessionProfile	KalturaUserSessionProfile		userSessionProfile Object to add (optional)
+	 **/
+	add: function(userSessionProfile){
+		var kparams = new Object();
+		kparams.userSessionProfile = userSessionProfile;
+		return new KalturaRequestBuilder("usersessionprofile", "add", kparams);
+	},
+	
+	/**
+	 * Delete existing UserSessionProfile.
+	 * @param	id	int		UserSessionProfile identifier (optional)
+	 **/
+	deleteAction: function(id){
+		var kparams = new Object();
+		kparams.id = id;
+		return new KalturaRequestBuilder("usersessionprofile", "delete", kparams);
+	},
+	
+	/**
+	 * Returns the list of available UserSessionProfiles.
+	 * @param	filter	KalturaUserSessionProfileFilter		Filter (optional, default: null)
+	 **/
+	listAction: function(filter){
+		if(!filter)
+			filter = null;
+		var kparams = new Object();
+		if (filter != null)
+			kparams.filter = filter;
+		return new KalturaRequestBuilder("usersessionprofile", "list", kparams);
+	},
+	
+	/**
+	 * Update existing UserSessionProfile.
+	 * @param	id	int		id of userSessionProfile to update (optional)
+	 * @param	userSessionProfile	KalturaUserSessionProfile		userSessionProfile Object to update (optional)
+	 **/
+	update: function(id, userSessionProfile){
+		var kparams = new Object();
+		kparams.id = id;
+		kparams.userSessionProfile = userSessionProfile;
+		return new KalturaRequestBuilder("usersessionprofile", "update", kparams);
+	}
+}
 // ===================================================================================================
 //                           _  __     _ _
 //                          | |/ /__ _| | |_ _  _ _ _ __ _
@@ -7222,8 +7385,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:21-06-30');
-	this.setApiVersion('6.5.0.29184');
+	this.setClientTag('ajax:21-08-19');
+	this.setApiVersion('6.7.0.29292');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**

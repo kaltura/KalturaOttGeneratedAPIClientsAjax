@@ -47,15 +47,20 @@ var KalturaSocialService = {
 	 * @param	token	string		Social token (optional)
 	 * @param	type	string		Social network (optional, enum: KalturaSocialNetwork)
 	 * @param	udid	string		Device UDID (optional, default: null)
+	 * @param	extraParams	map		extra params (optional, default: null)
 	 **/
-	login: function(partnerId, token, type, udid){
+	login: function(partnerId, token, type, udid, extraParams){
 		if(!udid)
 			udid = null;
+		if(!extraParams)
+			extraParams = null;
 		var kparams = new Object();
 		kparams.partnerId = partnerId;
 		kparams.token = token;
 		kparams.type = type;
 		kparams.udid = udid;
+		if (extraParams != null)
+			kparams.extraParams = extraParams;
 		return new KalturaRequestBuilder("social", "login", kparams);
 	},
 	
