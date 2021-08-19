@@ -34,5 +34,17 @@ var KalturaDiscountDetailsService = {
 		if (filter != null)
 			kparams.filter = filter;
 		return new KalturaRequestBuilder("discountdetails", "list", kparams);
+	},
+	
+	/**
+	 * Update discount details.
+	 * @param	id	int		DiscountDetails id (optional)
+	 * @param	discountDetails	KalturaDiscountDetails		Discount details Object (optional)
+	 **/
+	update: function(id, discountDetails){
+		var kparams = new Object();
+		kparams.id = id;
+		kparams.discountDetails = discountDetails;
+		return new KalturaRequestBuilder("discountdetails", "update", kparams);
 	}
 }

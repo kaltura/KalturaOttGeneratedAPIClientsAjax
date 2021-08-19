@@ -4,7 +4,7 @@
  **/
 var KalturaPreviewModuleService = {
 	/**
-	 * Internal API !!! Insert new PreviewModule for partner.
+	 * Insert new PreviewModule for partner.
 	 * @param	previewModule	KalturaPreviewModule		Preview module object (optional)
 	 **/
 	add: function(previewModule){
@@ -24,10 +24,27 @@ var KalturaPreviewModuleService = {
 	},
 	
 	/**
-	 * Internal API !!! Returns all PreviewModule.
+	 * Returns all PreviewModule.
+	 * @param	filter	KalturaPreviewModuleFilter		Filter (optional, default: null)
 	 **/
-	listAction: function(){
+	listAction: function(filter){
+		if(!filter)
+			filter = null;
 		var kparams = new Object();
+		if (filter != null)
+			kparams.filter = filter;
 		return new KalturaRequestBuilder("previewmodule", "list", kparams);
+	},
+	
+	/**
+	 * Update PreviewModule.
+	 * @param	id	int		PreviewModule id (optional)
+	 * @param	previewModule	KalturaPreviewModule		PreviewModule (optional)
+	 **/
+	update: function(id, previewModule){
+		var kparams = new Object();
+		kparams.id = id;
+		kparams.previewModule = previewModule;
+		return new KalturaRequestBuilder("previewmodule", "update", kparams);
 	}
 }
