@@ -31,18 +31,13 @@ var KalturaOttUserService = {
 	 * Returns tokens (KS and refresh token) for anonymous access.
 	 * @param	partnerId	int		The partner ID (optional)
 	 * @param	udid	string		The caller device's UDID (optional, default: null)
-	 * @param	extraParams	map		extra params (optional, default: null)
 	 **/
-	anonymousLogin: function(partnerId, udid, extraParams){
+	anonymousLogin: function(partnerId, udid){
 		if(!udid)
 			udid = null;
-		if(!extraParams)
-			extraParams = null;
 		var kparams = new Object();
 		kparams.partnerId = partnerId;
 		kparams.udid = udid;
-		if (extraParams != null)
-			kparams.extraParams = extraParams;
 		return new KalturaRequestBuilder("ottuser", "anonymousLogin", kparams);
 	},
 	
@@ -126,22 +121,17 @@ var KalturaOttUserService = {
 	 * @param	pin	string		pin code (optional)
 	 * @param	udid	string		Device UDID (optional, default: null)
 	 * @param	secret	string		Additional security parameter to validate the login (optional, default: null)
-	 * @param	extraParams	map		extra params (optional, default: null)
 	 **/
-	loginWithPin: function(partnerId, pin, udid, secret, extraParams){
+	loginWithPin: function(partnerId, pin, udid, secret){
 		if(!udid)
 			udid = null;
 		if(!secret)
 			secret = null;
-		if(!extraParams)
-			extraParams = null;
 		var kparams = new Object();
 		kparams.partnerId = partnerId;
 		kparams.pin = pin;
 		kparams.udid = udid;
 		kparams.secret = secret;
-		if (extraParams != null)
-			kparams.extraParams = extraParams;
 		return new KalturaRequestBuilder("ottuser", "loginWithPin", kparams);
 	},
 	

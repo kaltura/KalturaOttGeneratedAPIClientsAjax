@@ -116,25 +116,20 @@ var KalturaAppTokenService = {
 	 * @param	userId	string		session user id, will be ignored if a different user id already defined on the application token (optional, default: null)
 	 * @param	expiry	int		session expiry (in seconds), could be overwritten by shorter expiry of the application token and the session-expiry that defined on the application token (optional, default: null)
 	 * @param	udid	string		Device UDID (optional, default: null)
-	 * @param	extraParams	map		extra params (optional, default: null)
 	 **/
-	startSession: function(id, tokenHash, userId, expiry, udid, extraParams){
+	startSession: function(id, tokenHash, userId, expiry, udid){
 		if(!userId)
 			userId = null;
 		if(!expiry)
 			expiry = null;
 		if(!udid)
 			udid = null;
-		if(!extraParams)
-			extraParams = null;
 		var kparams = new Object();
 		kparams.id = id;
 		kparams.tokenHash = tokenHash;
 		kparams.userId = userId;
 		kparams.expiry = expiry;
 		kparams.udid = udid;
-		if (extraParams != null)
-			kparams.extraParams = extraParams;
 		return new KalturaRequestBuilder("apptoken", "startSession", kparams);
 	}
 }
@@ -2692,19 +2687,14 @@ var KalturaHouseholdDeviceService = {
 	 * @param	partnerId	int		Partner Identifier (optional)
 	 * @param	pin	string		pin code (optional)
 	 * @param	udid	string		Device UDID (optional, default: null)
-	 * @param	extraParams	map		extra params (optional, default: null)
 	 **/
-	loginWithPin: function(partnerId, pin, udid, extraParams){
+	loginWithPin: function(partnerId, pin, udid){
 		if(!udid)
 			udid = null;
-		if(!extraParams)
-			extraParams = null;
 		var kparams = new Object();
 		kparams.partnerId = partnerId;
 		kparams.pin = pin;
 		kparams.udid = udid;
-		if (extraParams != null)
-			kparams.extraParams = extraParams;
 		return new KalturaRequestBuilder("householddevice", "loginWithPin", kparams);
 	},
 	
@@ -3791,18 +3781,13 @@ var KalturaOttUserService = {
 	 * Returns tokens (KS and refresh token) for anonymous access.
 	 * @param	partnerId	int		The partner ID (optional)
 	 * @param	udid	string		The caller device's UDID (optional, default: null)
-	 * @param	extraParams	map		extra params (optional, default: null)
 	 **/
-	anonymousLogin: function(partnerId, udid, extraParams){
+	anonymousLogin: function(partnerId, udid){
 		if(!udid)
 			udid = null;
-		if(!extraParams)
-			extraParams = null;
 		var kparams = new Object();
 		kparams.partnerId = partnerId;
 		kparams.udid = udid;
-		if (extraParams != null)
-			kparams.extraParams = extraParams;
 		return new KalturaRequestBuilder("ottuser", "anonymousLogin", kparams);
 	},
 	
@@ -3886,22 +3871,17 @@ var KalturaOttUserService = {
 	 * @param	pin	string		pin code (optional)
 	 * @param	udid	string		Device UDID (optional, default: null)
 	 * @param	secret	string		Additional security parameter to validate the login (optional, default: null)
-	 * @param	extraParams	map		extra params (optional, default: null)
 	 **/
-	loginWithPin: function(partnerId, pin, udid, secret, extraParams){
+	loginWithPin: function(partnerId, pin, udid, secret){
 		if(!udid)
 			udid = null;
 		if(!secret)
 			secret = null;
-		if(!extraParams)
-			extraParams = null;
 		var kparams = new Object();
 		kparams.partnerId = partnerId;
 		kparams.pin = pin;
 		kparams.udid = udid;
 		kparams.secret = secret;
-		if (extraParams != null)
-			kparams.extraParams = extraParams;
 		return new KalturaRequestBuilder("ottuser", "loginWithPin", kparams);
 	},
 	
@@ -5627,20 +5607,15 @@ var KalturaSocialService = {
 	 * @param	token	string		Social token (optional)
 	 * @param	type	string		Social network (optional, enum: KalturaSocialNetwork)
 	 * @param	udid	string		Device UDID (optional, default: null)
-	 * @param	extraParams	map		extra params (optional, default: null)
 	 **/
-	login: function(partnerId, token, type, udid, extraParams){
+	login: function(partnerId, token, type, udid){
 		if(!udid)
 			udid = null;
-		if(!extraParams)
-			extraParams = null;
 		var kparams = new Object();
 		kparams.partnerId = partnerId;
 		kparams.token = token;
 		kparams.type = type;
 		kparams.udid = udid;
-		if (extraParams != null)
-			kparams.extraParams = extraParams;
 		return new KalturaRequestBuilder("social", "login", kparams);
 	},
 	
@@ -6736,56 +6711,6 @@ var KalturaUserSegmentService = {
 		return new KalturaRequestBuilder("usersegment", "list", kparams);
 	}
 }
-
-/**
- *Class definition for the Kaltura service: userSessionProfile.
- **/
-var KalturaUserSessionProfileService = {
-	/**
-	 * Add new UserSessionProfile.
-	 * @param	userSessionProfile	KalturaUserSessionProfile		userSessionProfile Object to add (optional)
-	 **/
-	add: function(userSessionProfile){
-		var kparams = new Object();
-		kparams.userSessionProfile = userSessionProfile;
-		return new KalturaRequestBuilder("usersessionprofile", "add", kparams);
-	},
-	
-	/**
-	 * Delete existing UserSessionProfile.
-	 * @param	id	int		UserSessionProfile identifier (optional)
-	 **/
-	deleteAction: function(id){
-		var kparams = new Object();
-		kparams.id = id;
-		return new KalturaRequestBuilder("usersessionprofile", "delete", kparams);
-	},
-	
-	/**
-	 * Returns the list of available UserSessionProfiles.
-	 * @param	filter	KalturaUserSessionProfileFilter		Filter (optional, default: null)
-	 **/
-	listAction: function(filter){
-		if(!filter)
-			filter = null;
-		var kparams = new Object();
-		if (filter != null)
-			kparams.filter = filter;
-		return new KalturaRequestBuilder("usersessionprofile", "list", kparams);
-	},
-	
-	/**
-	 * Update existing UserSessionProfile.
-	 * @param	id	int		id of userSessionProfile to update (optional)
-	 * @param	userSessionProfile	KalturaUserSessionProfile		userSessionProfile Object to update (optional)
-	 **/
-	update: function(id, userSessionProfile){
-		var kparams = new Object();
-		kparams.id = id;
-		kparams.userSessionProfile = userSessionProfile;
-		return new KalturaRequestBuilder("usersessionprofile", "update", kparams);
-	}
-}
 // ===================================================================================================
 //                           _  __     _ _
 //                          | |/ /__ _| | |_ _  _ _ _ __ _
@@ -7385,8 +7310,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:21-08-19');
-	this.setApiVersion('6.7.0.29292');
+	this.setClientTag('ajax:21-08-24');
+	this.setApiVersion('6.7.0.29255');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**

@@ -40,25 +40,20 @@ var KalturaAppTokenService = {
 	 * @param	userId	string		session user id, will be ignored if a different user id already defined on the application token (optional, default: null)
 	 * @param	expiry	int		session expiry (in seconds), could be overwritten by shorter expiry of the application token and the session-expiry that defined on the application token (optional, default: null)
 	 * @param	udid	string		Device UDID (optional, default: null)
-	 * @param	extraParams	map		extra params (optional, default: null)
 	 **/
-	startSession: function(id, tokenHash, userId, expiry, udid, extraParams){
+	startSession: function(id, tokenHash, userId, expiry, udid){
 		if(!userId)
 			userId = null;
 		if(!expiry)
 			expiry = null;
 		if(!udid)
 			udid = null;
-		if(!extraParams)
-			extraParams = null;
 		var kparams = new Object();
 		kparams.id = id;
 		kparams.tokenHash = tokenHash;
 		kparams.userId = userId;
 		kparams.expiry = expiry;
 		kparams.udid = udid;
-		if (extraParams != null)
-			kparams.extraParams = extraParams;
 		return new KalturaRequestBuilder("apptoken", "startSession", kparams);
 	}
 }
