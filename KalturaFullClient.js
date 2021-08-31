@@ -1227,7 +1227,7 @@ var KalturaChannelService = {
 	
 	/**
 	 * Get the list of tags for the partner.
-	 * @param	filter	KalturaChannelsFilter		Filter (optional, default: null)
+	 * @param	filter	KalturaChannelsBaseFilter		Filter (optional, default: null)
 	 * @param	pager	KalturaFilterPager		Page size and index (optional, default: null)
 	 **/
 	listAction: function(filter, pager){
@@ -1766,6 +1766,18 @@ var KalturaDiscountDetailsService = {
 		if (filter != null)
 			kparams.filter = filter;
 		return new KalturaRequestBuilder("discountdetails", "list", kparams);
+	},
+	
+	/**
+	 * Update discount details.
+	 * @param	id	int		DiscountDetails id (optional)
+	 * @param	discountDetails	KalturaDiscountDetails		Discount details Object (optional)
+	 **/
+	update: function(id, discountDetails){
+		var kparams = new Object();
+		kparams.id = id;
+		kparams.discountDetails = discountDetails;
+		return new KalturaRequestBuilder("discountdetails", "update", kparams);
 	}
 }
 
@@ -4194,6 +4206,29 @@ var KalturaPartnerService = {
 }
 
 /**
+ *Class definition for the Kaltura service: partnerPremiumServices.
+ **/
+var KalturaPartnerPremiumServicesService = {
+	/**
+	 * Returns list of services.
+	 **/
+	get: function(){
+		var kparams = new Object();
+		return new KalturaRequestBuilder("partnerpremiumservices", "get", kparams);
+	},
+	
+	/**
+	 * update partnerPremiumServices.
+	 * @param	partnerPremiumServices	KalturaPartnerPremiumServices		partnerPremiumServices to update (optional)
+	 **/
+	update: function(partnerPremiumServices){
+		var kparams = new Object();
+		kparams.partnerPremiumServices = partnerPremiumServices;
+		return new KalturaRequestBuilder("partnerpremiumservices", "update", kparams);
+	}
+}
+
+/**
  *Class definition for the Kaltura service: passwordPolicy.
  **/
 var KalturaPasswordPolicyService = {
@@ -4678,7 +4713,7 @@ var KalturaPpvService = {
  **/
 var KalturaPreviewModuleService = {
 	/**
-	 * Internal API !!! Insert new PreviewModule for partner.
+	 * Insert new PreviewModule for partner.
 	 * @param	previewModule	KalturaPreviewModule		Preview module object (optional)
 	 **/
 	add: function(previewModule){
@@ -4698,11 +4733,28 @@ var KalturaPreviewModuleService = {
 	},
 	
 	/**
-	 * Internal API !!! Returns all PreviewModule.
+	 * Returns all PreviewModule.
+	 * @param	filter	KalturaPreviewModuleFilter		Filter (optional, default: null)
 	 **/
-	listAction: function(){
+	listAction: function(filter){
+		if(!filter)
+			filter = null;
 		var kparams = new Object();
+		if (filter != null)
+			kparams.filter = filter;
 		return new KalturaRequestBuilder("previewmodule", "list", kparams);
+	},
+	
+	/**
+	 * Update PreviewModule.
+	 * @param	id	int		PreviewModule id (optional)
+	 * @param	previewModule	KalturaPreviewModule		PreviewModule (optional)
+	 **/
+	update: function(id, previewModule){
+		var kparams = new Object();
+		kparams.id = id;
+		kparams.previewModule = previewModule;
+		return new KalturaRequestBuilder("previewmodule", "update", kparams);
 	}
 }
 
@@ -4741,6 +4793,18 @@ var KalturaPriceDetailsService = {
 		if (filter != null)
 			kparams.filter = filter;
 		return new KalturaRequestBuilder("pricedetails", "list", kparams);
+	},
+	
+	/**
+	 * update existing PriceDetails.
+	 * @param	id	int		id of priceDetails (optional)
+	 * @param	priceDetails	KalturaPriceDetails		priceDetails to update (optional)
+	 **/
+	update: function(id, priceDetails){
+		var kparams = new Object();
+		kparams.id = id;
+		kparams.priceDetails = priceDetails;
+		return new KalturaRequestBuilder("pricedetails", "update", kparams);
 	}
 }
 
@@ -4749,7 +4813,7 @@ var KalturaPriceDetailsService = {
  **/
 var KalturaPricePlanService = {
 	/**
-	 * Internal API !!!  Insert new PriceDetails for partner.
+	 * Insert new PricePlan.
 	 * @param	pricePlan	KalturaPricePlan		Price plan Object (optional)
 	 **/
 	add: function(pricePlan){
@@ -4759,7 +4823,7 @@ var KalturaPricePlanService = {
 	},
 	
 	/**
-	 * Internal API !!! Delete PricePlan.
+	 * Delete PricePlan.
 	 * @param	id	int		PricePlan identifier (optional)
 	 **/
 	deleteAction: function(id){
@@ -5818,6 +5882,18 @@ var KalturaSubscriptionService = {
 		if (pager != null)
 			kparams.pager = pager;
 		return new KalturaRequestBuilder("subscription", "list", kparams);
+	},
+	
+	/**
+	 * Update Subscription.
+	 * @param	id	int		Subscription id (optional)
+	 * @param	subscription	KalturaSubscription		Subscription (optional)
+	 **/
+	update: function(id, subscription){
+		var kparams = new Object();
+		kparams.id = id;
+		kparams.subscription = subscription;
+		return new KalturaRequestBuilder("subscription", "update", kparams);
 	},
 	
 	/**
@@ -7310,8 +7386,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:21-08-24');
-	this.setApiVersion('6.7.0.29255');
+	this.setClientTag('ajax:21-08-31');
+	this.setApiVersion('6.7.0.29287');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**

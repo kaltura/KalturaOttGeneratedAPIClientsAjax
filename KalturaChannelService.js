@@ -35,7 +35,7 @@ var KalturaChannelService = {
 	
 	/**
 	 * Get the list of tags for the partner.
-	 * @param	filter	KalturaChannelsFilter		Filter (optional, default: null)
+	 * @param	filter	KalturaChannelsBaseFilter		Filter (optional, default: null)
 	 * @param	pager	KalturaFilterPager		Page size and index (optional, default: null)
 	 **/
 	listAction: function(filter, pager){
