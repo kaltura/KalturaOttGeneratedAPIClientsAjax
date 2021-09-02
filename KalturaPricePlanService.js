@@ -4,7 +4,7 @@
  **/
 var KalturaPricePlanService = {
 	/**
-	 * Internal API !!!  Insert new PriceDetails for partner.
+	 * Insert new PricePlan.
 	 * @param	pricePlan	KalturaPricePlan		Price plan Object (optional)
 	 **/
 	add: function(pricePlan){
@@ -14,7 +14,7 @@ var KalturaPricePlanService = {
 	},
 	
 	/**
-	 * Internal API !!! Delete PricePlan.
+	 * Delete PricePlan.
 	 * @param	id	int		PricePlan identifier (optional)
 	 **/
 	deleteAction: function(id){
