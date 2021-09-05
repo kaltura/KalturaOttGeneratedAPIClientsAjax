@@ -6840,13 +6840,18 @@ var KalturaUserSessionProfileService = {
 	/**
 	 * Returns the list of available UserSessionProfiles.
 	 * @param	filter	KalturaUserSessionProfileFilter		Filter (optional, default: null)
+	 * @param	pager	KalturaFilterPager		Pager (optional, default: null)
 	 **/
-	listAction: function(filter){
+	listAction: function(filter, pager){
 		if(!filter)
 			filter = null;
+		if(!pager)
+			pager = null;
 		var kparams = new Object();
 		if (filter != null)
 			kparams.filter = filter;
+		if (pager != null)
+			kparams.pager = pager;
 		return new KalturaRequestBuilder("usersessionprofile", "list", kparams);
 	},
 	
@@ -7461,8 +7466,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:21-09-02');
-	this.setApiVersion('6.7.0.29341');
+	this.setClientTag('ajax:21-09-05');
+	this.setApiVersion('6.7.0.29346');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
