@@ -34,10 +34,32 @@ var KalturaHouseholdLimitationsService = {
 	},
 	
 	/**
+	 * Checks if the DLM is used.
+	 * @param	dlmId	int		Household limitations module identifier (optional)
+	 **/
+	isUsed: function(dlmId){
+		var kparams = new Object();
+		kparams.dlmId = dlmId;
+		return new KalturaRequestBuilder("householdlimitations", "isUsed", kparams);
+	},
+	
+	/**
 	 * Get the list of PartnerConfiguration.
 	 **/
 	listAction: function(){
 		var kparams = new Object();
 		return new KalturaRequestBuilder("householdlimitations", "list", kparams);
+	},
+	
+	/**
+	 * Updates household limitation.
+	 * @param	dlmId	int		Id of household limitation (optional)
+	 * @param	householdLimitation	KalturaHouseholdLimitations		household limitation (optional)
+	 **/
+	update: function(dlmId, householdLimitation){
+		var kparams = new Object();
+		kparams.dlmId = dlmId;
+		kparams.householdLimitation = householdLimitation;
+		return new KalturaRequestBuilder("householdlimitations", "update", kparams);
 	}
 }
