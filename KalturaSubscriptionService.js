@@ -42,6 +42,18 @@ var KalturaSubscriptionService = {
 	},
 	
 	/**
+	 * Update Subscription.
+	 * @param	id	int		Subscription id (optional)
+	 * @param	subscription	KalturaSubscription		Subscription (optional)
+	 **/
+	update: function(id, subscription){
+		var kparams = new Object();
+		kparams.id = id;
+		kparams.subscription = subscription;
+		return new KalturaRequestBuilder("subscription", "update", kparams);
+	},
+	
+	/**
 	 * Returns information about a coupon for subscription.
 	 * @param	id	int		subscription id (optional)
 	 * @param	code	string		coupon code (optional)
