@@ -572,7 +572,7 @@ var KalturaAssetStructService = {
 	
 	/**
 	 * Return a list of asset structs for the account with optional filter.
-	 * @param	filter	KalturaBaseAssetStructFilter		Filter parameters for filtering out the result (optional, default: null)
+	 * @param	filter	KalturaAssetStructFilter		Filter parameters for filtering out the result (optional, default: null)
 	 **/
 	listAction: function(filter){
 		if(!filter)
@@ -2784,33 +2784,11 @@ var KalturaHouseholdLimitationsService = {
 	},
 	
 	/**
-	 * Checks if the DLM is used.
-	 * @param	dlmId	int		Household limitations module identifier (optional)
-	 **/
-	isUsed: function(dlmId){
-		var kparams = new Object();
-		kparams.dlmId = dlmId;
-		return new KalturaRequestBuilder("householdlimitations", "isUsed", kparams);
-	},
-	
-	/**
 	 * Get the list of PartnerConfiguration.
 	 **/
 	listAction: function(){
 		var kparams = new Object();
 		return new KalturaRequestBuilder("householdlimitations", "list", kparams);
-	},
-	
-	/**
-	 * Updates household limitation.
-	 * @param	dlmId	int		Id of household limitation (optional)
-	 * @param	householdLimitation	KalturaHouseholdLimitations		household limitation (optional)
-	 **/
-	update: function(dlmId, householdLimitation){
-		var kparams = new Object();
-		kparams.dlmId = dlmId;
-		kparams.householdLimitation = householdLimitation;
-		return new KalturaRequestBuilder("householdlimitations", "update", kparams);
 	}
 }
 
@@ -7408,8 +7386,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:21-09-27');
-	this.setApiVersion('6.8.0.29532');
+	this.setClientTag('ajax:21-09-29');
+	this.setApiVersion('6.7.0.29302');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
