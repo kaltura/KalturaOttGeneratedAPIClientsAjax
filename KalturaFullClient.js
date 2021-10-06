@@ -1227,7 +1227,7 @@ var KalturaChannelService = {
 	
 	/**
 	 * Get the list of tags for the partner.
-	 * @param	filter	KalturaChannelsFilter		Filter (optional, default: null)
+	 * @param	filter	KalturaChannelsBaseFilter		Filter (optional, default: null)
 	 * @param	pager	KalturaFilterPager		Page size and index (optional, default: null)
 	 **/
 	listAction: function(filter, pager){
@@ -2172,6 +2172,29 @@ var KalturaEpgService = {
 		if (filter != null)
 			kparams.filter = filter;
 		return new KalturaRequestBuilder("epg", "list", kparams);
+	}
+}
+
+/**
+ *Class definition for the Kaltura service: epgServicePartnerConfiguration.
+ **/
+var KalturaEpgServicePartnerConfigurationService = {
+	/**
+	 * Returns EPG cache service partner configurations.
+	 **/
+	get: function(){
+		var kparams = new Object();
+		return new KalturaRequestBuilder("epgservicepartnerconfiguration", "get", kparams);
+	},
+	
+	/**
+	 * Returns EPG cache service partner configurations.
+	 * @param	config	KalturaEpgServicePartnerConfiguration		the partner config updates (optional)
+	 **/
+	update: function(config){
+		var kparams = new Object();
+		kparams.config = config;
+		return new KalturaRequestBuilder("epgservicepartnerconfiguration", "update", kparams);
 	}
 }
 
@@ -7408,8 +7431,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:21-09-29');
-	this.setApiVersion('6.8.0.29534');
+	this.setClientTag('ajax:21-10-06');
+	this.setApiVersion('6.8.0.29547');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
