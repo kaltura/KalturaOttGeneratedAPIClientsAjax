@@ -572,7 +572,7 @@ var KalturaAssetStructService = {
 	
 	/**
 	 * Return a list of asset structs for the account with optional filter.
-	 * @param	filter	KalturaBaseAssetStructFilter		Filter parameters for filtering out the result (optional, default: null)
+	 * @param	filter	KalturaAssetStructFilter		Filter parameters for filtering out the result (optional, default: null)
 	 **/
 	listAction: function(filter){
 		if(!filter)
@@ -1227,7 +1227,7 @@ var KalturaChannelService = {
 	
 	/**
 	 * Get the list of tags for the partner.
-	 * @param	filter	KalturaChannelsBaseFilter		Filter (optional, default: null)
+	 * @param	filter	KalturaChannelsFilter		Filter (optional, default: null)
 	 * @param	pager	KalturaFilterPager		Page size and index (optional, default: null)
 	 **/
 	listAction: function(filter, pager){
@@ -2172,29 +2172,6 @@ var KalturaEpgService = {
 		if (filter != null)
 			kparams.filter = filter;
 		return new KalturaRequestBuilder("epg", "list", kparams);
-	}
-}
-
-/**
- *Class definition for the Kaltura service: epgServicePartnerConfiguration.
- **/
-var KalturaEpgServicePartnerConfigurationService = {
-	/**
-	 * Returns EPG cache service partner configurations.
-	 **/
-	get: function(){
-		var kparams = new Object();
-		return new KalturaRequestBuilder("epgservicepartnerconfiguration", "get", kparams);
-	},
-	
-	/**
-	 * Returns EPG cache service partner configurations.
-	 * @param	config	KalturaEpgServicePartnerConfiguration		the partner config updates (optional)
-	 **/
-	update: function(config){
-		var kparams = new Object();
-		kparams.config = config;
-		return new KalturaRequestBuilder("epgservicepartnerconfiguration", "update", kparams);
 	}
 }
 
@@ -7431,8 +7408,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:21-10-11');
-	this.setApiVersion('6.8.0.29552');
+	this.setClientTag('ajax:21-10-13');
+	this.setApiVersion('6.8.0.29316');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
