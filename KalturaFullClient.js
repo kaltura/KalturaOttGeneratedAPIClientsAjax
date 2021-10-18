@@ -2722,14 +2722,19 @@ var KalturaHouseholdDeviceService = {
 	 * @param	partnerId	int		Partner Identifier (optional)
 	 * @param	pin	string		pin code (optional)
 	 * @param	udid	string		Device UDID (optional, default: null)
+	 * @param	extraParams	map		extra params (optional, default: null)
 	 **/
-	loginWithPin: function(partnerId, pin, udid){
+	loginWithPin: function(partnerId, pin, udid, extraParams){
 		if(!udid)
 			udid = null;
+		if(!extraParams)
+			extraParams = null;
 		var kparams = new Object();
 		kparams.partnerId = partnerId;
 		kparams.pin = pin;
 		kparams.udid = udid;
+		if (extraParams != null)
+			kparams.extraParams = extraParams;
 		return new KalturaRequestBuilder("householddevice", "loginWithPin", kparams);
 	},
 	
@@ -3928,17 +3933,22 @@ var KalturaOttUserService = {
 	 * @param	pin	string		pin code (optional)
 	 * @param	udid	string		Device UDID (optional, default: null)
 	 * @param	secret	string		Additional security parameter to validate the login (optional, default: null)
+	 * @param	extraParams	map		extra params (optional, default: null)
 	 **/
-	loginWithPin: function(partnerId, pin, udid, secret){
+	loginWithPin: function(partnerId, pin, udid, secret, extraParams){
 		if(!udid)
 			udid = null;
 		if(!secret)
 			secret = null;
+		if(!extraParams)
+			extraParams = null;
 		var kparams = new Object();
 		kparams.partnerId = partnerId;
 		kparams.pin = pin;
 		kparams.udid = udid;
 		kparams.secret = secret;
+		if (extraParams != null)
+			kparams.extraParams = extraParams;
 		return new KalturaRequestBuilder("ottuser", "loginWithPin", kparams);
 	},
 	
@@ -5511,6 +5521,31 @@ var KalturaSeriesRecordingService = {
  **/
 var KalturaSessionService = {
 	/**
+	 * Create session characteristic.
+	 * @param	userId	string		user identifier (optional)
+	 * @param	householdId	int		household identifier (optional)
+	 * @param	udid	string		device UDID (optional)
+	 * @param	expiration	int		relative expiration(TTL) in seconds, should be equal or greater than KS expiration (optional)
+	 * @param	regionId	int		region identifier (optional, default: null)
+	 * @param	sessionCharacteristicParams	map		session characteristic dynamic params (optional, default: null)
+	 **/
+	createSessionCharacteristic: function(userId, householdId, udid, expiration, regionId, sessionCharacteristicParams){
+		if(!regionId)
+			regionId = null;
+		if(!sessionCharacteristicParams)
+			sessionCharacteristicParams = null;
+		var kparams = new Object();
+		kparams.userId = userId;
+		kparams.householdId = householdId;
+		kparams.udid = udid;
+		kparams.expiration = expiration;
+		kparams.regionId = regionId;
+		if (sessionCharacteristicParams != null)
+			kparams.sessionCharacteristicParams = sessionCharacteristicParams;
+		return new KalturaRequestBuilder("session", "createSessionCharacteristic", kparams);
+	},
+	
+	/**
 	 * Parses KS.
 	 * @param	session	string		Additional KS to parse, if not passed the user's KS will be parsed (optional, default: null)
 	 **/
@@ -6832,6 +6867,61 @@ var KalturaUserSegmentService = {
 		return new KalturaRequestBuilder("usersegment", "list", kparams);
 	}
 }
+
+/**
+ *Class definition for the Kaltura service: userSessionProfile.
+ **/
+var KalturaUserSessionProfileService = {
+	/**
+	 * Add new UserSessionProfile.
+	 * @param	userSessionProfile	KalturaUserSessionProfile		userSessionProfile Object to add (optional)
+	 **/
+	add: function(userSessionProfile){
+		var kparams = new Object();
+		kparams.userSessionProfile = userSessionProfile;
+		return new KalturaRequestBuilder("usersessionprofile", "add", kparams);
+	},
+	
+	/**
+	 * Delete existing UserSessionProfile.
+	 * @param	id	int		UserSessionProfile identifier (optional)
+	 **/
+	deleteAction: function(id){
+		var kparams = new Object();
+		kparams.id = id;
+		return new KalturaRequestBuilder("usersessionprofile", "delete", kparams);
+	},
+	
+	/**
+	 * Returns the list of available UserSessionProfiles.
+	 * @param	filter	KalturaUserSessionProfileFilter		Filter (optional, default: null)
+	 * @param	pager	KalturaFilterPager		Pager (optional, default: null)
+	 **/
+	listAction: function(filter, pager){
+		if(!filter)
+			filter = null;
+		if(!pager)
+			pager = null;
+		var kparams = new Object();
+		if (filter != null)
+			kparams.filter = filter;
+		if (pager != null)
+			kparams.pager = pager;
+		return new KalturaRequestBuilder("usersessionprofile", "list", kparams);
+	},
+	
+	/**
+	 * Update existing UserSessionProfile.
+	 * @param	id	int		id of userSessionProfile to update (optional)
+	 * @param	userSessionProfile	KalturaUserSessionProfile		userSessionProfile Object to update (optional)
+	 **/
+	update: function(id, userSessionProfile){
+		var kparams = new Object();
+		kparams.id = id;
+		kparams.userSessionProfile = userSessionProfile;
+		return new KalturaRequestBuilder("usersessionprofile", "update", kparams);
+	}
+}
 // ===================================================================================================
 //                           _  __     _ _
 //                          | |/ /__ _| | |_ _  _ _ _ __ _
@@ -7431,8 +7521,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:21-10-10');
-	this.setApiVersion('6.9.0.29551');
+	this.setClientTag('ajax:21-10-18');
+	this.setApiVersion('6.9.0.29555');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
