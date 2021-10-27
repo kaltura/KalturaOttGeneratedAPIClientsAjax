@@ -35,7 +35,7 @@ var KalturaAssetStructService = {
 	
 	/**
 	 * Return a list of asset structs for the account with optional filter.
-	 * @param	filter	KalturaAssetStructFilter		Filter parameters for filtering out the result (optional, default: null)
+	 * @param	filter	KalturaBaseAssetStructFilter		Filter parameters for filtering out the result (optional, default: null)
 	 **/
 	listAction: function(filter){
 		if(!filter)
