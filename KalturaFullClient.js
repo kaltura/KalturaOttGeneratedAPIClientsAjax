@@ -2528,7 +2528,7 @@ var KalturaHouseholdService = {
 	},
 	
 	/**
-	 * Get recently watched media for user, ordered by recently watched first..
+	 * Retrive household for the partner filter by external identifier.
 	 * @param	filter	KalturaHouseholdFilter		Filter parameters for filtering out the result (optional)
 	 * @param	pager	KalturaFilterPager		Page size and index. Number of assets to return per page. Possible range 5 ≤ size ≥ 50. If omitted - will be set to 25. If a value > 50 provided – will set to 50 (optional, default: null)
 	 **/
@@ -3425,6 +3425,23 @@ var KalturaLicensedUrlService = {
 		var kparams = new Object();
 		kparams.request = request;
 		return new KalturaRequestBuilder("licensedurl", "get", kparams);
+	}
+}
+
+/**
+ *Class definition for the Kaltura service: lineup.
+ **/
+var KalturaLineupService = {
+	/**
+	 * Return regional lineup (list of lineup channel asset objects) based on the requester session characteristics and his region..
+	 * @param	pageIndex	int		Page index - The page index to retrieve, (if it is not sent the default page size is 1). (optional)
+	 * @param	pageSize	int		Page size - The page size to retrieve. Must be one of the follow numbers: 100, 200, 800, 1200, 1600 (if it is not sent the default page size is 500). (optional)
+	 **/
+	get: function(pageIndex, pageSize){
+		var kparams = new Object();
+		kparams.pageIndex = pageIndex;
+		kparams.pageSize = pageSize;
+		return new KalturaRequestBuilder("lineup", "get", kparams);
 	}
 }
 
@@ -7575,8 +7592,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:21-10-24');
-	this.setApiVersion('6.8.0.29579');
+	this.setClientTag('ajax:21-10-31');
+	this.setApiVersion('6.8.0.29598');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
