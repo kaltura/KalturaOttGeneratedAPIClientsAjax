@@ -38,7 +38,7 @@ var KalturaHouseholdService = {
 	},
 	
 	/**
-	 * Get recently watched media for user, ordered by recently watched first..
+	 * Retrive household for the partner filter by external identifier.
 	 * @param	filter	KalturaHouseholdFilter		Filter parameters for filtering out the result (optional)
 	 * @param	pager	KalturaFilterPager		Page size and index. Number of assets to return per page. Possible range 5 ≤ size ≥ 50. If omitted - will be set to 25. If a value > 50 provided – will set to 50 (optional, default: null)
 	 **/
