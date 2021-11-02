@@ -121,17 +121,22 @@ var KalturaOttUserService = {
 	 * @param	pin	string		pin code (optional)
 	 * @param	udid	string		Device UDID (optional, default: null)
 	 * @param	secret	string		Additional security parameter to validate the login (optional, default: null)
+	 * @param	extraParams	map		extra params (optional, default: null)
 	 **/
-	loginWithPin: function(partnerId, pin, udid, secret){
+	loginWithPin: function(partnerId, pin, udid, secret, extraParams){
 		if(!udid)
 			udid = null;
 		if(!secret)
 			secret = null;
+		if(!extraParams)
+			extraParams = null;
 		var kparams = new Object();
 		kparams.partnerId = partnerId;
 		kparams.pin = pin;
 		kparams.udid = udid;
 		kparams.secret = secret;
+		if (extraParams != null)
+			kparams.extraParams = extraParams;
 		return new KalturaRequestBuilder("ottuser", "loginWithPin", kparams);
 	},
 	
