@@ -4,7 +4,7 @@
  **/
 var KalturaUsageModuleService = {
 	/**
-	 * Insert new UsageModule.
+	 * Internal API !!! Insert new UsageModule.
 	 * @param	usageModule	KalturaUsageModule		usage module Object (optional)
 	 **/
 	add: function(usageModule){
@@ -14,7 +14,7 @@ var KalturaUsageModuleService = {
 	},
 	
 	/**
-	 * Delete UsageModule.
+	 * Internal API !!! Delete UsageModule.
 	 * @param	id	int		UsageModule id (optional)
 	 **/
 	deleteAction: function(id){
@@ -24,27 +24,10 @@ var KalturaUsageModuleService = {
 	},
 	
 	/**
-	 * Returns the list of available usage module.
-	 * @param	filter	KalturaUsageModuleFilter		Filter request (optional, default: null)
+	 * Internal API !!! Returns the list of available usage module.
 	 **/
-	listAction: function(filter){
-		if(!filter)
-			filter = null;
+	listAction: function(){
 		var kparams = new Object();
-		if (filter != null)
-			kparams.filter = filter;
 		return new KalturaRequestBuilder("usagemodule", "list", kparams);
-	},
-	
-	/**
-	 * Update usage module.
-	 * @param	id	int		usage module id (optional)
-	 * @param	usageModule	KalturaUsageModule		usage module Object (optional)
-	 **/
-	update: function(id, usageModule){
-		var kparams = new Object();
-		kparams.id = id;
-		kparams.usageModule = usageModule;
-		return new KalturaRequestBuilder("usagemodule", "update", kparams);
 	}
 }

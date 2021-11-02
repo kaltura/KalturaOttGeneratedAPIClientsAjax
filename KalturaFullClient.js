@@ -4757,26 +4757,6 @@ var KalturaPlaybackProfileService = {
  **/
 var KalturaPpvService = {
 	/**
-	 * Add new ppv.
-	 * @param	ppv	KalturaPpv		ppv objec (optional)
-	 **/
-	add: function(ppv){
-		var kparams = new Object();
-		kparams.ppv = ppv;
-		return new KalturaRequestBuilder("ppv", "add", kparams);
-	},
-	
-	/**
-	 * Delete Ppv.
-	 * @param	id	int		Ppv id (optional)
-	 **/
-	deleteAction: function(id){
-		var kparams = new Object();
-		kparams.id = id;
-		return new KalturaRequestBuilder("ppv", "delete", kparams);
-	},
-	
-	/**
 	 * Returns ppv object by internal identifier.
 	 * @param	id	int		ppv identifier (optional)
 	 **/
@@ -4789,31 +4769,14 @@ var KalturaPpvService = {
 	/**
 	 * Returns all ppv objects.
 	 * @param	filter	KalturaPpvFilter		Filter parameters for filtering out the result (optional, default: null)
-	 * @param	pager	KalturaFilterPager		Page size and index (optional, default: null)
 	 **/
-	listAction: function(filter, pager){
+	listAction: function(filter){
 		if(!filter)
 			filter = null;
-		if(!pager)
-			pager = null;
 		var kparams = new Object();
 		if (filter != null)
 			kparams.filter = filter;
-		if (pager != null)
-			kparams.pager = pager;
 		return new KalturaRequestBuilder("ppv", "list", kparams);
-	},
-	
-	/**
-	 * Update ppv.
-	 * @param	id	int		ppv id (optional)
-	 * @param	ppv	KalturaPpv		ppv Object (optional)
-	 **/
-	update: function(id, ppv){
-		var kparams = new Object();
-		kparams.id = id;
-		kparams.ppv = ppv;
-		return new KalturaRequestBuilder("ppv", "update", kparams);
 	}
 }
 
@@ -6633,7 +6596,7 @@ var KalturaUploadTokenService = {
  **/
 var KalturaUsageModuleService = {
 	/**
-	 * Insert new UsageModule.
+	 * Internal API !!! Insert new UsageModule.
 	 * @param	usageModule	KalturaUsageModule		usage module Object (optional)
 	 **/
 	add: function(usageModule){
@@ -6643,7 +6606,7 @@ var KalturaUsageModuleService = {
 	},
 	
 	/**
-	 * Delete UsageModule.
+	 * Internal API !!! Delete UsageModule.
 	 * @param	id	int		UsageModule id (optional)
 	 **/
 	deleteAction: function(id){
@@ -6653,28 +6616,11 @@ var KalturaUsageModuleService = {
 	},
 	
 	/**
-	 * Returns the list of available usage module.
-	 * @param	filter	KalturaUsageModuleFilter		Filter request (optional, default: null)
+	 * Internal API !!! Returns the list of available usage module.
 	 **/
-	listAction: function(filter){
-		if(!filter)
-			filter = null;
+	listAction: function(){
 		var kparams = new Object();
-		if (filter != null)
-			kparams.filter = filter;
 		return new KalturaRequestBuilder("usagemodule", "list", kparams);
-	},
-	
-	/**
-	 * Update usage module.
-	 * @param	id	int		usage module id (optional)
-	 * @param	usageModule	KalturaUsageModule		usage module Object (optional)
-	 **/
-	update: function(id, usageModule){
-		var kparams = new Object();
-		kparams.id = id;
-		kparams.usageModule = usageModule;
-		return new KalturaRequestBuilder("usagemodule", "update", kparams);
 	}
 }
 
@@ -7593,7 +7539,7 @@ var MD5 = function (string) {
 function KalturaClient(config){
 	this.init(config);
 	this.setClientTag('ajax:21-11-02');
-	this.setApiVersion('6.8.0.29606');
+	this.setApiVersion('6.8.0.29571');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
