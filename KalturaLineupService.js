@@ -13,5 +13,15 @@ var KalturaLineupService = {
 		kparams.pageIndex = pageIndex;
 		kparams.pageSize = pageSize;
 		return new KalturaRequestBuilder("lineup", "get", kparams);
+	},
+	
+	/**
+	 * Sends lineup update requested notification..
+	 * @param	regionIds	string		Region IDs separated by commas. (optional)
+	 **/
+	sendUpdatedNotification: function(regionIds){
+		var kparams = new Object();
+		kparams.regionIds = regionIds;
+		return new KalturaRequestBuilder("lineup", "sendUpdatedNotification", kparams);
 	}
 }
