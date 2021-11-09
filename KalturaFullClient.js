@@ -3442,6 +3442,16 @@ var KalturaLineupService = {
 		kparams.pageIndex = pageIndex;
 		kparams.pageSize = pageSize;
 		return new KalturaRequestBuilder("lineup", "get", kparams);
+	},
+	
+	/**
+	 * Sends lineup update requested notification..
+	 * @param	regionIds	string		Region IDs separated by commas. (optional)
+	 **/
+	sendUpdatedNotification: function(regionIds){
+		var kparams = new Object();
+		kparams.regionIds = regionIds;
+		return new KalturaRequestBuilder("lineup", "sendUpdatedNotification", kparams);
 	}
 }
 
@@ -7538,8 +7548,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:21-11-02');
-	this.setApiVersion('6.8.0.29571');
+	this.setClientTag('ajax:21-11-09');
+	this.setApiVersion('7.0.0.29582');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
