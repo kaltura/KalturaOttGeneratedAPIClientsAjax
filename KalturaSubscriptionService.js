@@ -4,7 +4,7 @@
  **/
 var KalturaSubscriptionService = {
 	/**
-	 * Internal API !!! Insert new subscription for partner.
+	 * Insert new subscription for partner.
 	 * @param	subscription	KalturaSubscription		subscription object (optional)
 	 **/
 	add: function(subscription){
@@ -14,7 +14,7 @@ var KalturaSubscriptionService = {
 	},
 	
 	/**
-	 * Internal API !!! Delete subscription.
+	 * Delete subscription.
 	 * @param	id	int		Subscription id (optional)
 	 **/
 	deleteAction: function(id){
