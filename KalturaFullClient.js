@@ -1261,7 +1261,7 @@ var KalturaChannelService = {
  **/
 var KalturaCollectionService = {
 	/**
-	 * Internal API !!! Insert new collection for partner.
+	 * Insert new collection for partner.
 	 * @param	collection	KalturaCollection		collection object (optional)
 	 **/
 	add: function(collection){
@@ -1271,7 +1271,7 @@ var KalturaCollectionService = {
 	},
 	
 	/**
-	 * Internal API !!! Delete collection.
+	 * Delete collection.
 	 * @param	id	int		Collection id (optional)
 	 **/
 	deleteAction: function(id){
@@ -1281,7 +1281,7 @@ var KalturaCollectionService = {
 	},
 	
 	/**
-	 * Returns a list of subscriptions requested by Subscription ID or file ID.
+	 * Returns a list of collections requested by Collection IDs or file identifier or coupon group identifier.
 	 * @param	filter	KalturaCollectionFilter		Filter request (optional, default: null)
 	 * @param	pager	KalturaFilterPager		Page size and index (optional, default: null)
 	 **/
@@ -1296,6 +1296,18 @@ var KalturaCollectionService = {
 		if (pager != null)
 			kparams.pager = pager;
 		return new KalturaRequestBuilder("collection", "list", kparams);
+	},
+	
+	/**
+	 * Update Collection.
+	 * @param	id	int		Collection id (optional)
+	 * @param	collection	KalturaCollection		Collection (optional)
+	 **/
+	update: function(id, collection){
+		var kparams = new Object();
+		kparams.id = id;
+		kparams.collection = collection;
+		return new KalturaRequestBuilder("collection", "update", kparams);
 	}
 }
 
@@ -4767,6 +4779,26 @@ var KalturaPlaybackProfileService = {
  **/
 var KalturaPpvService = {
 	/**
+	 * Add new ppv.
+	 * @param	ppv	KalturaPpv		ppv objec (optional)
+	 **/
+	add: function(ppv){
+		var kparams = new Object();
+		kparams.ppv = ppv;
+		return new KalturaRequestBuilder("ppv", "add", kparams);
+	},
+	
+	/**
+	 * Delete Ppv.
+	 * @param	id	int		Ppv id (optional)
+	 **/
+	deleteAction: function(id){
+		var kparams = new Object();
+		kparams.id = id;
+		return new KalturaRequestBuilder("ppv", "delete", kparams);
+	},
+	
+	/**
 	 * Returns ppv object by internal identifier.
 	 * @param	id	int		ppv identifier (optional)
 	 **/
@@ -4779,14 +4811,31 @@ var KalturaPpvService = {
 	/**
 	 * Returns all ppv objects.
 	 * @param	filter	KalturaPpvFilter		Filter parameters for filtering out the result (optional, default: null)
+	 * @param	pager	KalturaFilterPager		Page size and index (optional, default: null)
 	 **/
-	listAction: function(filter){
+	listAction: function(filter, pager){
 		if(!filter)
 			filter = null;
+		if(!pager)
+			pager = null;
 		var kparams = new Object();
 		if (filter != null)
 			kparams.filter = filter;
+		if (pager != null)
+			kparams.pager = pager;
 		return new KalturaRequestBuilder("ppv", "list", kparams);
+	},
+	
+	/**
+	 * Update ppv.
+	 * @param	id	int		ppv id (optional)
+	 * @param	ppv	KalturaPpv		ppv Object (optional)
+	 **/
+	update: function(id, ppv){
+		var kparams = new Object();
+		kparams.id = id;
+		kparams.ppv = ppv;
+		return new KalturaRequestBuilder("ppv", "update", kparams);
 	}
 }
 
@@ -4845,7 +4894,7 @@ var KalturaPreviewModuleService = {
  **/
 var KalturaPriceDetailsService = {
 	/**
-	 * Internal API !!! Insert new PriceDetails for partner.
+	 * Insert new PriceDetails for partner.
 	 * @param	priceDetails	KalturaPriceDetails		PriceDetails Object (optional)
 	 **/
 	add: function(priceDetails){
@@ -4855,7 +4904,7 @@ var KalturaPriceDetailsService = {
 	},
 	
 	/**
-	 * Internal API !!! Delete PriceDetails.
+	 * Delete PriceDetails.
 	 * @param	id	int		PriceDetails identifier (optional)
 	 **/
 	deleteAction: function(id){
@@ -6029,7 +6078,7 @@ var KalturaStreamingDeviceService = {
  **/
 var KalturaSubscriptionService = {
 	/**
-	 * Internal API !!! Insert new subscription for partner.
+	 * Insert new subscription for partner.
 	 * @param	subscription	KalturaSubscription		subscription object (optional)
 	 **/
 	add: function(subscription){
@@ -6039,7 +6088,7 @@ var KalturaSubscriptionService = {
 	},
 	
 	/**
-	 * Internal API !!! Delete subscription.
+	 * Delete subscription.
 	 * @param	id	int		Subscription id (optional)
 	 **/
 	deleteAction: function(id){
@@ -6681,7 +6730,7 @@ var KalturaUploadTokenService = {
  **/
 var KalturaUsageModuleService = {
 	/**
-	 * Internal API !!! Insert new UsageModule.
+	 * Insert new UsageModule.
 	 * @param	usageModule	KalturaUsageModule		usage module Object (optional)
 	 **/
 	add: function(usageModule){
@@ -6691,7 +6740,7 @@ var KalturaUsageModuleService = {
 	},
 	
 	/**
-	 * Internal API !!! Delete UsageModule.
+	 * Delete UsageModule.
 	 * @param	id	int		UsageModule id (optional)
 	 **/
 	deleteAction: function(id){
@@ -6701,11 +6750,28 @@ var KalturaUsageModuleService = {
 	},
 	
 	/**
-	 * Internal API !!! Returns the list of available usage module.
+	 * Returns the list of available usage module.
+	 * @param	filter	KalturaUsageModuleFilter		Filter request (optional, default: null)
 	 **/
-	listAction: function(){
+	listAction: function(filter){
+		if(!filter)
+			filter = null;
 		var kparams = new Object();
+		if (filter != null)
+			kparams.filter = filter;
 		return new KalturaRequestBuilder("usagemodule", "list", kparams);
+	},
+	
+	/**
+	 * Update usage module.
+	 * @param	id	int		usage module id (optional)
+	 * @param	usageModule	KalturaUsageModule		usage module Object (optional)
+	 **/
+	update: function(id, usageModule){
+		var kparams = new Object();
+		kparams.id = id;
+		kparams.usageModule = usageModule;
+		return new KalturaRequestBuilder("usagemodule", "update", kparams);
 	}
 }
 
@@ -7623,7 +7689,7 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:21-11-28');
+	this.setClientTag('ajax:21-11-30');
 	this.setApiVersion('7.0.0.29620');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
