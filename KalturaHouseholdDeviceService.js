@@ -36,18 +36,6 @@ var KalturaHouseholdDeviceService = {
 	},
 	
 	/**
-	 * Deletes dynamic data item with key  for device with identifier ..
-	 * @param	udid	string		Unique identifier of device. (optional)
-	 * @param	key	string		Key of dynamic data item. (optional)
-	 **/
-	deleteDynamicData: function(udid, key){
-		var kparams = new Object();
-		kparams.udid = udid;
-		kparams.key = key;
-		return new KalturaRequestBuilder("householddevice", "deleteDynamicData", kparams);
-	},
-	
-	/**
 	 * Generates device pin to use when adding a device to household by pin.
 	 * @param	udid	string		Device UDID (optional)
 	 * @param	brandId	int		Device brand identifier (optional)
@@ -89,19 +77,14 @@ var KalturaHouseholdDeviceService = {
 	 * @param	partnerId	int		Partner Identifier (optional)
 	 * @param	pin	string		pin code (optional)
 	 * @param	udid	string		Device UDID (optional, default: null)
-	 * @param	extraParams	map		extra params (optional, default: null)
 	 **/
-	loginWithPin: function(partnerId, pin, udid, extraParams){
+	loginWithPin: function(partnerId, pin, udid){
 		if(!udid)
 			udid = null;
-		if(!extraParams)
-			extraParams = null;
 		var kparams = new Object();
 		kparams.partnerId = partnerId;
 		kparams.pin = pin;
 		kparams.udid = udid;
-		if (extraParams != null)
-			kparams.extraParams = extraParams;
 		return new KalturaRequestBuilder("householddevice", "loginWithPin", kparams);
 	},
 	
@@ -127,19 +110,5 @@ var KalturaHouseholdDeviceService = {
 		kparams.udid = udid;
 		kparams.status = status;
 		return new KalturaRequestBuilder("householddevice", "updateStatus", kparams);
-	},
-	
-	/**
-	 * Adds or updates dynamic data item for device with identifier udid. If it is needed to update several items, use a multi-request to avoid race conditions..
-	 * @param	udid	string		Unique identifier of device. (optional)
-	 * @param	key	string		Key of dynamic data item. Max length of key is 125 characters. (optional)
-	 * @param	value	KalturaStringValue		Value of dynamic data item. Max length of value is 255 characters. (optional)
-	 **/
-	upsertDynamicData: function(udid, key, value){
-		var kparams = new Object();
-		kparams.udid = udid;
-		kparams.key = key;
-		kparams.value = value;
-		return new KalturaRequestBuilder("householddevice", "upsertDynamicData", kparams);
 	}
 }

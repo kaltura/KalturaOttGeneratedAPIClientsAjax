@@ -50,16 +50,6 @@ var KalturaOttUserService = {
 	},
 	
 	/**
-	 * Deletes dynamic data item for a user..
-	 * @param	key	string		Key of dynamic data item. (optional)
-	 **/
-	deleteDynamicData: function(key){
-		var kparams = new Object();
-		kparams.key = key;
-		return new KalturaRequestBuilder("ottuser", "deleteDynamicData", kparams);
-	},
-	
-	/**
 	 * Retrieving users&#39; data.
 	 **/
 	get: function(){
@@ -121,22 +111,17 @@ var KalturaOttUserService = {
 	 * @param	pin	string		pin code (optional)
 	 * @param	udid	string		Device UDID (optional, default: null)
 	 * @param	secret	string		Additional security parameter to validate the login (optional, default: null)
-	 * @param	extraParams	map		extra params (optional, default: null)
 	 **/
-	loginWithPin: function(partnerId, pin, udid, secret, extraParams){
+	loginWithPin: function(partnerId, pin, udid, secret){
 		if(!udid)
 			udid = null;
 		if(!secret)
 			secret = null;
-		if(!extraParams)
-			extraParams = null;
 		var kparams = new Object();
 		kparams.partnerId = partnerId;
 		kparams.pin = pin;
 		kparams.udid = udid;
 		kparams.secret = secret;
-		if (extraParams != null)
-			kparams.extraParams = extraParams;
 		return new KalturaRequestBuilder("ottuser", "loginWithPin", kparams);
 	},
 	
@@ -224,10 +209,9 @@ var KalturaOttUserService = {
 	},
 	
 	/**
-	 * Update user dynamic data. If it is needed to update several items, use a multi-request to avoid race conditions.
- *	            This API endpoint will deprecated soon. Please use UpsertDynamicData instead of it..
-	 * @param	key	string		Type of dynamicData. Max length of key is 50 characters. (optional)
-	 * @param	value	KalturaStringValue		Value of dynamicData. Max length of value is 512 characters. (optional)
+	 * Update user dynamic data.
+	 * @param	key	string		Type of dynamicData (optional)
+	 * @param	value	KalturaStringValue		Value of dynamicData (optional)
 	 **/
 	updateDynamicData: function(key, value){
 		var kparams = new Object();
@@ -260,17 +244,5 @@ var KalturaOttUserService = {
 		kparams.userId = userId;
 		kparams.password = password;
 		return new KalturaRequestBuilder("ottuser", "updatePassword", kparams);
-	},
-	
-	/**
-	 * Adds or updates dynamic data item for a user. If it is needed to update several items, use a multi-request to avoid race conditions..
-	 * @param	key	string		Key of dynamic data item. Max length of key is 50 characters. (optional)
-	 * @param	value	KalturaStringValue		Value of dynamic data item. Max length of value is 512 characters. (optional)
-	 **/
-	upsertDynamicData: function(key, value){
-		var kparams = new Object();
-		kparams.key = key;
-		kparams.value = value;
-		return new KalturaRequestBuilder("ottuser", "upsertDynamicData", kparams);
 	}
 }

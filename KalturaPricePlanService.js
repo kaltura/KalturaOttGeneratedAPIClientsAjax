@@ -4,26 +4,6 @@
  **/
 var KalturaPricePlanService = {
 	/**
-	 * Insert new PricePlan.
-	 * @param	pricePlan	KalturaPricePlan		Price plan Object (optional)
-	 **/
-	add: function(pricePlan){
-		var kparams = new Object();
-		kparams.pricePlan = pricePlan;
-		return new KalturaRequestBuilder("priceplan", "add", kparams);
-	},
-	
-	/**
-	 * Delete PricePlan.
-	 * @param	id	int		PricePlan identifier (optional)
-	 **/
-	deleteAction: function(id){
-		var kparams = new Object();
-		kparams.id = id;
-		return new KalturaRequestBuilder("priceplan", "delete", kparams);
-	},
-	
-	/**
 	 * Returns a list of price plans by IDs.
 	 * @param	filter	KalturaPricePlanFilter		Filter request (optional, default: null)
 	 **/
