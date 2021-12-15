@@ -4,7 +4,7 @@
  **/
 var KalturaCollectionService = {
 	/**
-	 * Insert new collection for partner.
+	 * Internal API !!! Insert new collection for partner.
 	 * @param	collection	KalturaCollection		collection object (optional)
 	 **/
 	add: function(collection){
@@ -14,7 +14,7 @@ var KalturaCollectionService = {
 	},
 	
 	/**
-	 * Delete collection.
+	 * Internal API !!! Delete collection.
 	 * @param	id	int		Collection id (optional)
 	 **/
 	deleteAction: function(id){
@@ -24,7 +24,7 @@ var KalturaCollectionService = {
 	},
 	
 	/**
-	 * Returns a list of collections requested by Collection IDs or file identifier or coupon group identifier.
+	 * Returns a list of subscriptions requested by Subscription ID or file ID.
 	 * @param	filter	KalturaCollectionFilter		Filter request (optional, default: null)
 	 * @param	pager	KalturaFilterPager		Page size and index (optional, default: null)
 	 **/
@@ -39,17 +39,5 @@ var KalturaCollectionService = {
 		if (pager != null)
 			kparams.pager = pager;
 		return new KalturaRequestBuilder("collection", "list", kparams);
-	},
-	
-	/**
-	 * Update Collection.
-	 * @param	id	int		Collection id (optional)
-	 * @param	collection	KalturaCollection		Collection (optional)
-	 **/
-	update: function(id, collection){
-		var kparams = new Object();
-		kparams.id = id;
-		kparams.collection = collection;
-		return new KalturaRequestBuilder("collection", "update", kparams);
 	}
 }
