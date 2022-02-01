@@ -3301,6 +3301,52 @@ var KalturaIngestProfileService = {
 }
 
 /**
+ *Class definition for the Kaltura service: ingestStatus.
+ **/
+var KalturaIngestStatusService = {
+	/**
+	 * Response with list of ingest jobs..
+	 * @param	idsFilter	KalturaIngestByIdsFilter		Filter pager (optional, default: null)
+	 * @param	filter	KalturaIngestByCompoundFilter		Filter pager (optional, default: null)
+	 * @param	pager	KalturaFilterPager		Filter pager (optional, default: null)
+	 **/
+	getEpgList: function(idsFilter, filter, pager){
+		if(!idsFilter)
+			idsFilter = null;
+		if(!filter)
+			filter = null;
+		if(!pager)
+			pager = null;
+		var kparams = new Object();
+		if (idsFilter != null)
+			kparams.idsFilter = idsFilter;
+		if (filter != null)
+			kparams.filter = filter;
+		if (pager != null)
+			kparams.pager = pager;
+		return new KalturaRequestBuilder("ingeststatus", "getEpgList", kparams);
+	},
+	
+	/**
+	 * Returns Core Ingest service partner configurations.
+	 **/
+	getPartnerConfiguration: function(){
+		var kparams = new Object();
+		return new KalturaRequestBuilder("ingeststatus", "getPartnerConfiguration", kparams);
+	},
+	
+	/**
+	 * Returns Core Ingest service partner configurations.
+	 * @param	config	KalturaIngestStatusPartnerConfiguration		the partner config updates (optional)
+	 **/
+	updatePartnerConfiguration: function(config){
+		var kparams = new Object();
+		kparams.config = config;
+		return new KalturaRequestBuilder("ingeststatus", "updatePartnerConfiguration", kparams);
+	}
+}
+
+/**
  *Class definition for the Kaltura service: iot.
  **/
 var KalturaIotService = {
@@ -5001,6 +5047,61 @@ var KalturaProductPriceService = {
 		var kparams = new Object();
 		kparams.filter = filter;
 		return new KalturaRequestBuilder("productprice", "list", kparams);
+	}
+}
+
+/**
+ *Class definition for the Kaltura service: programAssetGroupOffer.
+ **/
+var KalturaProgramAssetGroupOfferService = {
+	/**
+	 * Insert new ProgramAssetGroupOffer for partner.
+	 * @param	programAssetGroupOffer	KalturaProgramAssetGroupOffer		programAssetGroupOffer object (optional)
+	 **/
+	add: function(programAssetGroupOffer){
+		var kparams = new Object();
+		kparams.programAssetGroupOffer = programAssetGroupOffer;
+		return new KalturaRequestBuilder("programassetgroupoffer", "add", kparams);
+	},
+	
+	/**
+	 * Delete programAssetGroupOffer.
+	 * @param	id	int		ProgramAssetGroupOffer id (optional)
+	 **/
+	deleteAction: function(id){
+		var kparams = new Object();
+		kparams.id = id;
+		return new KalturaRequestBuilder("programassetgroupoffer", "delete", kparams);
+	},
+	
+	/**
+	 * Gets all Program asset group offer.
+	 * @param	filter	KalturaProgramAssetGroupOfferFilter		Filter (optional, default: null)
+	 * @param	pager	KalturaFilterPager		Pager (optional, default: null)
+	 **/
+	listAction: function(filter, pager){
+		if(!filter)
+			filter = null;
+		if(!pager)
+			pager = null;
+		var kparams = new Object();
+		if (filter != null)
+			kparams.filter = filter;
+		if (pager != null)
+			kparams.pager = pager;
+		return new KalturaRequestBuilder("programassetgroupoffer", "list", kparams);
+	},
+	
+	/**
+	 * Update ProgramAssetGroupOffer.
+	 * @param	id	int		ProgramAssetGroupOffer id (optional)
+	 * @param	programAssetGroupOffer	KalturaProgramAssetGroupOffer		ProgramAssetGroupOffer (optional)
+	 **/
+	update: function(id, programAssetGroupOffer){
+		var kparams = new Object();
+		kparams.id = id;
+		kparams.programAssetGroupOffer = programAssetGroupOffer;
+		return new KalturaRequestBuilder("programassetgroupoffer", "update", kparams);
 	}
 }
 
@@ -7689,8 +7790,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:21-12-06');
-	this.setApiVersion('7.0.0.29627');
+	this.setClientTag('ajax:22-01-31');
+	this.setApiVersion('7.2.0.29739');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
