@@ -16,7 +16,7 @@ var KalturaEntitlementService = {
 	},
 	
 	/**
-	 * Immediately cancel a subscription, PPV or collection. Cancel is possible only if within cancellation window and content not already consumed.
+	 * Immediately cancel a subscription, PPV, collection or programAssetGroupOffer. Cancel is possible only if within cancellation window and content not already consumed.
 	 * @param	assetId	int		The mediaFileID to cancel (optional)
 	 * @param	productType	string		The product type for the cancelation (optional, enum: KalturaTransactionType)
 	 **/
@@ -56,7 +56,7 @@ var KalturaEntitlementService = {
 	},
 	
 	/**
-	 * Immediately cancel a subscription, PPV or collection. Cancel applies regardless of cancellation window and content consumption status.
+	 * Immediately cancel a subscription, PPV, collection or programAssetGroupOffer. Cancel applies regardless of cancellation window and content consumption status.
 	 * @param	assetId	int		The mediaFileID to cancel (optional)
 	 * @param	productType	string		The product type for the cancelation (optional, enum: KalturaTransactionType)
 	 **/
@@ -78,7 +78,7 @@ var KalturaEntitlementService = {
 	},
 	
 	/**
-	 * Grant household for an entitlement for a PPV or Subscription..
+	 * Grant household for an entitlement for a PPV, Subscription or programAssetGroupOffer..
 	 * @param	productId	int		Identifier for the product package from which this content is offered (optional)
 	 * @param	productType	string		Product package type. Possible values: PPV, Subscription, Collection (optional, enum: KalturaTransactionType)
 	 * @param	history	bool		Controls if the new entitlements grant will appear in the user’s history. True – will add a history entry. False (or if ommited) – no history entry will be added (optional)
