@@ -4,16 +4,6 @@
  **/
 var KalturaIngestStatusService = {
 	/**
-	 * Returns information about specific Ingest job.
-	 * @param	ingestId	int		The id of the requested ingest job (optional)
-	 **/
-	getEpgDetails: function(ingestId){
-		var kparams = new Object();
-		kparams.ingestId = ingestId;
-		return new KalturaRequestBuilder("ingeststatus", "getEpgDetails", kparams);
-	},
-	
-	/**
 	 * Response with list of ingest jobs..
 	 * @param	idsFilter	KalturaIngestByIdsFilter		Filter pager (optional, default: null)
 	 * @param	filter	KalturaIngestByCompoundFilter		Filter pager (optional, default: null)
@@ -34,26 +24,6 @@ var KalturaIngestStatusService = {
 		if (pager != null)
 			kparams.pager = pager;
 		return new KalturaRequestBuilder("ingeststatus", "getEpgList", kparams);
-	},
-	
-	/**
-	 * Get as input ingest job id, filter and pager and response with page of filtered detailed ingest job results..
-	 * @param	ingestId	int		The id of the requested ingest job (optional)
-	 * @param	filter	KalturaIngestEpgProgramResultFilter		Filter for Ingest program, results (optional, default: null)
-	 * @param	pager	KalturaFilterPager		Paging the request (optional, default: null)
-	 **/
-	getEpgProgramResultList: function(ingestId, filter, pager){
-		if(!filter)
-			filter = null;
-		if(!pager)
-			pager = null;
-		var kparams = new Object();
-		kparams.ingestId = ingestId;
-		if (filter != null)
-			kparams.filter = filter;
-		if (pager != null)
-			kparams.pager = pager;
-		return new KalturaRequestBuilder("ingeststatus", "getEpgProgramResultList", kparams);
 	},
 	
 	/**
