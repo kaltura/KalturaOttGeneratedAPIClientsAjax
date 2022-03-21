@@ -3305,16 +3305,6 @@ var KalturaIngestProfileService = {
  **/
 var KalturaIngestStatusService = {
 	/**
-	 * Returns information about specific Ingest job.
-	 * @param	ingestId	int		The id of the requested ingest job (optional)
-	 **/
-	getEpgDetails: function(ingestId){
-		var kparams = new Object();
-		kparams.ingestId = ingestId;
-		return new KalturaRequestBuilder("ingeststatus", "getEpgDetails", kparams);
-	},
-	
-	/**
 	 * Response with list of ingest jobs..
 	 * @param	idsFilter	KalturaIngestByIdsFilter		Filter pager (optional, default: null)
 	 * @param	filter	KalturaIngestByCompoundFilter		Filter pager (optional, default: null)
@@ -3335,26 +3325,6 @@ var KalturaIngestStatusService = {
 		if (pager != null)
 			kparams.pager = pager;
 		return new KalturaRequestBuilder("ingeststatus", "getEpgList", kparams);
-	},
-	
-	/**
-	 * Get as input ingest job id, filter and pager and response with page of filtered detailed ingest job results..
-	 * @param	ingestId	int		The id of the requested ingest job (optional)
-	 * @param	filter	KalturaIngestEpgProgramResultFilter		Filter for Ingest program, results (optional, default: null)
-	 * @param	pager	KalturaFilterPager		Paging the request (optional, default: null)
-	 **/
-	getEpgProgramResultList: function(ingestId, filter, pager){
-		if(!filter)
-			filter = null;
-		if(!pager)
-			pager = null;
-		var kparams = new Object();
-		kparams.ingestId = ingestId;
-		if (filter != null)
-			kparams.filter = filter;
-		if (pager != null)
-			kparams.pager = pager;
-		return new KalturaRequestBuilder("ingeststatus", "getEpgProgramResultList", kparams);
 	},
 	
 	/**
@@ -5077,61 +5047,6 @@ var KalturaProductPriceService = {
 		var kparams = new Object();
 		kparams.filter = filter;
 		return new KalturaRequestBuilder("productprice", "list", kparams);
-	}
-}
-
-/**
- *Class definition for the Kaltura service: programAssetGroupOffer.
- **/
-var KalturaProgramAssetGroupOfferService = {
-	/**
-	 * Insert new ProgramAssetGroupOffer for partner.
-	 * @param	programAssetGroupOffer	KalturaProgramAssetGroupOffer		programAssetGroupOffer object (optional)
-	 **/
-	add: function(programAssetGroupOffer){
-		var kparams = new Object();
-		kparams.programAssetGroupOffer = programAssetGroupOffer;
-		return new KalturaRequestBuilder("programassetgroupoffer", "add", kparams);
-	},
-	
-	/**
-	 * Delete programAssetGroupOffer.
-	 * @param	id	int		ProgramAssetGroupOffer id (optional)
-	 **/
-	deleteAction: function(id){
-		var kparams = new Object();
-		kparams.id = id;
-		return new KalturaRequestBuilder("programassetgroupoffer", "delete", kparams);
-	},
-	
-	/**
-	 * Gets all Program asset group offer.
-	 * @param	filter	KalturaProgramAssetGroupOfferFilter		Filter (optional, default: null)
-	 * @param	pager	KalturaFilterPager		Pager (optional, default: null)
-	 **/
-	listAction: function(filter, pager){
-		if(!filter)
-			filter = null;
-		if(!pager)
-			pager = null;
-		var kparams = new Object();
-		if (filter != null)
-			kparams.filter = filter;
-		if (pager != null)
-			kparams.pager = pager;
-		return new KalturaRequestBuilder("programassetgroupoffer", "list", kparams);
-	},
-	
-	/**
-	 * Update ProgramAssetGroupOffer.
-	 * @param	id	int		ProgramAssetGroupOffer id (optional)
-	 * @param	programAssetGroupOffer	KalturaProgramAssetGroupOffer		ProgramAssetGroupOffer (optional)
-	 **/
-	update: function(id, programAssetGroupOffer){
-		var kparams = new Object();
-		kparams.id = id;
-		kparams.programAssetGroupOffer = programAssetGroupOffer;
-		return new KalturaRequestBuilder("programassetgroupoffer", "update", kparams);
 	}
 }
 
@@ -7820,7 +7735,7 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:22-03-02');
+	this.setClientTag('ajax:22-03-21');
 	this.setApiVersion('7.3.0.29794');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
