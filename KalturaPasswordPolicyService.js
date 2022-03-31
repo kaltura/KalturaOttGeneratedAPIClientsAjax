@@ -4,8 +4,8 @@
  **/
 var KalturaPasswordPolicyService = {
 	/**
-	 * Add an object.
-	 * @param	objectToAdd	KalturaPasswordPolicy		Object to add (optional)
+	 * Add new KalturaPasswordPolicy.
+	 * @param	objectToAdd	KalturaPasswordPolicy		KalturaPasswordPolicy Object to add (optional)
 	 **/
 	add: function(objectToAdd){
 		var kparams = new Object();
@@ -14,20 +14,8 @@ var KalturaPasswordPolicyService = {
 	},
 	
 	/**
-	 * Update an object.
-	 * @param	id	int		Object ID to update (optional)
-	 * @param	objectToUpdate	KalturaPasswordPolicy		Object to update (optional)
-	 **/
-	update: function(id, objectToUpdate){
-		var kparams = new Object();
-		kparams.id = id;
-		kparams.objectToUpdate = objectToUpdate;
-		return new KalturaRequestBuilder("passwordpolicy", "update", kparams);
-	},
-	
-	/**
-	 * Delete an object.
-	 * @param	id	int		Object ID to delete (optional)
+	 * Delete existing PasswordPolicy.
+	 * @param	id	int		PasswordPolicy identifier (optional)
 	 **/
 	deleteAction: function(id){
 		var kparams = new Object();
@@ -36,8 +24,8 @@ var KalturaPasswordPolicyService = {
 	},
 	
 	/**
-	 * .
-	 * @param	filter	KalturaPasswordPolicyFilter		Request filter (optional, default: null)
+	 * Returns the list of available KalturaPasswordPolicy.
+	 * @param	filter	KalturaPasswordPolicyFilter		Filter (optional, default: null)
 	 **/
 	listAction: function(filter){
 		if(!filter)
@@ -46,5 +34,17 @@ var KalturaPasswordPolicyService = {
 		if (filter != null)
 			kparams.filter = filter;
 		return new KalturaRequestBuilder("passwordpolicy", "list", kparams);
+	},
+	
+	/**
+	 * Update existing KalturaPasswordPolicy.
+	 * @param	id	int		id of KalturaPasswordPolicy to update (optional)
+	 * @param	objectToUpdate	KalturaPasswordPolicy		KalturaPasswordPolicy Object to update (optional)
+	 **/
+	update: function(id, objectToUpdate){
+		var kparams = new Object();
+		kparams.id = id;
+		kparams.objectToUpdate = objectToUpdate;
+		return new KalturaRequestBuilder("passwordpolicy", "update", kparams);
 	}
 }
