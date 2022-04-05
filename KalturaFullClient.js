@@ -472,6 +472,21 @@ var KalturaAssetHistoryService = {
 }
 
 /**
+ *Class definition for the Kaltura service: assetPersonalMarkup.
+ **/
+var KalturaAssetPersonalMarkupService = {
+	/**
+	 * Response with list of assetPersonalMarkup..
+	 * @param	filter	KalturaAssetPersonalMarkupSearchFilter		Filter pager (optional)
+	 **/
+	listAction: function(filter){
+		var kparams = new Object();
+		kparams.filter = filter;
+		return new KalturaRequestBuilder("assetpersonalmarkup", "list", kparams);
+	}
+}
+
+/**
  *Class definition for the Kaltura service: assetRule.
  **/
 var KalturaAssetRuleService = {
@@ -1670,11 +1685,43 @@ var KalturaCurrencyService = {
  **/
 var KalturaDeviceBrandService = {
 	/**
-	 * Return a list of the available device brands..
+	 * Adds a new device brand which belongs to a specific group..
+	 * @param	deviceBrand	KalturaDeviceBrand		Device brand. (optional)
 	 **/
-	listAction: function(){
+	add: function(deviceBrand){
 		var kparams = new Object();
+		kparams.deviceBrand = deviceBrand;
+		return new KalturaRequestBuilder("devicebrand", "add", kparams);
+	},
+	
+	/**
+	 * Return a list of the available device brands..
+	 * @param	filter	KalturaDeviceBrandFilter		Filter with no more than one condition specified. (optional, default: null)
+	 * @param	pager	KalturaFilterPager		Page size and index. (optional, default: null)
+	 **/
+	listAction: function(filter, pager){
+		if(!filter)
+			filter = null;
+		if(!pager)
+			pager = null;
+		var kparams = new Object();
+		if (filter != null)
+			kparams.filter = filter;
+		if (pager != null)
+			kparams.pager = pager;
 		return new KalturaRequestBuilder("devicebrand", "list", kparams);
+	},
+	
+	/**
+	 * Updates an existing device brand which belongs to a specific group..
+	 * @param	id	int		Device brand's identifier. (optional)
+	 * @param	deviceBrand	KalturaDeviceBrand		Device brand. (optional)
+	 **/
+	update: function(id, deviceBrand){
+		var kparams = new Object();
+		kparams.id = id;
+		kparams.deviceBrand = deviceBrand;
+		return new KalturaRequestBuilder("devicebrand", "update", kparams);
 	}
 }
 
@@ -1683,11 +1730,43 @@ var KalturaDeviceBrandService = {
  **/
 var KalturaDeviceFamilyService = {
 	/**
-	 * Return a list of the available device families..
+	 * Adds a new device family which belongs to a specific group..
+	 * @param	deviceFamily	KalturaDeviceFamily		Device family. (optional)
 	 **/
-	listAction: function(){
+	add: function(deviceFamily){
 		var kparams = new Object();
+		kparams.deviceFamily = deviceFamily;
+		return new KalturaRequestBuilder("devicefamily", "add", kparams);
+	},
+	
+	/**
+	 * Return a list of the available device families..
+	 * @param	filter	KalturaDeviceFamilyFilter		Filter with no more than one condition specified. (optional, default: null)
+	 * @param	pager	KalturaFilterPager		Page size and index. (optional, default: null)
+	 **/
+	listAction: function(filter, pager){
+		if(!filter)
+			filter = null;
+		if(!pager)
+			pager = null;
+		var kparams = new Object();
+		if (filter != null)
+			kparams.filter = filter;
+		if (pager != null)
+			kparams.pager = pager;
 		return new KalturaRequestBuilder("devicefamily", "list", kparams);
+	},
+	
+	/**
+	 * Updates an existing device family which belongs to a specific group..
+	 * @param	id	int		Device family's identifier. (optional)
+	 * @param	deviceFamily	KalturaDeviceFamily		Device family. (optional)
+	 **/
+	update: function(id, deviceFamily){
+		var kparams = new Object();
+		kparams.id = id;
+		kparams.deviceFamily = deviceFamily;
+		return new KalturaRequestBuilder("devicefamily", "update", kparams);
 	}
 }
 
@@ -2048,7 +2127,7 @@ var KalturaEntitlementService = {
 	},
 	
 	/**
-	 * Immediately cancel a subscription, PPV or collection. Cancel is possible only if within cancellation window and content not already consumed.
+	 * Immediately cancel a subscription, PPV, collection or programAssetGroupOffer. Cancel is possible only if within cancellation window and content not already consumed.
 	 * @param	assetId	int		The mediaFileID to cancel (optional)
 	 * @param	productType	string		The product type for the cancelation (optional, enum: KalturaTransactionType)
 	 **/
@@ -2088,7 +2167,7 @@ var KalturaEntitlementService = {
 	},
 	
 	/**
-	 * Immediately cancel a subscription, PPV or collection. Cancel applies regardless of cancellation window and content consumption status.
+	 * Immediately cancel a subscription, PPV, collection or programAssetGroupOffer. Cancel applies regardless of cancellation window and content consumption status.
 	 * @param	assetId	int		The mediaFileID to cancel (optional)
 	 * @param	productType	string		The product type for the cancelation (optional, enum: KalturaTransactionType)
 	 **/
@@ -2110,7 +2189,7 @@ var KalturaEntitlementService = {
 	},
 	
 	/**
-	 * Grant household for an entitlement for a PPV or Subscription..
+	 * Grant household for an entitlement for a PPV, Subscription or programAssetGroupOffer..
 	 * @param	productId	int		Identifier for the product package from which this content is offered (optional)
 	 * @param	productType	string		Product package type. Possible values: PPV, Subscription, Collection (optional, enum: KalturaTransactionType)
 	 * @param	history	bool		Controls if the new entitlements grant will appear in the user’s history. True – will add a history entry. False (or if ommited) – no history entry will be added (optional)
@@ -2129,7 +2208,7 @@ var KalturaEntitlementService = {
 	
 	/**
 	 * Gets all the entitled media items for a household.
-	 * @param	filter	KalturaEntitlementFilter		Request filter (optional)
+	 * @param	filter	KalturaBaseEntitlementFilter		Request filter (optional)
 	 * @param	pager	KalturaFilterPager		Request pager (optional, default: null)
 	 **/
 	listAction: function(filter, pager){
@@ -6714,7 +6793,7 @@ var KalturaTransactionService = {
 	},
 	
 	/**
-	 * Purchase specific product or subscription for a household. Upon successful charge entitlements to use the requested product or subscription are granted..
+	 * Purchase specific product, subscription or Program asset group offer (PAGO) for a household. Upon successful charge entitlements to use the requested product or subscription are granted..
 	 * @param	purchase	KalturaPurchase		Purchase properties (optional)
 	 **/
 	purchase: function(purchase){
@@ -7823,8 +7902,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:22-03-31');
-	this.setApiVersion('7.4.0.29857');
+	this.setClientTag('ajax:22-04-05');
+	this.setApiVersion('7.4.0.29865');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
