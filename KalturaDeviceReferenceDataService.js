@@ -4,8 +4,8 @@
  **/
 var KalturaDeviceReferenceDataService = {
 	/**
-	 * Add an object.
-	 * @param	objectToAdd	KalturaDeviceReferenceData		Object to add (optional)
+	 * add DeviceReferenceData.
+	 * @param	objectToAdd	KalturaDeviceReferenceData		DeviceReferenceData details (optional)
 	 **/
 	add: function(objectToAdd){
 		var kparams = new Object();
@@ -14,20 +14,8 @@ var KalturaDeviceReferenceDataService = {
 	},
 	
 	/**
-	 * Update an object.
-	 * @param	id	int		Object ID to update (optional)
-	 * @param	objectToUpdate	KalturaDeviceReferenceData		Object to update (optional)
-	 **/
-	update: function(id, objectToUpdate){
-		var kparams = new Object();
-		kparams.id = id;
-		kparams.objectToUpdate = objectToUpdate;
-		return new KalturaRequestBuilder("devicereferencedata", "update", kparams);
-	},
-	
-	/**
-	 * Delete an object.
-	 * @param	id	int		Object ID to delete (optional)
+	 * Delete existing DeviceReferenceData.
+	 * @param	id	int		DeviceReferenceData identifier (optional)
 	 **/
 	deleteAction: function(id){
 		var kparams = new Object();
@@ -36,9 +24,9 @@ var KalturaDeviceReferenceDataService = {
 	},
 	
 	/**
-	 * .
-	 * @param	filter	KalturaDeviceReferenceDataFilter		Request filter (optional)
-	 * @param	pager	KalturaFilterPager		Request pager (optional, default: null)
+	 * Returns the list of available DeviceReferenceData.
+	 * @param	filter	KalturaDeviceReferenceDataFilter		Filter (optional)
+	 * @param	pager	KalturaFilterPager		Pager (optional, default: null)
 	 **/
 	listAction: function(filter, pager){
 		if(!pager)
@@ -48,5 +36,17 @@ var KalturaDeviceReferenceDataService = {
 		if (pager != null)
 			kparams.pager = pager;
 		return new KalturaRequestBuilder("devicereferencedata", "list", kparams);
+	},
+	
+	/**
+	 * Update existing DeviceReferenceData.
+	 * @param	id	int		id of DeviceReferenceData to update (optional)
+	 * @param	objectToUpdate	KalturaDeviceReferenceData		DeviceReferenceData Object to update (optional)
+	 **/
+	update: function(id, objectToUpdate){
+		var kparams = new Object();
+		kparams.id = id;
+		kparams.objectToUpdate = objectToUpdate;
+		return new KalturaRequestBuilder("devicereferencedata", "update", kparams);
 	}
 }

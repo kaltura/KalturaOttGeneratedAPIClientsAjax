@@ -14,18 +14,6 @@ var KalturaCategoryItemService = {
 	},
 	
 	/**
-	 * categoryItem update.
-	 * @param	id	int		Category identifier (optional)
-	 * @param	objectToUpdate	KalturaCategoryItem		categoryItem details (optional)
-	 **/
-	update: function(id, objectToUpdate){
-		var kparams = new Object();
-		kparams.id = id;
-		kparams.objectToUpdate = objectToUpdate;
-		return new KalturaRequestBuilder("categoryitem", "update", kparams);
-	},
-	
-	/**
 	 * Remove category.
 	 * @param	id	int		Category identifier (optional)
 	 **/
@@ -37,8 +25,8 @@ var KalturaCategoryItemService = {
 	
 	/**
 	 * Gets all categoryItem items.
-	 * @param	filter	KalturaCategoryItemFilter		Request filter (optional, default: null)
-	 * @param	pager	KalturaFilterPager		Request pager (optional, default: null)
+	 * @param	filter	KalturaCategoryItemFilter		Filter (optional, default: null)
+	 * @param	pager	KalturaFilterPager		Pager (optional, default: null)
 	 **/
 	listAction: function(filter, pager){
 		if(!filter)
@@ -51,5 +39,17 @@ var KalturaCategoryItemService = {
 		if (pager != null)
 			kparams.pager = pager;
 		return new KalturaRequestBuilder("categoryitem", "list", kparams);
+	},
+	
+	/**
+	 * categoryItem update.
+	 * @param	id	int		Category identifier (optional)
+	 * @param	objectToUpdate	KalturaCategoryItem		categoryItem details (optional)
+	 **/
+	update: function(id, objectToUpdate){
+		var kparams = new Object();
+		kparams.id = id;
+		kparams.objectToUpdate = objectToUpdate;
+		return new KalturaRequestBuilder("categoryitem", "update", kparams);
 	}
 }
