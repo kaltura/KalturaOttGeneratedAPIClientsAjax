@@ -17,10 +17,10 @@ var KalturaIotProfileService = {
 	 * Get existing KalturaIotProfile.
 	 * @param	id	int		KalturaIotProfile identifier (optional)
 	 **/
-	deleteAction: function(id){
+	get: function(id){
 		var kparams = new Object();
 		kparams.id = id;
-		return new KalturaRequestBuilder("iotprofile", "delete", kparams);
+		return new KalturaRequestBuilder("iotprofile", "get", kparams);
 	},
 	
 	/**
