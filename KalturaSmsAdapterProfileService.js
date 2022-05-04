@@ -4,8 +4,8 @@
  **/
 var KalturaSmsAdapterProfileService = {
 	/**
-	 * SmsAdapterProfile add.
-	 * @param	objectToAdd	KalturaSmsAdapterProfile		SmsAdapterProfile details (optional)
+	 * Add an object.
+	 * @param	objectToAdd	KalturaSmsAdapterProfile		Object to add (optional)
 	 **/
 	add: function(objectToAdd){
 		var kparams = new Object();
@@ -14,8 +14,40 @@ var KalturaSmsAdapterProfileService = {
 	},
 	
 	/**
-	 * Remove SmsAdapterProfile.
-	 * @param	id	int		SmsAdapterProfile identifier (optional)
+	 * Update an object.
+	 * @param	id	int		Object ID to update (optional)
+	 * @param	objectToUpdate	KalturaSmsAdapterProfile		Object to update (optional)
+	 **/
+	update: function(id, objectToUpdate){
+		var kparams = new Object();
+		kparams.id = id;
+		kparams.objectToUpdate = objectToUpdate;
+		return new KalturaRequestBuilder("smsadapterprofile", "update", kparams);
+	},
+	
+	/**
+	 * Get an object.
+	 * @param	id	int		Object ID to get (optional)
+	 **/
+	get: function(id){
+		var kparams = new Object();
+		kparams.id = id;
+		return new KalturaRequestBuilder("smsadapterprofile", "get", kparams);
+	},
+	
+	/**
+	 * .
+	 * @param	filter	KalturaSmsAdapterProfileFilter		Request filter (optional)
+	 **/
+	listAction: function(filter){
+		var kparams = new Object();
+		kparams.filter = filter;
+		return new KalturaRequestBuilder("smsadapterprofile", "list", kparams);
+	},
+	
+	/**
+	 * Delete an object.
+	 * @param	id	int		Object ID to delete (optional)
 	 **/
 	deleteAction: function(id){
 		var kparams = new Object();
@@ -31,40 +63,5 @@ var KalturaSmsAdapterProfileService = {
 		var kparams = new Object();
 		kparams.smsAdapterId = smsAdapterId;
 		return new KalturaRequestBuilder("smsadapterprofile", "generateSharedSecret", kparams);
-	},
-	
-	/**
-	 * Get SmsAdapterProfile.
-	 * @param	id	int		SmsAdapterProfile identifier (optional)
-	 **/
-	get: function(id){
-		var kparams = new Object();
-		kparams.id = id;
-		return new KalturaRequestBuilder("smsadapterprofile", "get", kparams);
-	},
-	
-	/**
-	 * Gets all SmsAdapterProfile items.
-	 * @param	filter	KalturaSmsAdapterProfileFilter		Filter (optional, default: null)
-	 **/
-	listAction: function(filter){
-		if(!filter)
-			filter = null;
-		var kparams = new Object();
-		if (filter != null)
-			kparams.filter = filter;
-		return new KalturaRequestBuilder("smsadapterprofile", "list", kparams);
-	},
-	
-	/**
-	 * SmsAdapterProfile update.
-	 * @param	id	int		SmsAdapterProfile identifier (optional)
-	 * @param	objectToUpdate	KalturaSmsAdapterProfile		SmsAdapterProfile details (optional)
-	 **/
-	update: function(id, objectToUpdate){
-		var kparams = new Object();
-		kparams.id = id;
-		kparams.objectToUpdate = objectToUpdate;
-		return new KalturaRequestBuilder("smsadapterprofile", "update", kparams);
 	}
 }
