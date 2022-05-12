@@ -3494,10 +3494,10 @@ var KalturaIotProfileService = {
 	 * Get existing KalturaIotProfile.
 	 * @param	id	int		KalturaIotProfile identifier (optional)
 	 **/
-	deleteAction: function(id){
+	get: function(id){
 		var kparams = new Object();
 		kparams.id = id;
-		return new KalturaRequestBuilder("iotprofile", "delete", kparams);
+		return new KalturaRequestBuilder("iotprofile", "get", kparams);
 	},
 	
 	/**
@@ -7877,8 +7877,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:22-05-11');
-	this.setApiVersion('7.4.0.29868');
+	this.setClientTag('ajax:22-05-12');
+	this.setApiVersion('7.6.0.29891');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
