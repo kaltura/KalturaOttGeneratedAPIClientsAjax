@@ -14,17 +14,15 @@ var KalturaCategoryVersionService = {
 	},
 	
 	/**
-	 * Acreate new tree for this categoryItem.
-	 * @param	categoryItemId	int		the categoryItemId to create the tree accordingly (optional)
-	 * @param	name	string		Name of version (optional)
-	 * @param	comment	string		Comment of version (optional)
+	 * categoryVersion update.
+	 * @param	id	int		Category version identifier (optional)
+	 * @param	objectToUpdate	KalturaCategoryVersion		categoryVersion details (optional)
 	 **/
-	createTree: function(categoryItemId, name, comment){
+	update: function(id, objectToUpdate){
 		var kparams = new Object();
-		kparams.categoryItemId = categoryItemId;
-		kparams.name = name;
-		kparams.comment = comment;
-		return new KalturaRequestBuilder("categoryversion", "createTree", kparams);
+		kparams.id = id;
+		kparams.objectToUpdate = objectToUpdate;
+		return new KalturaRequestBuilder("categoryversion", "update", kparams);
 	},
 	
 	/**
@@ -39,8 +37,8 @@ var KalturaCategoryVersionService = {
 	
 	/**
 	 * Gets all category versions.
-	 * @param	filter	KalturaCategoryVersionFilter		Filter (optional)
-	 * @param	pager	KalturaFilterPager		Pager (optional, default: null)
+	 * @param	filter	KalturaCategoryVersionFilter		Request filter (optional)
+	 * @param	pager	KalturaFilterPager		Request pager (optional, default: null)
 	 **/
 	listAction: function(filter, pager){
 		if(!pager)
@@ -50,6 +48,20 @@ var KalturaCategoryVersionService = {
 		if (pager != null)
 			kparams.pager = pager;
 		return new KalturaRequestBuilder("categoryversion", "list", kparams);
+	},
+	
+	/**
+	 * Acreate new tree for this categoryItem.
+	 * @param	categoryItemId	int		the categoryItemId to create the tree accordingly (optional)
+	 * @param	name	string		Name of version (optional)
+	 * @param	comment	string		Comment of version (optional)
+	 **/
+	createTree: function(categoryItemId, name, comment){
+		var kparams = new Object();
+		kparams.categoryItemId = categoryItemId;
+		kparams.name = name;
+		kparams.comment = comment;
+		return new KalturaRequestBuilder("categoryversion", "createTree", kparams);
 	},
 	
 	/**
@@ -64,17 +76,5 @@ var KalturaCategoryVersionService = {
 		kparams.id = id;
 		kparams.force = force;
 		return new KalturaRequestBuilder("categoryversion", "setDefault", kparams);
-	},
-	
-	/**
-	 * categoryVersion update.
-	 * @param	id	int		Category version identifier (optional)
-	 * @param	objectToUpdate	KalturaCategoryVersion		categoryVersion details (optional)
-	 **/
-	update: function(id, objectToUpdate){
-		var kparams = new Object();
-		kparams.id = id;
-		kparams.objectToUpdate = objectToUpdate;
-		return new KalturaRequestBuilder("categoryversion", "update", kparams);
 	}
 }
