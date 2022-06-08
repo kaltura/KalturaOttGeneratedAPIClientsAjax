@@ -135,6 +135,16 @@ var KalturaAssetService = {
 	},
 	
 	/**
+	 * Returns recent selected assets.
+	 * @param	filter	KalturaPersonalAssetSelectionFilter		Filtering the assets request (optional)
+	 **/
+	listPersonalSelection: function(filter){
+		var kparams = new Object();
+		kparams.filter = filter;
+		return new KalturaRequestBuilder("asset", "listPersonalSelection", kparams);
+	},
+	
+	/**
 	 * remove metas and tags from asset.
 	 * @param	id	int		Asset Identifier (optional)
 	 * @param	assetReferenceType	string		Type of asset (optional, enum: KalturaAssetReferenceType)

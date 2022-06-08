@@ -300,6 +300,16 @@ var KalturaAssetService = {
 	},
 	
 	/**
+	 * Returns recent selected assets.
+	 * @param	filter	KalturaPersonalAssetSelectionFilter		Filtering the assets request (optional)
+	 **/
+	listPersonalSelection: function(filter){
+		var kparams = new Object();
+		kparams.filter = filter;
+		return new KalturaRequestBuilder("asset", "listPersonalSelection", kparams);
+	},
+	
+	/**
 	 * remove metas and tags from asset.
 	 * @param	id	int		Asset Identifier (optional)
 	 * @param	assetReferenceType	string		Type of asset (optional, enum: KalturaAssetReferenceType)
@@ -483,6 +493,49 @@ var KalturaAssetPersonalMarkupService = {
 		var kparams = new Object();
 		kparams.filter = filter;
 		return new KalturaRequestBuilder("assetpersonalmarkup", "list", kparams);
+	}
+}
+
+/**
+ *Class definition for the Kaltura service: assetPersonalSelection.
+ **/
+var KalturaAssetPersonalSelectionService = {
+	/**
+	 * Remove asset selection in slot.
+	 * @param	assetId	int		asset id (optional)
+	 * @param	assetType	string		asset type: media/epg (optional, enum: KalturaAssetType)
+	 * @param	slotNumber	int		slot number (optional)
+	 **/
+	deleteAction: function(assetId, assetType, slotNumber){
+		var kparams = new Object();
+		kparams.assetId = assetId;
+		kparams.assetType = assetType;
+		kparams.slotNumber = slotNumber;
+		return new KalturaRequestBuilder("assetpersonalselection", "delete", kparams);
+	},
+	
+	/**
+	 * Remove asset selection in slot.
+	 * @param	slotNumber	int		slot number (optional)
+	 **/
+	deleteAll: function(slotNumber){
+		var kparams = new Object();
+		kparams.slotNumber = slotNumber;
+		return new KalturaRequestBuilder("assetpersonalselection", "deleteAll", kparams);
+	},
+	
+	/**
+	 * Add or update asset selection in slot.
+	 * @param	assetId	int		asset id (optional)
+	 * @param	assetType	string		asset type: media/epg (optional, enum: KalturaAssetType)
+	 * @param	slotNumber	int		slot number (optional)
+	 **/
+	upsert: function(assetId, assetType, slotNumber){
+		var kparams = new Object();
+		kparams.assetId = assetId;
+		kparams.assetType = assetType;
+		kparams.slotNumber = slotNumber;
+		return new KalturaRequestBuilder("assetpersonalselection", "upsert", kparams);
 	}
 }
 
@@ -3619,6 +3672,57 @@ var KalturaLineupService = {
 		var kparams = new Object();
 		kparams.regionIds = regionIds;
 		return new KalturaRequestBuilder("lineup", "sendUpdatedNotification", kparams);
+	}
+}
+
+/**
+ *Class definition for the Kaltura service: liveToVod.
+ **/
+var KalturaLiveToVodService = {
+	/**
+	 * Get existing L2V configuration for both the partner level and all channels level..
+	 **/
+	getConfiguration: function(){
+		var kparams = new Object();
+		return new KalturaRequestBuilder("livetovod", "getConfiguration", kparams);
+	},
+	
+	/**
+	 * Get existing L2V configuration for a specific linear asset..
+	 * @param	linearAssetId	int		Linear asset's identifier. (optional)
+	 **/
+	getLinearAssetConfiguration: function(linearAssetId){
+		var kparams = new Object();
+		kparams.linearAssetId = linearAssetId;
+		return new KalturaRequestBuilder("livetovod", "getLinearAssetConfiguration", kparams);
+	},
+	
+	/**
+	 * Get existing L2V partner configuration..
+	 **/
+	getPartnerConfiguration: function(){
+		var kparams = new Object();
+		return new KalturaRequestBuilder("livetovod", "getPartnerConfiguration", kparams);
+	},
+	
+	/**
+	 * Set L2V configuration for a specific Linear channel..
+	 * @param	configuration	KalturaLiveToVodLinearAssetConfiguration		Live to VOD linear asset (live channel) configuration object. (optional)
+	 **/
+	updateLinearAssetConfiguration: function(configuration){
+		var kparams = new Object();
+		kparams.configuration = configuration;
+		return new KalturaRequestBuilder("livetovod", "updateLinearAssetConfiguration", kparams);
+	},
+	
+	/**
+	 * Set L2V configuration on the partner level..
+	 * @param	configuration	KalturaLiveToVodPartnerConfiguration		Live to VOD configuration object. (optional)
+	 **/
+	updatePartnerConfiguration: function(configuration){
+		var kparams = new Object();
+		kparams.configuration = configuration;
+		return new KalturaRequestBuilder("livetovod", "updatePartnerConfiguration", kparams);
 	}
 }
 
@@ -7877,8 +7981,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:22-05-19');
-	this.setApiVersion('7.6.0.29891');
+	this.setClientTag('ajax:22-06-08');
+	this.setApiVersion('7.6.0.29924');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
