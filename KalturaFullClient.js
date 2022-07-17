@@ -6352,6 +6352,20 @@ var KalturaSsoAdapterProfileService = {
  **/
 var KalturaStreamingDeviceService = {
 	/**
+	 * Reserves a concurrency slot for the given asset-device combination.
+	 * @param	mediaFileId	string		KalturaMediaFile.id media file belonging to the asset for which a concurrency slot is being reserved (optional)
+	 * @param	assetId	string		KalturaAsset.id - asset for which a concurrency slot is being reserved (optional)
+	 * @param	assetType	string		Identifies the type of asset for which the concurrency slot is being reserved (optional, enum: KalturaAssetType)
+	 **/
+	bookPlaybackSession: function(mediaFileId, assetId, assetType){
+		var kparams = new Object();
+		kparams.mediaFileId = mediaFileId;
+		kparams.assetId = assetId;
+		kparams.assetType = assetType;
+		return new KalturaRequestBuilder("streamingdevice", "bookPlaybackSession", kparams);
+	},
+	
+	/**
 	 * Lists of devices that are streaming at that moment.
 	 * @param	filter	KalturaStreamingDeviceFilter		Segmentation type filter - basically empty (optional, default: null)
 	 **/
@@ -7981,8 +7995,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:22-06-21');
-	this.setApiVersion('7.7.0.29917');
+	this.setClientTag('ajax:22-07-17');
+	this.setApiVersion('7.8.0.29957');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
