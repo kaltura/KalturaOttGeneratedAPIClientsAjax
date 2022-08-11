@@ -3534,35 +3534,11 @@ var KalturaIotService = {
  **/
 var KalturaIotProfileService = {
 	/**
-	 * Add new KalturaIotProfile.
-	 * @param	objectToAdd	KalturaIotProfile		KalturaIotProfile Object to add (optional)
+	 * Add new new environment in aws.
 	 **/
-	add: function(objectToAdd){
+	add: function(){
 		var kparams = new Object();
-		kparams.objectToAdd = objectToAdd;
 		return new KalturaRequestBuilder("iotprofile", "add", kparams);
-	},
-	
-	/**
-	 * Get existing KalturaIotProfile.
-	 * @param	id	int		KalturaIotProfile identifier (optional)
-	 **/
-	get: function(id){
-		var kparams = new Object();
-		kparams.id = id;
-		return new KalturaRequestBuilder("iotprofile", "get", kparams);
-	},
-	
-	/**
-	 * Update existing KalturaIotProfile.
-	 * @param	id	int		id of KalturaIotProfile to update (optional)
-	 * @param	objectToUpdate	KalturaIotProfile		KalturaIotProfile Object to update (optional)
-	 **/
-	update: function(id, objectToUpdate){
-		var kparams = new Object();
-		kparams.id = id;
-		kparams.objectToUpdate = objectToUpdate;
-		return new KalturaRequestBuilder("iotprofile", "update", kparams);
 	}
 }
 
@@ -7981,8 +7957,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:22-07-21');
-	this.setApiVersion('7.8.1.29972');
+	this.setClientTag('ajax:22-08-11');
+	this.setApiVersion('7.8.1.30053');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
