@@ -4,8 +4,8 @@
  **/
 var KalturaCampaignService = {
 	/**
-	 * Add new Campaign.
-	 * @param	objectToAdd	KalturaCampaign		Campaign Object to add (optional)
+	 * Add an object.
+	 * @param	objectToAdd	KalturaCampaign		Object to add (optional)
 	 **/
 	add: function(objectToAdd){
 		var kparams = new Object();
@@ -14,8 +14,20 @@ var KalturaCampaignService = {
 	},
 	
 	/**
-	 * Delete existing Campaign.
-	 * @param	id	int		Campaign identifier (optional)
+	 * Update an object.
+	 * @param	id	int		Object ID to update (optional)
+	 * @param	objectToUpdate	KalturaCampaign		Object to update (optional)
+	 **/
+	update: function(id, objectToUpdate){
+		var kparams = new Object();
+		kparams.id = id;
+		kparams.objectToUpdate = objectToUpdate;
+		return new KalturaRequestBuilder("campaign", "update", kparams);
+	},
+	
+	/**
+	 * Delete an object.
+	 * @param	id	int		Object ID to delete (optional)
 	 **/
 	deleteAction: function(id){
 		var kparams = new Object();
@@ -24,9 +36,9 @@ var KalturaCampaignService = {
 	},
 	
 	/**
-	 * Returns the list of available Campaigns.
-	 * @param	filter	KalturaCampaignFilter		Filter (optional)
-	 * @param	pager	KalturaFilterPager		Pager (optional, default: null)
+	 * .
+	 * @param	filter	KalturaCampaignFilter		Request filter (optional)
+	 * @param	pager	KalturaFilterPager		Request pager (optional, default: null)
 	 **/
 	listAction: function(filter, pager){
 		if(!pager)
@@ -48,17 +60,5 @@ var KalturaCampaignService = {
 		kparams.campaignId = campaignId;
 		kparams.newState = newState;
 		return new KalturaRequestBuilder("campaign", "setState", kparams);
-	},
-	
-	/**
-	 * Update existing Campaign.
-	 * @param	id	int		id of Campaign to update (optional)
-	 * @param	objectToUpdate	KalturaCampaign		Campaign Object to update (optional)
-	 **/
-	update: function(id, objectToUpdate){
-		var kparams = new Object();
-		kparams.id = id;
-		kparams.objectToUpdate = objectToUpdate;
-		return new KalturaRequestBuilder("campaign", "update", kparams);
 	}
 }

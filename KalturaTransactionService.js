@@ -24,7 +24,7 @@ var KalturaTransactionService = {
 	},
 	
 	/**
-	 * Purchase specific product, subscription or Program asset group offer (PAGO) for a household. Upon successful charge entitlements to use the requested product or subscription are granted..
+	 * Purchase specific product or subscription for a household. Upon successful charge entitlements to use the requested product or subscription are granted..
 	 * @param	purchase	KalturaPurchase		Purchase properties (optional)
 	 **/
 	purchase: function(purchase){

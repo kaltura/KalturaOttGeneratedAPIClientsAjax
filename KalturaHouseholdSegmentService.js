@@ -25,7 +25,7 @@ var KalturaHouseholdSegmentService = {
 	
 	/**
 	 * Gets all HouseholdSegment items for a household.
-	 * @param	filter	KalturaHouseholdSegmentFilter		Filter (optional, default: null)
+	 * @param	filter	KalturaHouseholdSegmentFilter		Request filter (optional, default: null)
 	 **/
 	listAction: function(filter){
 		if(!filter)
