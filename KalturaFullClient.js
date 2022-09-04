@@ -5833,6 +5833,14 @@ var KalturaSegmentationTypeService = {
 	},
 	
 	/**
+	 * Get existing segmentation partner configuration.
+	 **/
+	getPartnerConfiguration: function(){
+		var kparams = new Object();
+		return new KalturaRequestBuilder("segmentationtype", "getPartnerConfiguration", kparams);
+	},
+	
+	/**
 	 * Lists all segmentation types in group.
 	 * @param	filter	KalturaBaseSegmentationTypeFilter		Segmentation type filter - basically empty (optional, default: null)
 	 * @param	pager	KalturaFilterPager		Simple pager (optional, default: null)
@@ -5860,6 +5868,16 @@ var KalturaSegmentationTypeService = {
 		kparams.segmentationTypeId = segmentationTypeId;
 		kparams.segmentationType = segmentationType;
 		return new KalturaRequestBuilder("segmentationtype", "update", kparams);
+	},
+	
+	/**
+	 * Set segmentation configuration on partner level.
+	 * @param	configuration	KalturaSegmentationPartnerConfiguration		New configuration to set (optional)
+	 **/
+	updatePartnerConfiguration: function(configuration){
+		var kparams = new Object();
+		kparams.configuration = configuration;
+		return new KalturaRequestBuilder("segmentationtype", "updatePartnerConfiguration", kparams);
 	}
 }
 
@@ -7971,8 +7989,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:22-08-23');
-	this.setApiVersion('7.9.0.30000');
+	this.setClientTag('ajax:22-09-03');
+	this.setApiVersion('8.0.0.30023');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
