@@ -5833,7 +5833,7 @@ var KalturaSegmentationTypeService = {
 	},
 	
 	/**
-	 * Get existing segmentation partner configuration.
+	 * Gets existing partner segmentation configuration.
 	 **/
 	getPartnerConfiguration: function(){
 		var kparams = new Object();
@@ -5871,8 +5871,12 @@ var KalturaSegmentationTypeService = {
 	},
 	
 	/**
-	 * Set segmentation configuration on partner level.
-	 * @param	configuration	KalturaSegmentationPartnerConfiguration		New configuration to set (optional)
+	 * Sets partner configuration for segments configuration.
+	 * @param	configuration	KalturaSegmentationPartnerConfiguration		1. maxDynamicSegments - how many dynamic segments (segments with conditions) the operator is allowed to have.
+ *	            Displayed in the OPC as *'Maximum Number of Dynamic Segments' 
+ *	            *maxCalculatedPeriod - 
+ *	            the maximum number of past days to be calculated for dynamic segments. e.g. the last 60 days, the last 90 days etc.
+ *	            Displayed in OPC as *'Maximum of Dynamic Segments period'* (optional)
 	 **/
 	updatePartnerConfiguration: function(configuration){
 		var kparams = new Object();
@@ -7989,8 +7993,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:22-09-14');
-	this.setApiVersion('8.0.0.30035');
+	this.setClientTag('ajax:22-10-02');
+	this.setApiVersion('8.0.0.30045');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
