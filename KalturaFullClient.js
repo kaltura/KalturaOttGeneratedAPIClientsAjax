@@ -5833,6 +5833,14 @@ var KalturaSegmentationTypeService = {
 	},
 	
 	/**
+	 * Gets existing partner segmentation configuration.
+	 **/
+	getPartnerConfiguration: function(){
+		var kparams = new Object();
+		return new KalturaRequestBuilder("segmentationtype", "getPartnerConfiguration", kparams);
+	},
+	
+	/**
 	 * Lists all segmentation types in group.
 	 * @param	filter	KalturaBaseSegmentationTypeFilter		Segmentation type filter - basically empty (optional, default: null)
 	 * @param	pager	KalturaFilterPager		Simple pager (optional, default: null)
@@ -5860,6 +5868,20 @@ var KalturaSegmentationTypeService = {
 		kparams.segmentationTypeId = segmentationTypeId;
 		kparams.segmentationType = segmentationType;
 		return new KalturaRequestBuilder("segmentationtype", "update", kparams);
+	},
+	
+	/**
+	 * Sets partner configuration for segments configuration.
+	 * @param	configuration	KalturaSegmentationPartnerConfiguration		1. maxDynamicSegments - how many dynamic segments (segments with conditions) the operator is allowed to have.
+ *	            Displayed in the OPC as *'Maximum Number of Dynamic Segments' 
+ *	            *maxCalculatedPeriod - 
+ *	            the maximum number of past days to be calculated for dynamic segments. e.g. the last 60 days, the last 90 days etc.
+ *	            Displayed in OPC as *'Maximum of Dynamic Segments period'* (optional)
+	 **/
+	updatePartnerConfiguration: function(configuration){
+		var kparams = new Object();
+		kparams.configuration = configuration;
+		return new KalturaRequestBuilder("segmentationtype", "updatePartnerConfiguration", kparams);
 	}
 }
 
@@ -7971,8 +7993,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:22-10-06');
-	this.setApiVersion('8.1.0.30026');
+	this.setClientTag('ajax:22-10-26');
+	this.setApiVersion('8.1.0.30040');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
