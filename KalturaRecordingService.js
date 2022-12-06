@@ -84,6 +84,20 @@ var KalturaRecordingService = {
 	},
 	
 	/**
+	 * Stop current recording.
+	 * @param	programId	int		program identifier (optional)
+	 * @param	epgChannelId	int		epg channel identifier (optional)
+	 * @param	householdRecordingId	int		household recording identifier (optional)
+	 **/
+	stop: function(programId, epgChannelId, householdRecordingId){
+		var kparams = new Object();
+		kparams.programId = programId;
+		kparams.epgChannelId = epgChannelId;
+		kparams.householdRecordingId = householdRecordingId;
+		return new KalturaRequestBuilder("recording", "stop", kparams);
+	},
+	
+	/**
 	 * Update an existing recording with is protected field.
 	 * @param	id	int		recording identifier (optional)
 	 * @param	recording	KalturaRecording		recording to update (optional)
