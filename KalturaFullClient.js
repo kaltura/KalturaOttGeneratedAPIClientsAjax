@@ -282,6 +282,38 @@ var KalturaAssetService = {
 	},
 	
 	/**
+	 * Returns assets deduplicated by asset metadata (or supported asset&#39;s property)..
+	 * @param	groupBy	KalturaAssetGroupBy		A metadata (or supported asset's property) to group by the assets (optional)
+	 * @param	unmatchedItemsPolicy	string		Defines the policy to handle assets that don't have groupBy property (optional, enum: KalturaUnmatchedItemsPolicy)
+	 * @param	orderBy	KalturaBaseAssetOrder		A metadata or supported asset's property to sort by (optional, default: null)
+	 * @param	filter	KalturaListGroupsRepresentativesFilter		Filtering the assets request (optional, default: null)
+	 * @param	selectionPolicy	KalturaRepresentativeSelectionPolicy		A policy that implements a well defined parametric process to select an asset out of group (optional, default: null)
+	 * @param	pager	KalturaFilterPager		Paging the request (optional, default: null)
+	 **/
+	groupRepresentativeList: function(groupBy, unmatchedItemsPolicy, orderBy, filter, selectionPolicy, pager){
+		if(!orderBy)
+			orderBy = null;
+		if(!filter)
+			filter = null;
+		if(!selectionPolicy)
+			selectionPolicy = null;
+		if(!pager)
+			pager = null;
+		var kparams = new Object();
+		kparams.groupBy = groupBy;
+		kparams.unmatchedItemsPolicy = unmatchedItemsPolicy;
+		if (orderBy != null)
+			kparams.orderBy = orderBy;
+		if (filter != null)
+			kparams.filter = filter;
+		if (selectionPolicy != null)
+			kparams.selectionPolicy = selectionPolicy;
+		if (pager != null)
+			kparams.pager = pager;
+		return new KalturaRequestBuilder("asset", "groupRepresentativeList", kparams);
+	},
+	
+	/**
 	 * Returns media or EPG assets. Filters by media identifiers or by EPG internal or external identifier..
 	 * @param	filter	KalturaAssetFilter		Filtering the assets request (optional, default: null)
 	 * @param	pager	KalturaFilterPager		Paging the request (optional, default: null)
@@ -8024,8 +8056,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:22-12-06');
-	this.setApiVersion('8.2.0.30126');
+	this.setClientTag('ajax:22-12-13');
+	this.setApiVersion('8.3.0.30156');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
