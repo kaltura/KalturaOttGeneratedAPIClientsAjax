@@ -55,6 +55,20 @@ var KalturaRecordingService = {
 	},
 	
 	/**
+	 * Immediate Record.
+	 * @param	programId	int		program identifier (optional)
+	 * @param	epgChannelId	int		epg channel identifier (optional)
+	 * @param	endPadding	int		end padding offset (optional)
+	 **/
+	immediateRecord: function(programId, epgChannelId, endPadding){
+		var kparams = new Object();
+		kparams.programId = programId;
+		kparams.epgChannelId = epgChannelId;
+		kparams.endPadding = endPadding;
+		return new KalturaRequestBuilder("recording", "immediateRecord", kparams);
+	},
+	
+	/**
 	 * Return a list of recordings for the household with optional filter by status and KSQL..
 	 * @param	filter	KalturaRecordingFilter		Filter parameters for filtering out the result (optional, default: null)
 	 * @param	pager	KalturaFilterPager		Page size and index (optional, default: null)
