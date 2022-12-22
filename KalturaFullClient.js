@@ -282,6 +282,38 @@ var KalturaAssetService = {
 	},
 	
 	/**
+	 * Returns assets deduplicated by asset metadata (or supported asset&#39;s property)..
+	 * @param	groupBy	KalturaAssetGroupBy		A metadata (or supported asset's property) to group by the assets (optional)
+	 * @param	unmatchedItemsPolicy	string		Defines the policy to handle assets that don't have groupBy property (optional, enum: KalturaUnmatchedItemsPolicy)
+	 * @param	orderBy	KalturaBaseAssetOrder		A metadata or supported asset's property to sort by (optional, default: null)
+	 * @param	filter	KalturaListGroupsRepresentativesFilter		Filtering the assets request (optional, default: null)
+	 * @param	selectionPolicy	KalturaRepresentativeSelectionPolicy		A policy that implements a well defined parametric process to select an asset out of group (optional, default: null)
+	 * @param	pager	KalturaFilterPager		Paging the request (optional, default: null)
+	 **/
+	groupRepresentativeList: function(groupBy, unmatchedItemsPolicy, orderBy, filter, selectionPolicy, pager){
+		if(!orderBy)
+			orderBy = null;
+		if(!filter)
+			filter = null;
+		if(!selectionPolicy)
+			selectionPolicy = null;
+		if(!pager)
+			pager = null;
+		var kparams = new Object();
+		kparams.groupBy = groupBy;
+		kparams.unmatchedItemsPolicy = unmatchedItemsPolicy;
+		if (orderBy != null)
+			kparams.orderBy = orderBy;
+		if (filter != null)
+			kparams.filter = filter;
+		if (selectionPolicy != null)
+			kparams.selectionPolicy = selectionPolicy;
+		if (pager != null)
+			kparams.pager = pager;
+		return new KalturaRequestBuilder("asset", "groupRepresentativeList", kparams);
+	},
+	
+	/**
 	 * Returns media or EPG assets. Filters by media identifiers or by EPG internal or external identifier..
 	 * @param	filter	KalturaAssetFilter		Filtering the assets request (optional, default: null)
 	 * @param	pager	KalturaFilterPager		Paging the request (optional, default: null)
@@ -817,6 +849,23 @@ var KalturaBulkUploadService = {
 		if (pager != null)
 			kparams.pager = pager;
 		return new KalturaRequestBuilder("bulkupload", "list", kparams);
+	}
+}
+
+/**
+ *Class definition for the Kaltura service: bulkUploadStatistics.
+ **/
+var KalturaBulkUploadStatisticsService = {
+	/**
+	 * Get BulkUploadStatistics count summary by status.
+	 * @param	bulkObjectTypeEqual	string		bulkUploadObject for status summary (optional)
+	 * @param	createDateGreaterThanOrEqual	int		date created filter (optional)
+	 **/
+	get: function(bulkObjectTypeEqual, createDateGreaterThanOrEqual){
+		var kparams = new Object();
+		kparams.bulkObjectTypeEqual = bulkObjectTypeEqual;
+		kparams.createDateGreaterThanOrEqual = createDateGreaterThanOrEqual;
+		return new KalturaRequestBuilder("bulkuploadstatistics", "get", kparams);
 	}
 }
 
@@ -5468,6 +5517,20 @@ var KalturaRecordingService = {
 	},
 	
 	/**
+	 * Immediate Record.
+	 * @param	assetId	int		asset identifier (optional)
+	 * @param	epgChannelId	int		epg channel identifier (optional)
+	 * @param	endPadding	int		end padding offset (optional)
+	 **/
+	immediateRecord: function(assetId, epgChannelId, endPadding){
+		var kparams = new Object();
+		kparams.assetId = assetId;
+		kparams.epgChannelId = epgChannelId;
+		kparams.endPadding = endPadding;
+		return new KalturaRequestBuilder("recording", "immediateRecord", kparams);
+	},
+	
+	/**
 	 * Return a list of recordings for the household with optional filter by status and KSQL..
 	 * @param	filter	KalturaRecordingFilter		Filter parameters for filtering out the result (optional, default: null)
 	 * @param	pager	KalturaFilterPager		Page size and index (optional, default: null)
@@ -5494,6 +5557,20 @@ var KalturaRecordingService = {
 		var kparams = new Object();
 		kparams.id = id;
 		return new KalturaRequestBuilder("recording", "protect", kparams);
+	},
+	
+	/**
+	 * Stop current recording.
+	 * @param	assetId	int		asset identifier (optional)
+	 * @param	epgChannelId	int		epg channel identifier (optional)
+	 * @param	householdRecordingId	int		household recording identifier (optional)
+	 **/
+	stop: function(assetId, epgChannelId, householdRecordingId){
+		var kparams = new Object();
+		kparams.assetId = assetId;
+		kparams.epgChannelId = epgChannelId;
+		kparams.householdRecordingId = householdRecordingId;
+		return new KalturaRequestBuilder("recording", "stop", kparams);
 	},
 	
 	/**
@@ -5833,6 +5910,14 @@ var KalturaSegmentationTypeService = {
 	},
 	
 	/**
+	 * Gets existing partner segmentation configuration.
+	 **/
+	getPartnerConfiguration: function(){
+		var kparams = new Object();
+		return new KalturaRequestBuilder("segmentationtype", "getPartnerConfiguration", kparams);
+	},
+	
+	/**
 	 * Lists all segmentation types in group.
 	 * @param	filter	KalturaBaseSegmentationTypeFilter		Segmentation type filter - basically empty (optional, default: null)
 	 * @param	pager	KalturaFilterPager		Simple pager (optional, default: null)
@@ -5860,6 +5945,20 @@ var KalturaSegmentationTypeService = {
 		kparams.segmentationTypeId = segmentationTypeId;
 		kparams.segmentationType = segmentationType;
 		return new KalturaRequestBuilder("segmentationtype", "update", kparams);
+	},
+	
+	/**
+	 * Sets partner configuration for segments configuration.
+	 * @param	configuration	KalturaSegmentationPartnerConfiguration		1. maxDynamicSegments - how many dynamic segments (segments with conditions) the operator is allowed to have.
+ *	            Displayed in the OPC as *'Maximum Number of Dynamic Segments' 
+ *	            *maxCalculatedPeriod - 
+ *	            the maximum number of past days to be calculated for dynamic segments. e.g. the last 60 days, the last 90 days etc.
+ *	            Displayed in OPC as *'Maximum of Dynamic Segments period'* (optional)
+	 **/
+	updatePartnerConfiguration: function(configuration){
+		var kparams = new Object();
+		kparams.configuration = configuration;
+		return new KalturaRequestBuilder("segmentationtype", "updatePartnerConfiguration", kparams);
 	}
 }
 
@@ -7971,8 +8070,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:22-10-06');
-	this.setApiVersion('8.1.0.30026');
+	this.setClientTag('ajax:22-12-22');
+	this.setApiVersion('8.3.1.30231');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
