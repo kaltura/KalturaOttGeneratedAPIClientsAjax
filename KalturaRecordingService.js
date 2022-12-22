@@ -56,13 +56,13 @@ var KalturaRecordingService = {
 	
 	/**
 	 * Immediate Record.
-	 * @param	programId	int		program identifier (optional)
+	 * @param	assetId	int		asset identifier (optional)
 	 * @param	epgChannelId	int		epg channel identifier (optional)
 	 * @param	endPadding	int		end padding offset (optional)
 	 **/
-	immediateRecord: function(programId, epgChannelId, endPadding){
+	immediateRecord: function(assetId, epgChannelId, endPadding){
 		var kparams = new Object();
-		kparams.programId = programId;
+		kparams.assetId = assetId;
 		kparams.epgChannelId = epgChannelId;
 		kparams.endPadding = endPadding;
 		return new KalturaRequestBuilder("recording", "immediateRecord", kparams);
@@ -99,13 +99,13 @@ var KalturaRecordingService = {
 	
 	/**
 	 * Stop current recording.
-	 * @param	programId	int		program identifier (optional)
+	 * @param	assetId	int		asset identifier (optional)
 	 * @param	epgChannelId	int		epg channel identifier (optional)
 	 * @param	householdRecordingId	int		household recording identifier (optional)
 	 **/
-	stop: function(programId, epgChannelId, householdRecordingId){
+	stop: function(assetId, epgChannelId, householdRecordingId){
 		var kparams = new Object();
-		kparams.programId = programId;
+		kparams.assetId = assetId;
 		kparams.epgChannelId = epgChannelId;
 		kparams.householdRecordingId = householdRecordingId;
 		return new KalturaRequestBuilder("recording", "stop", kparams);
