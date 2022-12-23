@@ -5517,20 +5517,6 @@ var KalturaRecordingService = {
 	},
 	
 	/**
-	 * Immediate Record.
-	 * @param	assetId	int		asset identifier (optional)
-	 * @param	epgChannelId	int		epg channel identifier (optional)
-	 * @param	endPadding	int		end padding offset (optional)
-	 **/
-	immediateRecord: function(assetId, epgChannelId, endPadding){
-		var kparams = new Object();
-		kparams.assetId = assetId;
-		kparams.epgChannelId = epgChannelId;
-		kparams.endPadding = endPadding;
-		return new KalturaRequestBuilder("recording", "immediateRecord", kparams);
-	},
-	
-	/**
 	 * Return a list of recordings for the household with optional filter by status and KSQL..
 	 * @param	filter	KalturaRecordingFilter		Filter parameters for filtering out the result (optional, default: null)
 	 * @param	pager	KalturaFilterPager		Page size and index (optional, default: null)
@@ -5557,20 +5543,6 @@ var KalturaRecordingService = {
 		var kparams = new Object();
 		kparams.id = id;
 		return new KalturaRequestBuilder("recording", "protect", kparams);
-	},
-	
-	/**
-	 * Stop current recording.
-	 * @param	assetId	int		asset identifier (optional)
-	 * @param	epgChannelId	int		epg channel identifier (optional)
-	 * @param	householdRecordingId	int		household recording identifier (optional)
-	 **/
-	stop: function(assetId, epgChannelId, householdRecordingId){
-		var kparams = new Object();
-		kparams.assetId = assetId;
-		kparams.epgChannelId = epgChannelId;
-		kparams.householdRecordingId = householdRecordingId;
-		return new KalturaRequestBuilder("recording", "stop", kparams);
 	},
 	
 	/**
@@ -8070,8 +8042,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:22-12-22');
-	this.setApiVersion('8.3.1.30231');
+	this.setClientTag('ajax:22-12-23');
+	this.setApiVersion('8.3.1.30102');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
