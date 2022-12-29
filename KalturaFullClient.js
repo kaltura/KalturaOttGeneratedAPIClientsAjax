@@ -486,11 +486,26 @@ var KalturaAssetHistoryService = {
 	
 	/**
 	 * Get next episode by last watch asset in given assetId.
-	 * @param	assetId	int		asset Id of series to search for next episode (optional)
+	 * @param	assetId	int		asset Id of series to search for next episode (optional, default: null)
+	 * @param	seriesIdArguments	KalturaSeriesIdArguments		series Id arguments (optional, default: null)
+	 * @param	notWatchedReturnStrategy	string		not watched any episode strategy (optional, enum: KalturaNotWatchedReturnStrategy, default: null)
+	 * @param	watchedAllReturnStrategy	string		watched all series episodes strategy (optional, enum: KalturaWatchedAllReturnStrategy, default: null)
 	 **/
-	getNextEpisode: function(assetId){
+	getNextEpisode: function(assetId, seriesIdArguments, notWatchedReturnStrategy, watchedAllReturnStrategy){
+		if(!assetId)
+			assetId = null;
+		if(!seriesIdArguments)
+			seriesIdArguments = null;
+		if(!notWatchedReturnStrategy)
+			notWatchedReturnStrategy = null;
+		if(!watchedAllReturnStrategy)
+			watchedAllReturnStrategy = null;
 		var kparams = new Object();
 		kparams.assetId = assetId;
+		if (seriesIdArguments != null)
+			kparams.seriesIdArguments = seriesIdArguments;
+		kparams.notWatchedReturnStrategy = notWatchedReturnStrategy;
+		kparams.watchedAllReturnStrategy = watchedAllReturnStrategy;
 		return new KalturaRequestBuilder("assethistory", "getNextEpisode", kparams);
 	},
 	
@@ -8042,8 +8057,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:22-12-25');
-	this.setApiVersion('8.3.1.30102');
+	this.setClientTag('ajax:22-12-28');
+	this.setApiVersion('8.3.1.30104');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
