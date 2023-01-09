@@ -5520,15 +5520,17 @@ var KalturaRecordingService = {
 	 * Immediate Record.
 	 * @param	assetId	int		asset identifier (optional)
 	 * @param	epgChannelId	int		epg channel identifier (optional)
-	 * @param	crid	string		crid (optional)
 	 * @param	endPadding	int		end padding offset (optional)
+	 * @param	crid	string		crid (optional, default: null)
 	 **/
-	immediateRecord: function(assetId, epgChannelId, crid, endPadding){
+	immediateRecord: function(assetId, epgChannelId, endPadding, crid){
+		if(!crid)
+			crid = null;
 		var kparams = new Object();
 		kparams.assetId = assetId;
 		kparams.epgChannelId = epgChannelId;
-		kparams.crid = crid;
 		kparams.endPadding = endPadding;
+		kparams.crid = crid;
 		return new KalturaRequestBuilder("recording", "immediateRecord", kparams);
 	},
 	
@@ -8073,7 +8075,7 @@ var MD5 = function (string) {
 function KalturaClient(config){
 	this.init(config);
 	this.setClientTag('ajax:23-01-09');
-	this.setApiVersion('8.4.3.30333');
+	this.setApiVersion('8.4.3.30334');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
