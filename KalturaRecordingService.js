@@ -59,16 +59,12 @@ var KalturaRecordingService = {
 	 * @param	assetId	int		asset identifier (optional)
 	 * @param	epgChannelId	int		epg channel identifier (optional)
 	 * @param	endPadding	int		end padding offset (optional)
-	 * @param	crid	string		crid (optional, default: null)
 	 **/
-	immediateRecord: function(assetId, epgChannelId, endPadding, crid){
-		if(!crid)
-			crid = null;
+	immediateRecord: function(assetId, epgChannelId, endPadding){
 		var kparams = new Object();
 		kparams.assetId = assetId;
 		kparams.epgChannelId = epgChannelId;
 		kparams.endPadding = endPadding;
-		kparams.crid = crid;
 		return new KalturaRequestBuilder("recording", "immediateRecord", kparams);
 	},
 	
