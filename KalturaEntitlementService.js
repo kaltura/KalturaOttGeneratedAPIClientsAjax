@@ -97,7 +97,7 @@ var KalturaEntitlementService = {
 	
 	/**
 	 * Gets all the entitled media items for a household.
-	 * @param	filter	KalturaBaseEntitlementFilter		Request filter (optional)
+	 * @param	filter	KalturaEntitlementFilter		Request filter (optional)
 	 * @param	pager	KalturaFilterPager		Request pager (optional, default: null)
 	 **/
 	listAction: function(filter, pager){
