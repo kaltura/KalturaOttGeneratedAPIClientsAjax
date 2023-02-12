@@ -25,17 +25,14 @@ var KalturaMediaFileDynamicDataService = {
 	
 	/**
 	 * List and filter existing mediaFile dynamicData values.
-	 * @param	filter	KalturaMediaFileDynamicDataFilter		Filter (optional, default: null)
+	 * @param	filter	KalturaMediaFileDynamicDataFilter		Filter (optional)
 	 * @param	pager	KalturaFilterPager		Pager (optional, default: null)
 	 **/
 	listAction: function(filter, pager){
-		if(!filter)
-			filter = null;
 		if(!pager)
 			pager = null;
 		var kparams = new Object();
-		if (filter != null)
-			kparams.filter = filter;
+		kparams.filter = filter;
 		if (pager != null)
 			kparams.pager = pager;
 		return new KalturaRequestBuilder("mediafiledynamicdata", "list", kparams);
