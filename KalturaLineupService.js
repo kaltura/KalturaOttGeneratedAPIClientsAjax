@@ -16,6 +16,21 @@ var KalturaLineupService = {
 	},
 	
 	/**
+	 * Returns list of lineup regional linear channels associated with one LCN and its region information. Allows to apply sorting and filtering by LCN and linear channels..
+	 * @param	filter	KalturaLineupRegionalChannelFilter		Request filter (optional)
+	 * @param	pager	KalturaFilterPager		Paging the request (optional, default: null)
+	 **/
+	listAction: function(filter, pager){
+		if(!pager)
+			pager = null;
+		var kparams = new Object();
+		kparams.filter = filter;
+		if (pager != null)
+			kparams.pager = pager;
+		return new KalturaRequestBuilder("lineup", "list", kparams);
+	},
+	
+	/**
 	 * Sends lineup update requested notification..
 	 * @param	regionIds	string		Region IDs separated by commas. (optional)
 	 **/
