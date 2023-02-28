@@ -486,11 +486,26 @@ var KalturaAssetHistoryService = {
 	
 	/**
 	 * Get next episode by last watch asset in given assetId.
-	 * @param	assetId	int		asset Id of series to search for next episode (optional)
+	 * @param	assetId	int		asset Id of series to search for next episode (optional, default: null)
+	 * @param	seriesIdArguments	KalturaSeriesIdArguments		series Id arguments (optional, default: null)
+	 * @param	notWatchedReturnStrategy	string		not watched any episode strategy (optional, enum: KalturaNotWatchedReturnStrategy, default: null)
+	 * @param	watchedAllReturnStrategy	string		watched all series episodes strategy (optional, enum: KalturaWatchedAllReturnStrategy, default: null)
 	 **/
-	getNextEpisode: function(assetId){
+	getNextEpisode: function(assetId, seriesIdArguments, notWatchedReturnStrategy, watchedAllReturnStrategy){
+		if(!assetId)
+			assetId = null;
+		if(!seriesIdArguments)
+			seriesIdArguments = null;
+		if(!notWatchedReturnStrategy)
+			notWatchedReturnStrategy = null;
+		if(!watchedAllReturnStrategy)
+			watchedAllReturnStrategy = null;
 		var kparams = new Object();
 		kparams.assetId = assetId;
+		if (seriesIdArguments != null)
+			kparams.seriesIdArguments = seriesIdArguments;
+		kparams.notWatchedReturnStrategy = notWatchedReturnStrategy;
+		kparams.watchedAllReturnStrategy = watchedAllReturnStrategy;
 		return new KalturaRequestBuilder("assethistory", "getNextEpisode", kparams);
 	},
 	
@@ -2310,7 +2325,7 @@ var KalturaEntitlementService = {
 	
 	/**
 	 * Gets all the entitled media items for a household.
-	 * @param	filter	KalturaBaseEntitlementFilter		Request filter (optional)
+	 * @param	filter	KalturaEntitlementFilter		Request filter (optional)
 	 * @param	pager	KalturaFilterPager		Request pager (optional, default: null)
 	 **/
 	listAction: function(filter, pager){
@@ -5517,6 +5532,22 @@ var KalturaRecordingService = {
 	},
 	
 	/**
+	 * Immediate Record.
+	 * @param	assetId	int		asset identifier (optional)
+	 * @param	epgChannelId	int		epg channel identifier (optional)
+	 * @param	endPadding	int		end padding offset (optional, default: null)
+	 **/
+	immediateRecord: function(assetId, epgChannelId, endPadding){
+		if(!endPadding)
+			endPadding = null;
+		var kparams = new Object();
+		kparams.assetId = assetId;
+		kparams.epgChannelId = epgChannelId;
+		kparams.endPadding = endPadding;
+		return new KalturaRequestBuilder("recording", "immediateRecord", kparams);
+	},
+	
+	/**
 	 * Return a list of recordings for the household with optional filter by status and KSQL..
 	 * @param	filter	KalturaRecordingFilter		Filter parameters for filtering out the result (optional, default: null)
 	 * @param	pager	KalturaFilterPager		Page size and index (optional, default: null)
@@ -5543,6 +5574,20 @@ var KalturaRecordingService = {
 		var kparams = new Object();
 		kparams.id = id;
 		return new KalturaRequestBuilder("recording", "protect", kparams);
+	},
+	
+	/**
+	 * Stop ongoing household recording.
+	 * @param	assetId	int		asset identifier (optional)
+	 * @param	epgChannelId	int		epg channel identifier (optional)
+	 * @param	householdRecordingId	int		household recording identifier (optional)
+	 **/
+	stop: function(assetId, epgChannelId, householdRecordingId){
+		var kparams = new Object();
+		kparams.assetId = assetId;
+		kparams.epgChannelId = epgChannelId;
+		kparams.householdRecordingId = householdRecordingId;
+		return new KalturaRequestBuilder("recording", "stop", kparams);
 	},
 	
 	/**
@@ -8042,8 +8087,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:22-12-25');
-	this.setApiVersion('8.3.1.30102');
+	this.setClientTag('ajax:23-02-28');
+	this.setApiVersion('8.5.1.30300');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
