@@ -2310,7 +2310,7 @@ var KalturaEntitlementService = {
 	
 	/**
 	 * Gets all the entitled media items for a household.
-	 * @param	filter	KalturaBaseEntitlementFilter		Request filter (optional)
+	 * @param	filter	KalturaEntitlementFilter		Request filter (optional)
 	 * @param	pager	KalturaFilterPager		Request pager (optional, default: null)
 	 **/
 	listAction: function(filter, pager){
@@ -8042,8 +8042,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:22-12-25');
-	this.setApiVersion('8.3.1.30102');
+	this.setClientTag('ajax:23-03-06');
+	this.setApiVersion('8.3.21.30113');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
