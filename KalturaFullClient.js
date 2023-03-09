@@ -3830,6 +3830,46 @@ var KalturaMediaFileService = {
 }
 
 /**
+ *Class definition for the Kaltura service: mediaFileDynamicData.
+ **/
+var KalturaMediaFileDynamicDataService = {
+	/**
+	 * Add a dynamicData value to the values list of a specific key name in a specific mediaFileTypeId.
+	 * @param	dynamicData	KalturaMediaFileDynamicData		DynamicData value (optional)
+	 **/
+	add: function(dynamicData){
+		var kparams = new Object();
+		kparams.dynamicData = dynamicData;
+		return new KalturaRequestBuilder("mediafiledynamicdata", "add", kparams);
+	},
+	
+	/**
+	 * Delete an existing DynamicData value.
+	 * @param	id	int		DynamicData identifier (optional)
+	 **/
+	deleteAction: function(id){
+		var kparams = new Object();
+		kparams.id = id;
+		return new KalturaRequestBuilder("mediafiledynamicdata", "delete", kparams);
+	},
+	
+	/**
+	 * List and filter existing mediaFile dynamicData values.
+	 * @param	filter	KalturaMediaFileDynamicDataFilter		Filter (optional)
+	 * @param	pager	KalturaFilterPager		Pager (optional, default: null)
+	 **/
+	listAction: function(filter, pager){
+		if(!pager)
+			pager = null;
+		var kparams = new Object();
+		kparams.filter = filter;
+		if (pager != null)
+			kparams.pager = pager;
+		return new KalturaRequestBuilder("mediafiledynamicdata", "list", kparams);
+	}
+}
+
+/**
  *Class definition for the Kaltura service: mediaFileType.
  **/
 var KalturaMediaFileTypeService = {
@@ -5534,15 +5574,13 @@ var KalturaRecordingService = {
 	/**
 	 * Immediate Record.
 	 * @param	assetId	int		asset identifier (optional)
-	 * @param	epgChannelId	int		epg channel identifier (optional)
 	 * @param	endPadding	int		end padding offset (optional, default: null)
 	 **/
-	immediateRecord: function(assetId, epgChannelId, endPadding){
+	immediateRecord: function(assetId, endPadding){
 		if(!endPadding)
 			endPadding = null;
 		var kparams = new Object();
 		kparams.assetId = assetId;
-		kparams.epgChannelId = epgChannelId;
 		kparams.endPadding = endPadding;
 		return new KalturaRequestBuilder("recording", "immediateRecord", kparams);
 	},
@@ -5579,14 +5617,12 @@ var KalturaRecordingService = {
 	/**
 	 * Stop ongoing household recording.
 	 * @param	assetId	int		asset identifier (optional)
-	 * @param	epgChannelId	int		epg channel identifier (optional)
-	 * @param	householdRecordingId	int		household recording identifier (optional)
+	 * @param	id	int		household recording identifier (optional)
 	 **/
-	stop: function(assetId, epgChannelId, householdRecordingId){
+	stop: function(assetId, id){
 		var kparams = new Object();
 		kparams.assetId = assetId;
-		kparams.epgChannelId = epgChannelId;
-		kparams.householdRecordingId = householdRecordingId;
+		kparams.id = id;
 		return new KalturaRequestBuilder("recording", "stop", kparams);
 	},
 	
@@ -8087,8 +8123,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:23-03-06');
-	this.setApiVersion('8.5.1.30231');
+	this.setClientTag('ajax:23-03-09');
+	this.setApiVersion('8.6.2.30269');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
