@@ -55,6 +55,20 @@ var KalturaRecordingService = {
 	},
 	
 	/**
+	 * Immediate Record.
+	 * @param	assetId	int		asset identifier (optional)
+	 * @param	endPadding	int		end padding offset (optional, default: null)
+	 **/
+	immediateRecord: function(assetId, endPadding){
+		if(!endPadding)
+			endPadding = null;
+		var kparams = new Object();
+		kparams.assetId = assetId;
+		kparams.endPadding = endPadding;
+		return new KalturaRequestBuilder("recording", "immediateRecord", kparams);
+	},
+	
+	/**
 	 * Return a list of recordings for the household with optional filter by status and KSQL..
 	 * @param	filter	KalturaRecordingFilter		Filter parameters for filtering out the result (optional, default: null)
 	 * @param	pager	KalturaFilterPager		Page size and index (optional, default: null)
@@ -81,6 +95,18 @@ var KalturaRecordingService = {
 		var kparams = new Object();
 		kparams.id = id;
 		return new KalturaRequestBuilder("recording", "protect", kparams);
+	},
+	
+	/**
+	 * Stop ongoing household recording.
+	 * @param	assetId	int		asset identifier (optional)
+	 * @param	id	int		household recording identifier (optional)
+	 **/
+	stop: function(assetId, id){
+		var kparams = new Object();
+		kparams.assetId = assetId;
+		kparams.id = id;
+		return new KalturaRequestBuilder("recording", "stop", kparams);
 	},
 	
 	/**
