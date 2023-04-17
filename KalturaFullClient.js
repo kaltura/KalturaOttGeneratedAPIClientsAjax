@@ -4949,6 +4949,29 @@ var KalturaPermissionItemService = {
 }
 
 /**
+ *Class definition for the Kaltura service: personalActivityCleanup.
+ **/
+var KalturaPersonalActivityCleanupService = {
+	/**
+	 * PersonalActivityCleanupConfiguration get.
+	 **/
+	getPartnerConfiguration: function(){
+		var kparams = new Object();
+		return new KalturaRequestBuilder("personalactivitycleanup", "getPartnerConfiguration", kparams);
+	},
+	
+	/**
+	 * PersonalActivityCleanupConfiguration Update.
+	 * @param	personalActivityCleanupConfiguration	KalturaPersonalActivityCleanupConfiguration		PersonalActivityCleanupConfiguration details (optional)
+	 **/
+	updatePartnerConfiguration: function(personalActivityCleanupConfiguration){
+		var kparams = new Object();
+		kparams.personalActivityCleanupConfiguration = personalActivityCleanupConfiguration;
+		return new KalturaRequestBuilder("personalactivitycleanup", "updatePartnerConfiguration", kparams);
+	}
+}
+
+/**
  *Class definition for the Kaltura service: personalFeed.
  **/
 var KalturaPersonalFeedService = {
@@ -8139,8 +8162,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:23-04-10');
-	this.setApiVersion('8.7.0.30290');
+	this.setClientTag('ajax:23-04-17');
+	this.setApiVersion('8.7.1.30294');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
