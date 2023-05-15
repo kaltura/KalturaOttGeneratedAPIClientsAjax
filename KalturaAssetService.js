@@ -56,6 +56,7 @@ var KalturaAssetService = {
 	
 	/**
 	 * Returns media or EPG asset by media / EPG internal or external identifier.
+ *	            Note: OPC accounts asset.get for internal identifier doesn&#39;t take under consideration personalized aspects neither shop limitations..
 	 * @param	id	string		Asset identifier (optional)
 	 * @param	assetReferenceType	string		Asset type (optional, enum: KalturaAssetReferenceType)
 	 **/
