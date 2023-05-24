@@ -3706,6 +3706,21 @@ var KalturaLineupService = {
 	},
 	
 	/**
+	 * Returns list of lineup regional linear channels associated with one LCN and its region information. Allows to apply sorting and filtering by LCN and linear channels..
+	 * @param	filter	KalturaLineupRegionalChannelFilter		Request filter (optional)
+	 * @param	pager	KalturaFilterPager		Paging the request (optional, default: null)
+	 **/
+	listAction: function(filter, pager){
+		if(!pager)
+			pager = null;
+		var kparams = new Object();
+		kparams.filter = filter;
+		if (pager != null)
+			kparams.pager = pager;
+		return new KalturaRequestBuilder("lineup", "list", kparams);
+	},
+	
+	/**
 	 * Sends lineup update requested notification..
 	 * @param	regionIds	string		Region IDs separated by commas. (optional)
 	 **/
@@ -4930,6 +4945,29 @@ var KalturaPermissionItemService = {
 		if (pager != null)
 			kparams.pager = pager;
 		return new KalturaRequestBuilder("permissionitem", "list", kparams);
+	}
+}
+
+/**
+ *Class definition for the Kaltura service: personalActivityCleanup.
+ **/
+var KalturaPersonalActivityCleanupService = {
+	/**
+	 * PersonalActivityCleanupConfiguration get.
+	 **/
+	getPartnerConfiguration: function(){
+		var kparams = new Object();
+		return new KalturaRequestBuilder("personalactivitycleanup", "getPartnerConfiguration", kparams);
+	},
+	
+	/**
+	 * PersonalActivityCleanupConfiguration Update.
+	 * @param	personalActivityCleanupConfiguration	KalturaPersonalActivityCleanupConfiguration		PersonalActivityCleanupConfiguration details (optional)
+	 **/
+	updatePartnerConfiguration: function(personalActivityCleanupConfiguration){
+		var kparams = new Object();
+		kparams.personalActivityCleanupConfiguration = personalActivityCleanupConfiguration;
+		return new KalturaRequestBuilder("personalactivitycleanup", "updatePartnerConfiguration", kparams);
 	}
 }
 
@@ -8124,8 +8162,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:23-05-16');
-	this.setApiVersion('8.6.12.30274');
+	this.setClientTag('ajax:23-05-24');
+	this.setApiVersion('8.8.1.30345');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
