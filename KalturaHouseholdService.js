@@ -64,7 +64,7 @@ var KalturaHouseholdService = {
 	
 	/**
 	 * Reset a household’s time limitation for removing user or device.
-	 * @param	frequencyType	string		Possible values: devices – reset the device change frequency. 
+	 * @param	frequencyType	string		Possible values: devices – reset the device change frequency.
  *	            users – reset the user add/remove frequency (optional, enum: KalturaHouseholdFrequencyType)
 	 **/
 	resetFrequency: function(frequencyType){
