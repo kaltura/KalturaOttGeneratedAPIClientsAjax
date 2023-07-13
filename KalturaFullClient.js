@@ -2763,7 +2763,7 @@ var KalturaHouseholdService = {
 	
 	/**
 	 * Reset a household’s time limitation for removing user or device.
-	 * @param	frequencyType	string		Possible values: devices – reset the device change frequency. 
+	 * @param	frequencyType	string		Possible values: devices – reset the device change frequency.
  *	            users – reset the user add/remove frequency (optional, enum: KalturaHouseholdFrequencyType)
 	 **/
 	resetFrequency: function(frequencyType){
@@ -3563,6 +3563,24 @@ var KalturaIngestStatusService = {
 	},
 	
 	/**
+	 * List detailed results of ingested assets..
+	 * @param	filter	KalturaVodIngestAssetResultFilter		Filter object with parameters to filter selected ingest processes and assets (optional, default: null)
+	 * @param	pager	KalturaFilterPager		Paging the request (optional, default: null)
+	 **/
+	getVodAssetResult: function(filter, pager){
+		if(!filter)
+			filter = null;
+		if(!pager)
+			pager = null;
+		var kparams = new Object();
+		if (filter != null)
+			kparams.filter = filter;
+		if (pager != null)
+			kparams.pager = pager;
+		return new KalturaRequestBuilder("ingeststatus", "getVodAssetResult", kparams);
+	},
+	
+	/**
 	 * Returns Core Ingest service partner configurations.
 	 * @param	config	KalturaIngestStatusPartnerConfiguration		the partner config updates (optional)
 	 **/
@@ -3703,6 +3721,21 @@ var KalturaLineupService = {
 		kparams.pageIndex = pageIndex;
 		kparams.pageSize = pageSize;
 		return new KalturaRequestBuilder("lineup", "get", kparams);
+	},
+	
+	/**
+	 * Returns list of lineup regional linear channels associated with one LCN and its region information. Allows to apply sorting and filtering by LCN and linear channels..
+	 * @param	filter	KalturaLineupRegionalChannelFilter		Request filter (optional)
+	 * @param	pager	KalturaFilterPager		Paging the request (optional, default: null)
+	 **/
+	listAction: function(filter, pager){
+		if(!pager)
+			pager = null;
+		var kparams = new Object();
+		kparams.filter = filter;
+		if (pager != null)
+			kparams.pager = pager;
+		return new KalturaRequestBuilder("lineup", "list", kparams);
 	},
 	
 	/**
@@ -4930,6 +4963,29 @@ var KalturaPermissionItemService = {
 		if (pager != null)
 			kparams.pager = pager;
 		return new KalturaRequestBuilder("permissionitem", "list", kparams);
+	}
+}
+
+/**
+ *Class definition for the Kaltura service: personalActivityCleanup.
+ **/
+var KalturaPersonalActivityCleanupService = {
+	/**
+	 * PersonalActivityCleanupConfiguration get.
+	 **/
+	getPartnerConfiguration: function(){
+		var kparams = new Object();
+		return new KalturaRequestBuilder("personalactivitycleanup", "getPartnerConfiguration", kparams);
+	},
+	
+	/**
+	 * PersonalActivityCleanupConfiguration Update.
+	 * @param	personalActivityCleanupConfiguration	KalturaPersonalActivityCleanupConfiguration		PersonalActivityCleanupConfiguration details (optional)
+	 **/
+	updatePartnerConfiguration: function(personalActivityCleanupConfiguration){
+		var kparams = new Object();
+		kparams.personalActivityCleanupConfiguration = personalActivityCleanupConfiguration;
+		return new KalturaRequestBuilder("personalactivitycleanup", "updatePartnerConfiguration", kparams);
 	}
 }
 
@@ -8124,8 +8180,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:23-05-16');
-	this.setApiVersion('8.6.12.30274');
+	this.setClientTag('ajax:23-07-13');
+	this.setApiVersion('8.9.11.30405');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
