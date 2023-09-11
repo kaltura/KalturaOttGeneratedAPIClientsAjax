@@ -3563,24 +3563,6 @@ var KalturaIngestStatusService = {
 	},
 	
 	/**
-	 * List detailed results of ingested assets..
-	 * @param	filter	KalturaVodIngestAssetResultFilter		Filter object with parameters to filter selected ingest processes and assets (optional, default: null)
-	 * @param	pager	KalturaFilterPager		Paging the request (optional, default: null)
-	 **/
-	getVodAssetResult: function(filter, pager){
-		if(!filter)
-			filter = null;
-		if(!pager)
-			pager = null;
-		var kparams = new Object();
-		if (filter != null)
-			kparams.filter = filter;
-		if (pager != null)
-			kparams.pager = pager;
-		return new KalturaRequestBuilder("ingeststatus", "getVodAssetResult", kparams);
-	},
-	
-	/**
 	 * Returns Core Ingest service partner configurations.
 	 * @param	config	KalturaIngestStatusPartnerConfiguration		the partner config updates (optional)
 	 **/
@@ -3712,9 +3694,7 @@ var KalturaLicensedUrlService = {
  **/
 var KalturaLineupService = {
 	/**
-	 * Returns regional lineup (list of lineup channel asset objects) based on the requester session characteristics and his region.
- *	            NOTE: Calling lineup.get action using HTTP POST is supported only for tests (non production environment) and is rate limited or blocked.
- *	            For production, HTTP GET shall be used: GET https://{Host_IP}/{build version}/api_v3/service/lineup/action/get.
+	 * Return regional lineup (list of lineup channel asset objects) based on the requester session characteristics and his region..
 	 * @param	pageIndex	int		Page index - The page index to retrieve, (if it is not sent the default page size is 1). (optional)
 	 * @param	pageSize	int		Page size - The page size to retrieve. Must be one of the follow numbers: 100, 200, 800, 1200, 1600 (if it is not sent the default page size is 500). (optional)
 	 **/
@@ -8182,8 +8162,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:23-09-06');
-	this.setApiVersion('9.2.0.1');
+	this.setClientTag('ajax:23-09-11');
+	this.setApiVersion('8.9.6.30374');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
