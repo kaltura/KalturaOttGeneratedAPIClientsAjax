@@ -221,7 +221,6 @@ var KalturaAssetService = {
 	
 	/**
 	 * Returns media or EPG asset by media / EPG internal or external identifier.
- *	            Note: OPC accounts asset.get for internal identifier doesn&#39;t take under consideration personalized aspects neither shop limitations..
 	 * @param	id	string		Asset identifier (optional)
 	 * @param	assetReferenceType	string		Asset type (optional, enum: KalturaAssetReferenceType)
 	 **/
@@ -487,26 +486,11 @@ var KalturaAssetHistoryService = {
 	
 	/**
 	 * Get next episode by last watch asset in given assetId.
-	 * @param	assetId	int		asset Id of series to search for next episode (optional, default: null)
-	 * @param	seriesIdArguments	KalturaSeriesIdArguments		series Id arguments (optional, default: null)
-	 * @param	notWatchedReturnStrategy	string		not watched any episode strategy (optional, enum: KalturaNotWatchedReturnStrategy, default: null)
-	 * @param	watchedAllReturnStrategy	string		watched all series episodes strategy (optional, enum: KalturaWatchedAllReturnStrategy, default: null)
+	 * @param	assetId	int		asset Id of series to search for next episode (optional)
 	 **/
-	getNextEpisode: function(assetId, seriesIdArguments, notWatchedReturnStrategy, watchedAllReturnStrategy){
-		if(!assetId)
-			assetId = null;
-		if(!seriesIdArguments)
-			seriesIdArguments = null;
-		if(!notWatchedReturnStrategy)
-			notWatchedReturnStrategy = null;
-		if(!watchedAllReturnStrategy)
-			watchedAllReturnStrategy = null;
+	getNextEpisode: function(assetId){
 		var kparams = new Object();
 		kparams.assetId = assetId;
-		if (seriesIdArguments != null)
-			kparams.seriesIdArguments = seriesIdArguments;
-		kparams.notWatchedReturnStrategy = notWatchedReturnStrategy;
-		kparams.watchedAllReturnStrategy = watchedAllReturnStrategy;
 		return new KalturaRequestBuilder("assethistory", "getNextEpisode", kparams);
 	},
 	
@@ -2763,7 +2747,7 @@ var KalturaHouseholdService = {
 	
 	/**
 	 * Reset a household’s time limitation for removing user or device.
-	 * @param	frequencyType	string		Possible values: devices – reset the device change frequency.
+	 * @param	frequencyType	string		Possible values: devices – reset the device change frequency. 
  *	            users – reset the user add/remove frequency (optional, enum: KalturaHouseholdFrequencyType)
 	 **/
 	resetFrequency: function(frequencyType){
@@ -3563,24 +3547,6 @@ var KalturaIngestStatusService = {
 	},
 	
 	/**
-	 * List detailed results of ingested assets..
-	 * @param	filter	KalturaVodIngestAssetResultFilter		Filter object with parameters to filter selected ingest processes and assets (optional, default: null)
-	 * @param	pager	KalturaFilterPager		Paging the request (optional, default: null)
-	 **/
-	getVodAssetResult: function(filter, pager){
-		if(!filter)
-			filter = null;
-		if(!pager)
-			pager = null;
-		var kparams = new Object();
-		if (filter != null)
-			kparams.filter = filter;
-		if (pager != null)
-			kparams.pager = pager;
-		return new KalturaRequestBuilder("ingeststatus", "getVodAssetResult", kparams);
-	},
-	
-	/**
 	 * Returns Core Ingest service partner configurations.
 	 * @param	config	KalturaIngestStatusPartnerConfiguration		the partner config updates (optional)
 	 **/
@@ -3712,9 +3678,7 @@ var KalturaLicensedUrlService = {
  **/
 var KalturaLineupService = {
 	/**
-	 * Returns regional lineup (list of lineup channel asset objects) based on the requester session characteristics and his region.
- *	            NOTE: Calling lineup.get action using HTTP POST is supported only for tests (non production environment) and is rate limited or blocked.
- *	            For production, HTTP GET shall be used: GET https://{Host_IP}/{build version}/api_v3/service/lineup/action/get.
+	 * Return regional lineup (list of lineup channel asset objects) based on the requester session characteristics and his region..
 	 * @param	pageIndex	int		Page index - The page index to retrieve, (if it is not sent the default page size is 1). (optional)
 	 * @param	pageSize	int		Page size - The page size to retrieve. Must be one of the follow numbers: 100, 200, 800, 1200, 1600 (if it is not sent the default page size is 500). (optional)
 	 **/
@@ -3723,21 +3687,6 @@ var KalturaLineupService = {
 		kparams.pageIndex = pageIndex;
 		kparams.pageSize = pageSize;
 		return new KalturaRequestBuilder("lineup", "get", kparams);
-	},
-	
-	/**
-	 * Returns list of lineup regional linear channels associated with one LCN and its region information. Allows to apply sorting and filtering by LCN and linear channels..
-	 * @param	filter	KalturaLineupRegionalChannelFilter		Request filter (optional)
-	 * @param	pager	KalturaFilterPager		Paging the request (optional, default: null)
-	 **/
-	listAction: function(filter, pager){
-		if(!pager)
-			pager = null;
-		var kparams = new Object();
-		kparams.filter = filter;
-		if (pager != null)
-			kparams.pager = pager;
-		return new KalturaRequestBuilder("lineup", "list", kparams);
 	},
 	
 	/**
@@ -3862,46 +3811,6 @@ var KalturaMediaFileService = {
 		kparams.id = id;
 		kparams.mediaFile = mediaFile;
 		return new KalturaRequestBuilder("mediafile", "update", kparams);
-	}
-}
-
-/**
- *Class definition for the Kaltura service: mediaFileDynamicData.
- **/
-var KalturaMediaFileDynamicDataService = {
-	/**
-	 * Add a dynamicData value to the values list of a specific key name in a specific mediaFileTypeId.
-	 * @param	dynamicData	KalturaMediaFileDynamicData		DynamicData value (optional)
-	 **/
-	add: function(dynamicData){
-		var kparams = new Object();
-		kparams.dynamicData = dynamicData;
-		return new KalturaRequestBuilder("mediafiledynamicdata", "add", kparams);
-	},
-	
-	/**
-	 * Delete an existing DynamicData value.
-	 * @param	id	int		DynamicData identifier (optional)
-	 **/
-	deleteAction: function(id){
-		var kparams = new Object();
-		kparams.id = id;
-		return new KalturaRequestBuilder("mediafiledynamicdata", "delete", kparams);
-	},
-	
-	/**
-	 * List and filter existing mediaFile dynamicData values.
-	 * @param	filter	KalturaMediaFileDynamicDataFilter		Filter (optional)
-	 * @param	pager	KalturaFilterPager		Pager (optional, default: null)
-	 **/
-	listAction: function(filter, pager){
-		if(!pager)
-			pager = null;
-		var kparams = new Object();
-		kparams.filter = filter;
-		if (pager != null)
-			kparams.pager = pager;
-		return new KalturaRequestBuilder("mediafiledynamicdata", "list", kparams);
 	}
 }
 
@@ -4969,29 +4878,6 @@ var KalturaPermissionItemService = {
 }
 
 /**
- *Class definition for the Kaltura service: personalActivityCleanup.
- **/
-var KalturaPersonalActivityCleanupService = {
-	/**
-	 * PersonalActivityCleanupConfiguration get.
-	 **/
-	getPartnerConfiguration: function(){
-		var kparams = new Object();
-		return new KalturaRequestBuilder("personalactivitycleanup", "getPartnerConfiguration", kparams);
-	},
-	
-	/**
-	 * PersonalActivityCleanupConfiguration Update.
-	 * @param	personalActivityCleanupConfiguration	KalturaPersonalActivityCleanupConfiguration		PersonalActivityCleanupConfiguration details (optional)
-	 **/
-	updatePartnerConfiguration: function(personalActivityCleanupConfiguration){
-		var kparams = new Object();
-		kparams.personalActivityCleanupConfiguration = personalActivityCleanupConfiguration;
-		return new KalturaRequestBuilder("personalactivitycleanup", "updatePartnerConfiguration", kparams);
-	}
-}
-
-/**
  *Class definition for the Kaltura service: personalFeed.
  **/
 var KalturaPersonalFeedService = {
@@ -5631,20 +5517,6 @@ var KalturaRecordingService = {
 	},
 	
 	/**
-	 * Immediate Record.
-	 * @param	assetId	int		asset identifier (optional)
-	 * @param	endPadding	int		end padding offset (optional, default: null)
-	 **/
-	immediateRecord: function(assetId, endPadding){
-		if(!endPadding)
-			endPadding = null;
-		var kparams = new Object();
-		kparams.assetId = assetId;
-		kparams.endPadding = endPadding;
-		return new KalturaRequestBuilder("recording", "immediateRecord", kparams);
-	},
-	
-	/**
 	 * Return a list of recordings for the household with optional filter by status and KSQL..
 	 * @param	filter	KalturaRecordingFilter		Filter parameters for filtering out the result (optional, default: null)
 	 * @param	pager	KalturaFilterPager		Page size and index (optional, default: null)
@@ -5671,18 +5543,6 @@ var KalturaRecordingService = {
 		var kparams = new Object();
 		kparams.id = id;
 		return new KalturaRequestBuilder("recording", "protect", kparams);
-	},
-	
-	/**
-	 * Stop ongoing household recording.
-	 * @param	assetId	int		asset identifier (optional)
-	 * @param	id	int		household recording identifier (optional)
-	 **/
-	stop: function(assetId, id){
-		var kparams = new Object();
-		kparams.assetId = assetId;
-		kparams.id = id;
-		return new KalturaRequestBuilder("recording", "stop", kparams);
 	},
 	
 	/**
@@ -8182,8 +8042,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:23-09-06');
-	this.setApiVersion('9.2.0.1');
+	this.setClientTag('ajax:23-11-22');
+	this.setApiVersion('8.3.2.5');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
