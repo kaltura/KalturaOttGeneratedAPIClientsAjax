@@ -1713,6 +1713,16 @@ var KalturaCouponService = {
 		var kparams = new Object();
 		kparams.code = code;
 		return new KalturaRequestBuilder("coupon", "get", kparams);
+	},
+	
+	/**
+	 * get all coupon codes of a specific couponGroup.
+	 * @param	couponsGroupId	int		The couponsGroup ID for which its file links will be listed (optional)
+	 **/
+	getFilesLinks: function(couponsGroupId){
+		var kparams = new Object();
+		kparams.couponsGroupId = couponsGroupId;
+		return new KalturaRequestBuilder("coupon", "getFilesLinks", kparams);
 	}
 }
 
@@ -8182,8 +8192,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:23-09-06');
-	this.setApiVersion('9.2.0.1');
+	this.setClientTag('ajax:23-12-12');
+	this.setApiVersion('9.5.0.2');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
