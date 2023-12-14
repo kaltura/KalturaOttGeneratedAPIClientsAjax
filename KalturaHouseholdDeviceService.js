@@ -106,6 +106,16 @@ var KalturaHouseholdDeviceService = {
 	},
 	
 	/**
+	 * Retry delete household device entities by retention..
+	 * @param	request	KalturaRetryDeleteRequest		Request data (optional)
+	 **/
+	retryDelete: function(request){
+		var kparams = new Object();
+		kparams.request = request;
+		return new KalturaRequestBuilder("householddevice", "retryDelete", kparams);
+	},
+	
+	/**
 	 * Update the name of the device by UDID.
 	 * @param	udid	string		Device UDID (optional)
 	 * @param	device	KalturaHouseholdDevice		Device object (optional)
