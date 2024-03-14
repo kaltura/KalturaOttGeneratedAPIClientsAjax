@@ -1713,16 +1713,6 @@ var KalturaCouponService = {
 		var kparams = new Object();
 		kparams.code = code;
 		return new KalturaRequestBuilder("coupon", "get", kparams);
-	},
-	
-	/**
-	 * get all coupon codes of a specific couponGroup.
-	 * @param	couponsGroupId	int		The couponsGroup ID for which its file links will be listed (optional)
-	 **/
-	getFilesLinks: function(couponsGroupId){
-		var kparams = new Object();
-		kparams.couponsGroupId = couponsGroupId;
-		return new KalturaRequestBuilder("coupon", "getFilesLinks", kparams);
 	}
 }
 
@@ -2747,14 +2737,6 @@ var KalturaHouseholdService = {
 	},
 	
 	/**
-	 * Get household partner configuration.
-	 **/
-	getPartnerConfiguration: function(){
-		var kparams = new Object();
-		return new KalturaRequestBuilder("household", "getPartnerConfiguration", kparams);
-	},
-	
-	/**
 	 * Retrive household for the partner filter by external identifier.
 	 * @param	filter	KalturaHouseholdFilter		Filter parameters for filtering out the result (optional)
 	 * @param	pager	KalturaFilterPager		Page size and index. Number of assets to return per page. Possible range 5 ≤ size ≥ 50. If omitted - will be set to 25. If a value > 50 provided – will set to 50 (optional, default: null)
@@ -2799,16 +2781,6 @@ var KalturaHouseholdService = {
 	},
 	
 	/**
-	 * Retry delete household entities by retention..
-	 * @param	request	KalturaRetryDeleteRequest		Request data (optional)
-	 **/
-	retryDelete: function(request){
-		var kparams = new Object();
-		kparams.request = request;
-		return new KalturaRequestBuilder("household", "retryDelete", kparams);
-	},
-	
-	/**
 	 * Suspend a given household service. Sets the household status to “suspended&quot;.The household service settings are maintained for later resume.
 	 * @param	roleId	int		roleId (optional, default: null)
 	 **/
@@ -2828,16 +2800,6 @@ var KalturaHouseholdService = {
 		var kparams = new Object();
 		kparams.household = household;
 		return new KalturaRequestBuilder("household", "update", kparams);
-	},
-	
-	/**
-	 * Update household partner configuration.
-	 * @param	configuration	KalturaHouseholdPartnerConfiguration		Household partner configuration details (optional)
-	 **/
-	updatePartnerConfiguration: function(configuration){
-		var kparams = new Object();
-		kparams.configuration = configuration;
-		return new KalturaRequestBuilder("household", "updatePartnerConfiguration", kparams);
 	}
 }
 
@@ -2983,16 +2945,6 @@ var KalturaHouseholdDeviceService = {
 		if (extraParams != null)
 			kparams.extraParams = extraParams;
 		return new KalturaRequestBuilder("householddevice", "loginWithPin", kparams);
-	},
-	
-	/**
-	 * Retry delete household device entities by retention..
-	 * @param	request	KalturaRetryDeleteRequest		Request data (optional)
-	 **/
-	retryDelete: function(request){
-		var kparams = new Object();
-		kparams.request = request;
-		return new KalturaRequestBuilder("householddevice", "retryDelete", kparams);
 	},
 	
 	/**
@@ -4467,16 +4419,6 @@ var KalturaOttUserService = {
 		kparams.username = username;
 		kparams.templateName = templateName;
 		return new KalturaRequestBuilder("ottuser", "resetPassword", kparams);
-	},
-	
-	/**
-	 * Retry delete OTT user entities by retention..
-	 * @param	request	KalturaRetryDeleteRequest		Request data (optional)
-	 **/
-	retryDelete: function(request){
-		var kparams = new Object();
-		kparams.request = request;
-		return new KalturaRequestBuilder("ottuser", "retryDelete", kparams);
 	},
 	
 	/**
@@ -8240,8 +8182,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:24-01-15');
-	this.setApiVersion('9.6.0.0');
+	this.setClientTag('ajax:24-03-14');
+	this.setApiVersion('9.0.0.20');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
