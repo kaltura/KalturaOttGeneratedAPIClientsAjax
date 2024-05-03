@@ -196,16 +196,6 @@ var KalturaOttUserService = {
 	},
 	
 	/**
-	 * Retry delete OTT user entities by retention..
-	 * @param	request	KalturaRetryDeleteRequest		Request data (optional)
-	 **/
-	retryDelete: function(request){
-		var kparams = new Object();
-		kparams.request = request;
-		return new KalturaRequestBuilder("ottuser", "retryDelete", kparams);
-	},
-	
-	/**
 	 * Renew the user&#39;s password after validating the token that sent as part of URL in e-mail..
 	 * @param	partnerId	int		Partner Identifier (optional)
 	 * @param	token	string		Token that sent by e-mail (optional)

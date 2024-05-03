@@ -65,24 +65,6 @@ var KalturaIngestStatusService = {
 	},
 	
 	/**
-	 * List detailed results of ingested assets..
-	 * @param	filter	KalturaVodIngestAssetResultFilter		Filter object with parameters to filter selected ingest processes and assets (optional, default: null)
-	 * @param	pager	KalturaFilterPager		Paging the request (optional, default: null)
-	 **/
-	getVodAssetResult: function(filter, pager){
-		if(!filter)
-			filter = null;
-		if(!pager)
-			pager = null;
-		var kparams = new Object();
-		if (filter != null)
-			kparams.filter = filter;
-		if (pager != null)
-			kparams.pager = pager;
-		return new KalturaRequestBuilder("ingeststatus", "getVodAssetResult", kparams);
-	},
-	
-	/**
 	 * Returns Core Ingest service partner configurations.
 	 * @param	config	KalturaIngestStatusPartnerConfiguration		the partner config updates (optional)
 	 **/
