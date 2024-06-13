@@ -180,7 +180,7 @@ var KalturaAssetService = {
 	},
 	
 	/**
-	 * Add new bulk upload batch job Conversion profile id can be specified in the API..
+	 * Add new bulk upload batch job Conversion profile id can be specified in the API (note that the total request body size is limited to 10MB)..
 	 * @param	fileData	HTMLElement		fileData (optional)
 	 * @param	bulkUploadJobData	KalturaBulkUploadJobData		bulkUploadJobData (optional)
 	 * @param	bulkUploadAssetData	KalturaBulkUploadAssetData		bulkUploadAssetData (optional)
@@ -2061,7 +2061,7 @@ var KalturaDynamicListService = {
 	},
 	
 	/**
-	 * Add new bulk upload batch job Conversion profile id can be specified in the API..
+	 * Add new bulk upload batch job Conversion profile id can be specified in the API (note that the total request body size is limited to 10MB)..
 	 * @param	fileData	HTMLElement		fileData (optional)
 	 * @param	jobData	KalturaBulkUploadExcelJobData		jobData (optional)
 	 * @param	bulkUploadData	KalturaBulkUploadDynamicListData		bulkUploadData (optional)
@@ -8240,8 +8240,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:24-01-15');
-	this.setApiVersion('9.6.0.0');
+	this.setClientTag('ajax:24-06-13');
+	this.setApiVersion('10.1.1.0');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
