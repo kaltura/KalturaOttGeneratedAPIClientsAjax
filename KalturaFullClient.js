@@ -180,7 +180,7 @@ var KalturaAssetService = {
 	},
 	
 	/**
-	 * Add new bulk upload batch job Conversion profile id can be specified in the API..
+	 * Add new bulk upload batch job Conversion profile id can be specified in the API (note that the total request body size is limited to 10MB)..
 	 * @param	fileData	HTMLElement		fileData (optional)
 	 * @param	bulkUploadJobData	KalturaBulkUploadJobData		bulkUploadJobData (optional)
 	 * @param	bulkUploadAssetData	KalturaBulkUploadAssetData		bulkUploadAssetData (optional)
@@ -643,6 +643,7 @@ var KalturaAssetRuleService = {
 var KalturaAssetStatisticsService = {
 	/**
 	 * Returns statistics for given list of assets by type and / or time period.
+ *	            Supported values for KalturaAssetStatisticsQuery.assetTypeEqual : KalturaAssetType.media, KalturaAssetType.epg..
 	 * @param	query	KalturaAssetStatisticsQuery		Query for assets statistics (optional)
 	 **/
 	query: function(query){
@@ -2061,7 +2062,7 @@ var KalturaDynamicListService = {
 	},
 	
 	/**
-	 * Add new bulk upload batch job Conversion profile id can be specified in the API..
+	 * Add new bulk upload batch job Conversion profile id can be specified in the API (note that the total request body size is limited to 10MB)..
 	 * @param	fileData	HTMLElement		fileData (optional)
 	 * @param	jobData	KalturaBulkUploadExcelJobData		jobData (optional)
 	 * @param	bulkUploadData	KalturaBulkUploadDynamicListData		bulkUploadData (optional)
@@ -3771,6 +3772,14 @@ var KalturaLineupService = {
 		kparams.pageIndex = pageIndex;
 		kparams.pageSize = pageSize;
 		return new KalturaRequestBuilder("lineup", "get", kparams);
+	},
+	
+	/**
+	 * Sends lineup requested invalidation.
+	 **/
+	invalidate: function(){
+		var kparams = new Object();
+		return new KalturaRequestBuilder("lineup", "invalidate", kparams);
 	},
 	
 	/**
@@ -8240,8 +8249,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:24-01-15');
-	this.setApiVersion('9.6.0.0');
+	this.setClientTag('ajax:24-08-23');
+	this.setApiVersion('6.7.0.0');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
