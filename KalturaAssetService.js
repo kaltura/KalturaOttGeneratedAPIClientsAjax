@@ -15,7 +15,7 @@ var KalturaAssetService = {
 	},
 	
 	/**
-	 * Add new bulk upload batch job Conversion profile id can be specified in the API..
+	 * Add new bulk upload batch job Conversion profile id can be specified in the API (note that the total request body size is limited to 10MB)..
 	 * @param	fileData	HTMLElement		fileData (optional)
 	 * @param	bulkUploadJobData	KalturaBulkUploadJobData		bulkUploadJobData (optional)
 	 * @param	bulkUploadAssetData	KalturaBulkUploadAssetData		bulkUploadAssetData (optional)
