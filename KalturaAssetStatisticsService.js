@@ -5,6 +5,7 @@
 var KalturaAssetStatisticsService = {
 	/**
 	 * Returns statistics for given list of assets by type and / or time period.
+ *	            Supported values for KalturaAssetStatisticsQuery.assetTypeEqual : KalturaAssetType.media, KalturaAssetType.epg..
 	 * @param	query	KalturaAssetStatisticsQuery		Query for assets statistics (optional)
 	 **/
 	query: function(query){
