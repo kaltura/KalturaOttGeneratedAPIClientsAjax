@@ -33,15 +33,19 @@ var KalturaCategoryTreeService = {
 	 * Retrieve default category tree of deviceFamilyId by KS or specific one if versionId is set..
 	 * @param	versionId	int		Category version id of tree (optional, default: null)
 	 * @param	deviceFamilyId	int		deviceFamilyId related to category tree (optional, default: null)
+	 * @param	filter	bool		filter=true excludes items for which the start date has not been reached yet; default is false (optional, default: false)
 	 **/
-	getByVersion: function(versionId, deviceFamilyId){
+	getByVersion: function(versionId, deviceFamilyId, filter){
 		if(!versionId)
 			versionId = null;
 		if(!deviceFamilyId)
 			deviceFamilyId = null;
+		if(!filter)
+			filter = false;
 		var kparams = new Object();
 		kparams.versionId = versionId;
 		kparams.deviceFamilyId = deviceFamilyId;
+		kparams.filter = filter;
 		return new KalturaRequestBuilder("categorytree", "getByVersion", kparams);
 	}
 }
