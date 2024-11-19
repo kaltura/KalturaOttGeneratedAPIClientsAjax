@@ -180,7 +180,7 @@ var KalturaAssetService = {
 	},
 	
 	/**
-	 * Add new bulk upload batch job Conversion profile id can be specified in the API..
+	 * Add new bulk upload batch job Conversion profile id can be specified in the API (note that the total request body size is limited to 10MB)..
 	 * @param	fileData	HTMLElement		fileData (optional)
 	 * @param	bulkUploadJobData	KalturaBulkUploadJobData		bulkUploadJobData (optional)
 	 * @param	bulkUploadAssetData	KalturaBulkUploadAssetData		bulkUploadAssetData (optional)
@@ -367,6 +367,16 @@ var KalturaAssetService = {
 		kparams.id = id;
 		kparams.asset = asset;
 		return new KalturaRequestBuilder("asset", "update", kparams);
+	},
+	
+	/**
+	 * Return list of assets - assets are personal recommendations for the caller..
+	 * @param	profileId	int		WatchBasedRecommendations profile id (optional)
+	 **/
+	watchBasedRecommendationsList: function(profileId){
+		var kparams = new Object();
+		kparams.profileId = profileId;
+		return new KalturaRequestBuilder("asset", "watchBasedRecommendationsList", kparams);
 	}
 }
 
@@ -643,6 +653,7 @@ var KalturaAssetRuleService = {
 var KalturaAssetStatisticsService = {
 	/**
 	 * Returns statistics for given list of assets by type and / or time period.
+ *	            Supported values for KalturaAssetStatisticsQuery.assetTypeEqual : KalturaAssetType.media, KalturaAssetType.epg..
 	 * @param	query	KalturaAssetStatisticsQuery		Query for assets statistics (optional)
 	 **/
 	query: function(query){
@@ -1098,15 +1109,19 @@ var KalturaCategoryTreeService = {
 	 * Retrieve default category tree of deviceFamilyId by KS or specific one if versionId is set..
 	 * @param	versionId	int		Category version id of tree (optional, default: null)
 	 * @param	deviceFamilyId	int		deviceFamilyId related to category tree (optional, default: null)
+	 * @param	filter	bool		filter=true excludes items for which the start date has not been reached yet; default is false (optional, default: false)
 	 **/
-	getByVersion: function(versionId, deviceFamilyId){
+	getByVersion: function(versionId, deviceFamilyId, filter){
 		if(!versionId)
 			versionId = null;
 		if(!deviceFamilyId)
 			deviceFamilyId = null;
+		if(!filter)
+			filter = false;
 		var kparams = new Object();
 		kparams.versionId = versionId;
 		kparams.deviceFamilyId = deviceFamilyId;
+		kparams.filter = filter;
 		return new KalturaRequestBuilder("categorytree", "getByVersion", kparams);
 	}
 }
@@ -2061,7 +2076,7 @@ var KalturaDynamicListService = {
 	},
 	
 	/**
-	 * Add new bulk upload batch job Conversion profile id can be specified in the API..
+	 * Add new bulk upload batch job Conversion profile id can be specified in the API (note that the total request body size is limited to 10MB)..
 	 * @param	fileData	HTMLElement		fileData (optional)
 	 * @param	jobData	KalturaBulkUploadExcelJobData		jobData (optional)
 	 * @param	bulkUploadData	KalturaBulkUploadDynamicListData		bulkUploadData (optional)
@@ -3774,6 +3789,14 @@ var KalturaLineupService = {
 	},
 	
 	/**
+	 * Sends lineup requested invalidation.
+	 **/
+	invalidate: function(){
+		var kparams = new Object();
+		return new KalturaRequestBuilder("lineup", "invalidate", kparams);
+	},
+	
+	/**
 	 * Returns list of lineup regional linear channels associated with one LCN and its region information. Allows to apply sorting and filtering by LCN and linear channels..
 	 * @param	filter	KalturaLineupRegionalChannelFilter		Request filter (optional)
 	 * @param	pager	KalturaFilterPager		Paging the request (optional, default: null)
@@ -4072,6 +4095,29 @@ var KalturaMetaService = {
 		kparams.id = id;
 		kparams.meta = meta;
 		return new KalturaRequestBuilder("meta", "update", kparams);
+	}
+}
+
+/**
+ *Class definition for the Kaltura service: mfaPartnerConfiguration.
+ **/
+var KalturaMfaPartnerConfigurationService = {
+	/**
+	 * Get MFA partner configuration..
+	 **/
+	get: function(){
+		var kparams = new Object();
+		return new KalturaRequestBuilder("mfapartnerconfiguration", "get", kparams);
+	},
+	
+	/**
+	 * Update MFA partner configuration..
+	 * @param	configuration	KalturaMultifactorAuthenticationPartnerConfiguration		MFA configuration (optional)
+	 **/
+	update: function(configuration){
+		var kparams = new Object();
+		kparams.configuration = configuration;
+		return new KalturaRequestBuilder("mfapartnerconfiguration", "update", kparams);
 	}
 }
 
@@ -4428,6 +4474,35 @@ var KalturaOttUserService = {
 	},
 	
 	/**
+	 * login based on MFA token..
+	 * @param	partnerId	int		Partner identifier (optional)
+	 * @param	token	string		MFA token (optional)
+	 * @param	username	string		user name (optional, default: null)
+	 * @param	password	string		password (optional, default: null)
+	 * @param	extraParams	map		extra params (optional, default: null)
+	 * @param	udid	string		Device UDID (optional, default: null)
+	 **/
+	mfaLogin: function(partnerId, token, username, password, extraParams, udid){
+		if(!username)
+			username = null;
+		if(!password)
+			password = null;
+		if(!extraParams)
+			extraParams = null;
+		if(!udid)
+			udid = null;
+		var kparams = new Object();
+		kparams.partnerId = partnerId;
+		kparams.token = token;
+		kparams.username = username;
+		kparams.password = password;
+		if (extraParams != null)
+			kparams.extraParams = extraParams;
+		kparams.udid = udid;
+		return new KalturaRequestBuilder("ottuser", "mfaLogin", kparams);
+	},
+	
+	/**
 	 * Sign up a new user..
 	 * @param	partnerId	int		Partner identifier (optional)
 	 * @param	user	KalturaOTTUser		The user model to add (optional)
@@ -4451,6 +4526,29 @@ var KalturaOttUserService = {
 		kparams.partnerId = partnerId;
 		kparams.username = username;
 		return new KalturaRequestBuilder("ottuser", "resendActivationToken", kparams);
+	},
+	
+	/**
+	 * resend MFA Token for the user..
+	 * @param	partnerId	int		Partner identifier (optional)
+	 * @param	username	string		user name (optional, default: null)
+	 * @param	password	string		password (optional, default: null)
+	 * @param	extraParams	map		extra params (optional, default: null)
+	 **/
+	resendMfaToken: function(partnerId, username, password, extraParams){
+		if(!username)
+			username = null;
+		if(!password)
+			password = null;
+		if(!extraParams)
+			extraParams = null;
+		var kparams = new Object();
+		kparams.partnerId = partnerId;
+		kparams.username = username;
+		kparams.password = password;
+		if (extraParams != null)
+			kparams.extraParams = extraParams;
+		return new KalturaRequestBuilder("ottuser", "resendMfaToken", kparams);
 	},
 	
 	/**
@@ -7641,6 +7739,89 @@ var KalturaUserSessionProfileService = {
 		return new KalturaRequestBuilder("usersessionprofile", "update", kparams);
 	}
 }
+
+/**
+ *Class definition for the Kaltura service: watchBasedRecommendationsAdminConfiguration.
+ **/
+var KalturaWatchBasedRecommendationsAdminConfigurationService = {
+	/**
+	 * Get partner&#39;s watch based recommendations admin configuration..
+	 **/
+	get: function(){
+		var kparams = new Object();
+		return new KalturaRequestBuilder("watchbasedrecommendationsadminconfiguration", "get", kparams);
+	},
+	
+	/**
+	 * Updates partner&#39;s watch based recommendations admin configuration..
+	 * @param	configuration	KalturaWatchBasedRecommendationsAdminConfiguration		watch based recommendations admin configuration (optional)
+	 **/
+	update: function(configuration){
+		var kparams = new Object();
+		kparams.configuration = configuration;
+		return new KalturaRequestBuilder("watchbasedrecommendationsadminconfiguration", "update", kparams);
+	}
+}
+
+/**
+ *Class definition for the Kaltura service: watchBasedRecommendationsProfile.
+ **/
+var KalturaWatchBasedRecommendationsProfileService = {
+	/**
+	 * Add partner&#39;s watch based recommendations profile..
+	 * @param	profile	KalturaWatchBasedRecommendationsProfile		watch based recommendations profile to add (optional)
+	 **/
+	add: function(profile){
+		var kparams = new Object();
+		kparams.profile = profile;
+		return new KalturaRequestBuilder("watchbasedrecommendationsprofile", "add", kparams);
+	},
+	
+	/**
+	 * Delete partner&#39;s watch based recommendations profile..
+	 * @param	id	int		profile id to update (optional)
+	 **/
+	deleteAction: function(id){
+		var kparams = new Object();
+		kparams.id = id;
+		return new KalturaRequestBuilder("watchbasedrecommendationsprofile", "delete", kparams);
+	},
+	
+	/**
+	 * Delete all recommendations that were calculated based on specific profile..
+	 * @param	id	int		profile id (optional)
+	 **/
+	deleteWatchBasedRecommendationsOfProfile: function(id){
+		var kparams = new Object();
+		kparams.id = id;
+		return new KalturaRequestBuilder("watchbasedrecommendationsprofile", "deleteWatchBasedRecommendationsOfProfile", kparams);
+	},
+	
+	/**
+	 * Get partner&#39;s watch based recommendations profiles..
+	 * @param	filter	KalturaWatchBasedRecommendationsProfileFilter		Filtering parameters for watch based recommendations profiles (optional, default: null)
+	 **/
+	listAction: function(filter){
+		if(!filter)
+			filter = null;
+		var kparams = new Object();
+		if (filter != null)
+			kparams.filter = filter;
+		return new KalturaRequestBuilder("watchbasedrecommendationsprofile", "list", kparams);
+	},
+	
+	/**
+	 * Update partner&#39;s watch based recommendations profile..
+	 * @param	id	int		profile id to update (optional)
+	 * @param	profile	KalturaWatchBasedRecommendationsProfile		watch based recommendations profile to add (optional)
+	 **/
+	update: function(id, profile){
+		var kparams = new Object();
+		kparams.id = id;
+		kparams.profile = profile;
+		return new KalturaRequestBuilder("watchbasedrecommendationsprofile", "update", kparams);
+	}
+}
 // ===================================================================================================
 //                           _  __     _ _
 //                          | |/ /__ _| | |_ _  _ _ _ __ _
@@ -8240,8 +8421,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:24-01-15');
-	this.setApiVersion('9.6.0.0');
+	this.setClientTag('ajax:24-11-19');
+	this.setApiVersion('10.6.1.3');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
