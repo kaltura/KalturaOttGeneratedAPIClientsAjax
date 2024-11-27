@@ -154,6 +154,35 @@ var KalturaOttUserService = {
 	},
 	
 	/**
+	 * login based on MFA token..
+	 * @param	partnerId	int		Partner identifier (optional)
+	 * @param	token	string		MFA token (optional)
+	 * @param	username	string		user name (optional, default: null)
+	 * @param	password	string		password (optional, default: null)
+	 * @param	extraParams	map		extra params (optional, default: null)
+	 * @param	udid	string		Device UDID (optional, default: null)
+	 **/
+	mfaLogin: function(partnerId, token, username, password, extraParams, udid){
+		if(!username)
+			username = null;
+		if(!password)
+			password = null;
+		if(!extraParams)
+			extraParams = null;
+		if(!udid)
+			udid = null;
+		var kparams = new Object();
+		kparams.partnerId = partnerId;
+		kparams.token = token;
+		kparams.username = username;
+		kparams.password = password;
+		if (extraParams != null)
+			kparams.extraParams = extraParams;
+		kparams.udid = udid;
+		return new KalturaRequestBuilder("ottuser", "mfaLogin", kparams);
+	},
+	
+	/**
 	 * Sign up a new user..
 	 * @param	partnerId	int		Partner identifier (optional)
 	 * @param	user	KalturaOTTUser		The user model to add (optional)
@@ -177,6 +206,29 @@ var KalturaOttUserService = {
 		kparams.partnerId = partnerId;
 		kparams.username = username;
 		return new KalturaRequestBuilder("ottuser", "resendActivationToken", kparams);
+	},
+	
+	/**
+	 * resend MFA Token for the user..
+	 * @param	partnerId	int		Partner identifier (optional)
+	 * @param	username	string		user name (optional, default: null)
+	 * @param	password	string		password (optional, default: null)
+	 * @param	extraParams	map		extra params (optional, default: null)
+	 **/
+	resendMfaToken: function(partnerId, username, password, extraParams){
+		if(!username)
+			username = null;
+		if(!password)
+			password = null;
+		if(!extraParams)
+			extraParams = null;
+		var kparams = new Object();
+		kparams.partnerId = partnerId;
+		kparams.username = username;
+		kparams.password = password;
+		if (extraParams != null)
+			kparams.extraParams = extraParams;
+		return new KalturaRequestBuilder("ottuser", "resendMfaToken", kparams);
 	},
 	
 	/**
