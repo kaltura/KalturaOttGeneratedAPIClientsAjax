@@ -18,6 +18,14 @@ var KalturaLineupService = {
 	},
 	
 	/**
+	 * Sends lineup requested invalidation.
+	 **/
+	invalidate: function(){
+		var kparams = new Object();
+		return new KalturaRequestBuilder("lineup", "invalidate", kparams);
+	},
+	
+	/**
 	 * Returns list of lineup regional linear channels associated with one LCN and its region information. Allows to apply sorting and filtering by LCN and linear channels..
 	 * @param	filter	KalturaLineupRegionalChannelFilter		Request filter (optional)
 	 * @param	pager	KalturaFilterPager		Paging the request (optional, default: null)
