@@ -15,7 +15,7 @@ var KalturaAssetService = {
 	},
 	
 	/**
-	 * Add new bulk upload batch job Conversion profile id can be specified in the API..
+	 * Add new bulk upload batch job Conversion profile id can be specified in the API (note that the total request body size is limited to 10MB)..
 	 * @param	fileData	HTMLElement		fileData (optional)
 	 * @param	bulkUploadJobData	KalturaBulkUploadJobData		bulkUploadJobData (optional)
 	 * @param	bulkUploadAssetData	KalturaBulkUploadAssetData		bulkUploadAssetData (optional)
@@ -202,5 +202,15 @@ var KalturaAssetService = {
 		kparams.id = id;
 		kparams.asset = asset;
 		return new KalturaRequestBuilder("asset", "update", kparams);
+	},
+	
+	/**
+	 * Return list of assets - assets are personal recommendations for the caller..
+	 * @param	profileId	int		WatchBasedRecommendations profile id (optional)
+	 **/
+	watchBasedRecommendationsList: function(profileId){
+		var kparams = new Object();
+		kparams.profileId = profileId;
+		return new KalturaRequestBuilder("asset", "watchBasedRecommendationsList", kparams);
 	}
 }
