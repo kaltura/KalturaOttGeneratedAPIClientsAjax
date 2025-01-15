@@ -247,6 +247,22 @@ var KalturaAssetService = {
 	},
 	
 	/**
+	 * Gets the bulk playback context for assets..
+	 * @param	fileTypes	array		The types of files to include in the playback context. (optional)
+	 * @param	streamerType	string		The type of streamer to use. (optional)
+	 * @param	context	string		The context for the playback. (optional, enum: KalturaPlaybackContextType)
+	 * @param	urlType	string		The type of URL to generate. (optional, enum: KalturaUrlType)
+	 **/
+	getBulkPlaybackContext: function(fileTypes, streamerType, context, urlType){
+		var kparams = new Object();
+		kparams.fileTypes = fileTypes;
+		kparams.streamerType = streamerType;
+		kparams.context = context;
+		kparams.urlType = urlType;
+		return new KalturaRequestBuilder("asset", "getBulkPlaybackContext", kparams);
+	},
+	
+	/**
 	 * This action delivers all data relevant for player.
 	 * @param	assetId	string		Asset identifier (optional)
 	 * @param	assetType	string		Asset type (optional, enum: KalturaAssetType)
@@ -8422,8 +8438,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:25-01-07');
-	this.setApiVersion('10.7.1.4');
+	this.setClientTag('ajax:25-01-15');
+	this.setApiVersion('10.8.0.0');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
