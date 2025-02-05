@@ -40,6 +40,14 @@ var KalturaAiMetadataGeneratorService = {
 	},
 	
 	/**
+	 * Get metadata mapping structure and available generated metadata fields.
+	 **/
+	getMetadataFieldDefinitions: function(){
+		var kparams = new Object();
+		return new KalturaRequestBuilder("aimetadatagenerator", "getMetadataFieldDefinitions", kparams);
+	},
+	
+	/**
 	 * retrieve feature configuration.
 	 **/
 	getPartnerConfiguration: function(){
@@ -51,9 +59,9 @@ var KalturaAiMetadataGeneratorService = {
 	 * update feature configuration.
 	 * @param	configuration	KalturaAiMetadataGeneratorConfiguration		the partner configuration to be set (optional)
 	 **/
-	setPartnerConfiguration: function(configuration){
+	updatePartnerConfiguration: function(configuration){
 		var kparams = new Object();
 		kparams.configuration = configuration;
-		return new KalturaRequestBuilder("aimetadatagenerator", "setPartnerConfiguration", kparams);
+		return new KalturaRequestBuilder("aimetadatagenerator", "updatePartnerConfiguration", kparams);
 	}
 }
