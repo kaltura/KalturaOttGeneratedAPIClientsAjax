@@ -8,14 +8,11 @@ var KalturaAiMetadataGeneratorService = {
 	 * @param	subtitlesFileId	int		he subtitles file ID returned when uploaded the subtitles file by the subtitles service.
  *	            Represents also the job ID used by the generate metadata process (optional)
 	 * @param	externalAssetIds	array		A list of external asset IDs to be populated with the generated metadata (optional)
-	 * @param	targetDisplayLanguage	string		The language used for the generated results.
- *	            Must be a valid existing KalturaLanguage systemName.\nIf not provided then the subtitles language will be used (optional)
 	 **/
-	generateMetadataBySubtitles: function(subtitlesFileId, externalAssetIds, targetDisplayLanguage){
+	generateMetadataBySubtitles: function(subtitlesFileId, externalAssetIds){
 		var kparams = new Object();
 		kparams.subtitlesFileId = subtitlesFileId;
 		kparams.externalAssetIds = externalAssetIds;
-		kparams.targetDisplayLanguage = targetDisplayLanguage;
 		return new KalturaRequestBuilder("aimetadatagenerator", "generateMetadataBySubtitles", kparams);
 	},
 	
@@ -444,76 +441,6 @@ var KalturaAssetService = {
 		var kparams = new Object();
 		kparams.profileId = profileId;
 		return new KalturaRequestBuilder("asset", "watchBasedRecommendationsList", kparams);
-	}
-}
-
-/**
- *Class definition for the Kaltura service: assetEnrich.
- **/
-var KalturaAssetEnrichService = {
-	/**
-	 * Initiate the process of metadata generation.
-	 * @param	captionUploadJobId	int		job id to generate metadata for (optional)
-	 * @param	externalAssetIds	array		external asset ids (optional)
-	 * @param	targetDisplayLanguage	string		relevant language (optional)
-	 **/
-	generateMetadata: function(captionUploadJobId, externalAssetIds, targetDisplayLanguage){
-		var kparams = new Object();
-		kparams.captionUploadJobId = captionUploadJobId;
-		kparams.externalAssetIds = externalAssetIds;
-		kparams.targetDisplayLanguage = targetDisplayLanguage;
-		return new KalturaRequestBuilder("assetenrich", "generateMetadata", kparams);
-	},
-	
-	/**
-	 * retrieve the status of the metadata generation job.
-	 * @param	captionUploadJobId	int		job id to get (optional)
-	 **/
-	getCaptionUploadJob: function(captionUploadJobId){
-		var kparams = new Object();
-		kparams.captionUploadJobId = captionUploadJobId;
-		return new KalturaRequestBuilder("assetenrich", "getCaptionUploadJob", kparams);
-	},
-	
-	/**
-	 * retrieve the generated metadata.
-	 * @param	captionUploadJobId	int		job id (optional)
-	 **/
-	getGeneratedMetadata: function(captionUploadJobId){
-		var kparams = new Object();
-		kparams.captionUploadJobId = captionUploadJobId;
-		return new KalturaRequestBuilder("assetenrich", "getGeneratedMetadata", kparams);
-	},
-	
-	/**
-	 * retrieve feature configuration.
-	 **/
-	getPartnerConfiguration: function(){
-		var kparams = new Object();
-		return new KalturaRequestBuilder("assetenrich", "getPartnerConfiguration", kparams);
-	},
-	
-	/**
-	 * update feature configuration.
-	 * @param	configuration	KalturaMetaEnrichConfiguration		the partner configuration to be set (optional)
-	 **/
-	updatePartnerConfiguration: function(configuration){
-		var kparams = new Object();
-		kparams.configuration = configuration;
-		return new KalturaRequestBuilder("assetenrich", "updatePartnerConfiguration", kparams);
-	},
-	
-	/**
-	 * Add a file to be used for enriching the assets&#39; metadata.
-	 * @param	json	KalturaCaptionUploadData		Properties of the caption file to be uploaded (optional)
-	 * @param	fileName	HTMLElement		The caption text file to upload. The file must be in UTF-8 encoding. (optional)
-	 **/
-	uploadCaptionFile: function(json, fileName){
-		var kparams = new Object();
-		var kfiles = new Object();
-		kparams.json = json;
-		kfiles.fileName = fileName;
-		return new KalturaRequestBuilder("assetenrich", "uploadCaptionFile", kparams, kfiles);
 	}
 }
 
@@ -8599,7 +8526,7 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:25-02-05');
+	this.setClientTag('ajax:25-02-12');
 	this.setApiVersion('10.9.0.0');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
