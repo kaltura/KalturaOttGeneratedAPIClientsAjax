@@ -6942,13 +6942,13 @@ var KalturaSubtitlesService = {
 	/**
 	 * Upload a subtitles file for a later analysis..
 	 * @param	subtitles	KalturaSubtitles		Subtitle metadata (optional)
-	 * @param	file	HTMLElement		The subtitles text file to upload. The file must be in UTF-8 encoding. (optional)
+	 * @param	fileData	HTMLElement		The subtitles text file to upload. Must be in UTF-8 encoding. (optional)
 	 **/
-	uploadFile: function(subtitles, file){
+	uploadFile: function(subtitles, fileData){
 		var kparams = new Object();
 		var kfiles = new Object();
 		kparams.subtitles = subtitles;
-		kfiles.file = file;
+		kfiles.fileData = fileData;
 		return new KalturaRequestBuilder("subtitles", "uploadFile", kparams, kfiles);
 	}
 }
@@ -8526,7 +8526,7 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:25-02-20');
+	this.setClientTag('ajax:25-02-22');
 	this.setApiVersion('10.9.0.0');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
