@@ -357,6 +357,24 @@ var KalturaAssetService = {
 	},
 	
 	/**
+	 * This API provides search capabilities for assets using semantic similarity based on the provided query..
+	 * @param	query	string		The search query text used to find semantically similar assets (optional)
+	 * @param	refineQuery	bool		When true, the search query is refined using LLM before vector search (optional, default: false)
+	 * @param	size	int		The maximum number of results to return. Must be between 1 and 100 (optional, default: 10)
+	 **/
+	semanticSearch: function(query, refineQuery, size){
+		if(!refineQuery)
+			refineQuery = false;
+		if(!size)
+			size = 10;
+		var kparams = new Object();
+		kparams.query = query;
+		kparams.refineQuery = refineQuery;
+		kparams.size = size;
+		return new KalturaRequestBuilder("asset", "semanticSearch", kparams);
+	},
+	
+	/**
 	 * update an existing asset.
  *	            For metas of type bool-&gt; use kalturaBoolValue, type number-&gt; KalturaDoubleValue, type date -&gt; KalturaLongValue, type string -&gt; KalturaStringValue.
 	 * @param	id	int		Asset Identifier (optional)
@@ -6231,6 +6249,49 @@ var KalturaSegmentationTypeService = {
 }
 
 /**
+ *Class definition for the Kaltura service: semanticAssetSearchPartnerConfig.
+ **/
+var KalturaSemanticAssetSearchPartnerConfigService = {
+	/**
+	 * Retrieves the filtering condition applied to asset searches..
+	 **/
+	getFilteringCondition: function(){
+		var kparams = new Object();
+		return new KalturaRequestBuilder("semanticassetsearchpartnerconfig", "getFilteringCondition", kparams);
+	},
+	
+	/**
+	 * Retrieves the searchable attributes associated with a specific asset structure..
+	 * @param	assetStructId	string		The unique identifier of the asset structure. (optional)
+	 **/
+	getSearchableAttributes: function(assetStructId){
+		var kparams = new Object();
+		kparams.assetStructId = assetStructId;
+		return new KalturaRequestBuilder("semanticassetsearchpartnerconfig", "getSearchableAttributes", kparams);
+	},
+	
+	/**
+	 * Adds or updates a filtering condition for asset searches..
+	 * @param	filteringCondition	KalturaFilteringCondition		The filtering condition to be applied to asset searches. (optional)
+	 **/
+	upsertFilteringCondition: function(filteringCondition){
+		var kparams = new Object();
+		kparams.filteringCondition = filteringCondition;
+		return new KalturaRequestBuilder("semanticassetsearchpartnerconfig", "upsertFilteringCondition", kparams);
+	},
+	
+	/**
+	 * Adds or updates searchable attributes for a given asset..
+	 * @param	attributes	KalturaSearchableAttributes		The searchable attributes to be added or updated. (optional)
+	 **/
+	upsertSearchableAttributes: function(attributes){
+		var kparams = new Object();
+		kparams.attributes = attributes;
+		return new KalturaRequestBuilder("semanticassetsearchpartnerconfig", "upsertSearchableAttributes", kparams);
+	}
+}
+
+/**
  *Class definition for the Kaltura service: seriesRecording.
  **/
 var KalturaSeriesRecordingService = {
@@ -8422,8 +8483,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:25-01-07');
-	this.setApiVersion('10.7.1.4');
+	this.setClientTag('ajax:25-02-24');
+	this.setApiVersion('10.9.0.0');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
