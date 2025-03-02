@@ -583,7 +583,7 @@ var KalturaAssetPersonalSelectionService = {
 	},
 	
 	/**
-	 * Add or update asset selection in slot.
+	 * upsert manages asset selections within slots.  It adds a new asset ID if it doesn&#39;t exist, or updates the timestamp if it does.  Slots are limited to 30 unique IDs.  When a slot is full, the oldest entry is removed (FIFO).  Inactive assets are automatically removed after 90 days..
 	 * @param	assetId	int		asset id (optional)
 	 * @param	assetType	string		asset type: media/epg (optional, enum: KalturaAssetType)
 	 * @param	slotNumber	int		slot number (optional)
@@ -7529,6 +7529,29 @@ var KalturaUserInterestService = {
 }
 
 /**
+ *Class definition for the Kaltura service: userLog.
+ **/
+var KalturaUserLogService = {
+	/**
+	 * Retrieves a list of user log entries matching the specified filter criteria..
+	 * @param	filter	KalturaUserLogFilter		Filters user logs by user ID(s), message content, and creation date. (optional, default: null)
+	 * @param	pager	KalturaFilterPager		Specify the requested page. (optional, default: null)
+	 **/
+	listAction: function(filter, pager){
+		if(!filter)
+			filter = null;
+		if(!pager)
+			pager = null;
+		var kparams = new Object();
+		if (filter != null)
+			kparams.filter = filter;
+		if (pager != null)
+			kparams.pager = pager;
+		return new KalturaRequestBuilder("userlog", "list", kparams);
+	}
+}
+
+/**
  *Class definition for the Kaltura service: userLoginPin.
  **/
 var KalturaUserLoginPinService = {
@@ -8422,8 +8445,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:25-01-07');
-	this.setApiVersion('10.7.1.4');
+	this.setClientTag('ajax:25-03-02');
+	this.setApiVersion('11.0.0.0');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
