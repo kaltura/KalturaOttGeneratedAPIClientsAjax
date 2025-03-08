@@ -4,12 +4,15 @@
  **/
 var KalturaAiMetadataGeneratorService = {
 	/**
-	 * initiate the the process of metadata generation based on the subtitles file..
-	 * @param	subtitlesFileId	int		he subtitles file ID returned when uploaded the subtitles file by the subtitles service.
+	 * Initiate the the process of metadata generation based on the subtitles file..
+	 * @param	subtitlesFileId	int		The subtitles file ID returned when uploaded the subtitles file by the subtitles service.
  *	            Represents also the job ID used by the generate metadata process (optional)
-	 * @param	externalAssetIds	array		A list of external asset IDs to be populated with the generated metadata (optional)
+	 * @param	externalAssetIds	array		A list of external asset IDs to be populated with the generated metadata
+ *	            Must be a valid existing KalturaLanguage systemName.\nIf not provided then the subtitles language will be used (optional, default: null)
 	 **/
 	generateMetadataBySubtitles: function(subtitlesFileId, externalAssetIds){
+		if(!externalAssetIds)
+			externalAssetIds = null;
 		var kparams = new Object();
 		kparams.subtitlesFileId = subtitlesFileId;
 		kparams.externalAssetIds = externalAssetIds;
