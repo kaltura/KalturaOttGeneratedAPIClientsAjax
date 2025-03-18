@@ -1,5 +1,72 @@
 
 /**
+ *Class definition for the Kaltura service: aiMetadataGenerator.
+ **/
+var KalturaAiMetadataGeneratorService = {
+	/**
+	 * Initiate the the process of metadata generation based on the subtitles file..
+	 * @param	subtitlesFileId	int		The subtitles file ID returned when uploaded the subtitles file by the subtitles service.
+ *	            Represents also the job ID used by the generate metadata process (optional)
+	 * @param	externalAssetIds	array		A list of external asset IDs to be populated with the generated metadata
+ *	            Must be a valid existing KalturaLanguage systemName.\nIf not provided then the subtitles language will be used (optional, default: null)
+	 **/
+	generateMetadataBySubtitles: function(subtitlesFileId, externalAssetIds){
+		if(!externalAssetIds)
+			externalAssetIds = null;
+		var kparams = new Object();
+		kparams.subtitlesFileId = subtitlesFileId;
+		kparams.externalAssetIds = externalAssetIds;
+		return new KalturaRequestBuilder("aimetadatagenerator", "generateMetadataBySubtitles", kparams);
+	},
+	
+	/**
+	 * retrieve the generated metadata.
+	 * @param	jobId	int		The job ID (equals the subtitles file ID returned by the subtitles.uploadFile service) (optional)
+	 **/
+	getGeneratedMetadata: function(jobId){
+		var kparams = new Object();
+		kparams.jobId = jobId;
+		return new KalturaRequestBuilder("aimetadatagenerator", "getGeneratedMetadata", kparams);
+	},
+	
+	/**
+	 * retrieve the status of the metadata generation job, identified by the subtitles file ID..
+	 * @param	id	int		The file (job) ID as received from subtitles.uploadFile response" (optional)
+	 **/
+	getGenerateMetadataJob: function(id){
+		var kparams = new Object();
+		kparams.id = id;
+		return new KalturaRequestBuilder("aimetadatagenerator", "getGenerateMetadataJob", kparams);
+	},
+	
+	/**
+	 * Get metadata mapping structure and available generated metadata fields.
+	 **/
+	getMetadataFieldDefinitions: function(){
+		var kparams = new Object();
+		return new KalturaRequestBuilder("aimetadatagenerator", "getMetadataFieldDefinitions", kparams);
+	},
+	
+	/**
+	 * retrieve feature configuration.
+	 **/
+	getPartnerConfiguration: function(){
+		var kparams = new Object();
+		return new KalturaRequestBuilder("aimetadatagenerator", "getPartnerConfiguration", kparams);
+	},
+	
+	/**
+	 * update feature configuration.
+	 * @param	configuration	KalturaAiMetadataGeneratorConfiguration		the partner configuration to be set (optional)
+	 **/
+	updatePartnerConfiguration: function(configuration){
+		var kparams = new Object();
+		kparams.configuration = configuration;
+		return new KalturaRequestBuilder("aimetadatagenerator", "updatePartnerConfiguration", kparams);
+	}
+}
+
+/**
  *Class definition for the Kaltura service: announcement.
  **/
 var KalturaAnnouncementService = {
@@ -583,7 +650,7 @@ var KalturaAssetPersonalSelectionService = {
 	},
 	
 	/**
-	 * Add or update asset selection in slot.
+	 * upsert manages asset selections within slots.  It adds a new asset ID if it doesn&#39;t exist, or updates the timestamp if it does.  Slots are limited to 30 unique IDs.  When a slot is full, the oldest entry is removed (FIFO).  Inactive assets are automatically removed after 90 days..
 	 * @param	assetId	int		asset id (optional)
 	 * @param	assetType	string		asset type: media/epg (optional, enum: KalturaAssetType)
 	 * @param	slotNumber	int		slot number (optional)
@@ -6850,6 +6917,24 @@ var KalturaSubscriptionSetService = {
 }
 
 /**
+ *Class definition for the Kaltura service: subtitles.
+ **/
+var KalturaSubtitlesService = {
+	/**
+	 * Upload a subtitles file for a later analysis..
+	 * @param	subtitles	KalturaUploadSubtitles		Subtitle metadata (optional)
+	 * @param	fileData	HTMLElement		The subtitles text file to upload. Must be in UTF-8 encoding. (optional)
+	 **/
+	uploadFile: function(subtitles, fileData){
+		var kparams = new Object();
+		var kfiles = new Object();
+		kparams.subtitles = subtitles;
+		kfiles.fileData = fileData;
+		return new KalturaRequestBuilder("subtitles", "uploadFile", kparams, kfiles);
+	}
+}
+
+/**
  *Class definition for the Kaltura service: system.
  **/
 var KalturaSystemService = {
@@ -8422,8 +8507,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:25-01-07');
-	this.setApiVersion('10.7.1.4');
+	this.setClientTag('ajax:25-03-18');
+	this.setApiVersion('11.0.1.0');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
