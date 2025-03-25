@@ -192,6 +192,24 @@ var KalturaAssetService = {
 	},
 	
 	/**
+	 * This API provides search capabilities for assets using semantic similarity based on the provided query..
+	 * @param	query	string		The search query text used to find semantically similar assets (optional)
+	 * @param	refineQuery	bool		When true, the search query is refined using LLM before vector search (optional, default: false)
+	 * @param	size	int		The maximum number of results to return. Must be between 1 and 100 (optional, default: 10)
+	 **/
+	semanticSearch: function(query, refineQuery, size){
+		if(!refineQuery)
+			refineQuery = false;
+		if(!size)
+			size = 10;
+		var kparams = new Object();
+		kparams.query = query;
+		kparams.refineQuery = refineQuery;
+		kparams.size = size;
+		return new KalturaRequestBuilder("asset", "semanticSearch", kparams);
+	},
+	
+	/**
 	 * update an existing asset.
  *	            For metas of type bool-&gt; use kalturaBoolValue, type number-&gt; KalturaDoubleValue, type date -&gt; KalturaLongValue, type string -&gt; KalturaStringValue.
 	 * @param	id	int		Asset Identifier (optional)
