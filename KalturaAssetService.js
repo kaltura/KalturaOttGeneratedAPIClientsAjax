@@ -202,15 +202,5 @@ var KalturaAssetService = {
 		kparams.id = id;
 		kparams.asset = asset;
 		return new KalturaRequestBuilder("asset", "update", kparams);
-	},
-	
-	/**
-	 * Return list of assets - assets are personal recommendations for the caller..
-	 * @param	profileId	int		WatchBasedRecommendations profile id (optional)
-	 **/
-	watchBasedRecommendationsList: function(profileId){
-		var kparams = new Object();
-		kparams.profileId = profileId;
-		return new KalturaRequestBuilder("asset", "watchBasedRecommendationsList", kparams);
 	}
 }

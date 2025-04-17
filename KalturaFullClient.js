@@ -367,16 +367,6 @@ var KalturaAssetService = {
 		kparams.id = id;
 		kparams.asset = asset;
 		return new KalturaRequestBuilder("asset", "update", kparams);
-	},
-	
-	/**
-	 * Return list of assets - assets are personal recommendations for the caller..
-	 * @param	profileId	int		WatchBasedRecommendations profile id (optional)
-	 **/
-	watchBasedRecommendationsList: function(profileId){
-		var kparams = new Object();
-		kparams.profileId = profileId;
-		return new KalturaRequestBuilder("asset", "watchBasedRecommendationsList", kparams);
 	}
 }
 
@@ -7015,7 +7005,6 @@ var KalturaTimeShiftedTvPartnerSettingsService = {
 	
 	/**
 	 * Configure the account’s time-shifted TV settings (catch-up and C-DVR, Trick-play, Start-over).
- *	            When updating the timeshiftedtvpartnersettings, user must provide values for all the setting fields. If any field is omitted, its value may reset to the default configuration, potentially overwriting the current settings..
 	 * @param	settings	KalturaTimeShiftedTvPartnerSettings		Time shifted TV settings (optional)
 	 **/
 	update: function(settings){
@@ -7740,89 +7729,6 @@ var KalturaUserSessionProfileService = {
 		return new KalturaRequestBuilder("usersessionprofile", "update", kparams);
 	}
 }
-
-/**
- *Class definition for the Kaltura service: watchBasedRecommendationsAdminConfiguration.
- **/
-var KalturaWatchBasedRecommendationsAdminConfigurationService = {
-	/**
-	 * Get partner&#39;s watch based recommendations admin configuration..
-	 **/
-	get: function(){
-		var kparams = new Object();
-		return new KalturaRequestBuilder("watchbasedrecommendationsadminconfiguration", "get", kparams);
-	},
-	
-	/**
-	 * Updates partner&#39;s watch based recommendations admin configuration..
-	 * @param	configuration	KalturaWatchBasedRecommendationsAdminConfiguration		watch based recommendations admin configuration (optional)
-	 **/
-	update: function(configuration){
-		var kparams = new Object();
-		kparams.configuration = configuration;
-		return new KalturaRequestBuilder("watchbasedrecommendationsadminconfiguration", "update", kparams);
-	}
-}
-
-/**
- *Class definition for the Kaltura service: watchBasedRecommendationsProfile.
- **/
-var KalturaWatchBasedRecommendationsProfileService = {
-	/**
-	 * Add partner&#39;s watch based recommendations profile..
-	 * @param	profile	KalturaWatchBasedRecommendationsProfile		watch based recommendations profile to add (optional)
-	 **/
-	add: function(profile){
-		var kparams = new Object();
-		kparams.profile = profile;
-		return new KalturaRequestBuilder("watchbasedrecommendationsprofile", "add", kparams);
-	},
-	
-	/**
-	 * Delete partner&#39;s watch based recommendations profile..
-	 * @param	id	int		profile id to update (optional)
-	 **/
-	deleteAction: function(id){
-		var kparams = new Object();
-		kparams.id = id;
-		return new KalturaRequestBuilder("watchbasedrecommendationsprofile", "delete", kparams);
-	},
-	
-	/**
-	 * Delete all recommendations that were calculated based on specific profile..
-	 * @param	id	int		profile id (optional)
-	 **/
-	deleteWatchBasedRecommendationsOfProfile: function(id){
-		var kparams = new Object();
-		kparams.id = id;
-		return new KalturaRequestBuilder("watchbasedrecommendationsprofile", "deleteWatchBasedRecommendationsOfProfile", kparams);
-	},
-	
-	/**
-	 * Get partner&#39;s watch based recommendations profiles..
-	 * @param	filter	KalturaWatchBasedRecommendationsProfileFilter		Filtering parameters for watch based recommendations profiles (optional, default: null)
-	 **/
-	listAction: function(filter){
-		if(!filter)
-			filter = null;
-		var kparams = new Object();
-		if (filter != null)
-			kparams.filter = filter;
-		return new KalturaRequestBuilder("watchbasedrecommendationsprofile", "list", kparams);
-	},
-	
-	/**
-	 * Update partner&#39;s watch based recommendations profile..
-	 * @param	id	int		profile id to update (optional)
-	 * @param	profile	KalturaWatchBasedRecommendationsProfile		watch based recommendations profile to add (optional)
-	 **/
-	update: function(id, profile){
-		var kparams = new Object();
-		kparams.id = id;
-		kparams.profile = profile;
-		return new KalturaRequestBuilder("watchbasedrecommendationsprofile", "update", kparams);
-	}
-}
 // ===================================================================================================
 //                           _  __     _ _
 //                          | |/ /__ _| | |_ _  _ _ _ __ _
@@ -8422,8 +8328,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:25-01-07');
-	this.setApiVersion('10.7.1.4');
+	this.setClientTag('ajax:25-04-17');
+	this.setApiVersion('10.6.0.11');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
