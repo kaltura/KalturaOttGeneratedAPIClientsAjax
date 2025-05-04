@@ -28,7 +28,7 @@ var KalturaAssetPersonalSelectionService = {
 	},
 	
 	/**
-	 * Add or update asset selection in slot.
+	 * upsert manages asset selections within slots.  It adds a new asset ID if it doesn&#39;t exist, or updates the timestamp if it does.  Slots are limited to 30 unique IDs.  When a slot is full, the oldest entry is removed (FIFO).  Inactive assets are automatically removed after 90 days..
 	 * @param	assetId	int		asset id (optional)
 	 * @param	assetType	string		asset type: media/epg (optional, enum: KalturaAssetType)
 	 * @param	slotNumber	int		slot number (optional)

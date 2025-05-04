@@ -1,5 +1,72 @@
 
 /**
+ *Class definition for the Kaltura service: aiMetadataGenerator.
+ **/
+var KalturaAiMetadataGeneratorService = {
+	/**
+	 * Initiate the the process of metadata generation based on the subtitles file..
+	 * @param	subtitlesFileId	int		The subtitles file ID returned when uploaded the subtitles file by the subtitles service.
+ *	            Represents also the job ID used by the generate metadata process (optional)
+	 * @param	externalAssetIds	array		A list of external asset IDs to be populated with the generated metadata
+ *	            Must be a valid existing KalturaLanguage systemName.\nIf not provided then the subtitles language will be used (optional, default: null)
+	 **/
+	generateMetadataBySubtitles: function(subtitlesFileId, externalAssetIds){
+		if(!externalAssetIds)
+			externalAssetIds = null;
+		var kparams = new Object();
+		kparams.subtitlesFileId = subtitlesFileId;
+		kparams.externalAssetIds = externalAssetIds;
+		return new KalturaRequestBuilder("aimetadatagenerator", "generateMetadataBySubtitles", kparams);
+	},
+	
+	/**
+	 * retrieve the generated metadata.
+	 * @param	jobId	int		The job ID (equals the subtitles file ID returned by the subtitles.uploadFile service) (optional)
+	 **/
+	getGeneratedMetadata: function(jobId){
+		var kparams = new Object();
+		kparams.jobId = jobId;
+		return new KalturaRequestBuilder("aimetadatagenerator", "getGeneratedMetadata", kparams);
+	},
+	
+	/**
+	 * retrieve the status of the metadata generation job, identified by the subtitles file ID..
+	 * @param	id	int		The file (job) ID as received from subtitles.uploadFile response" (optional)
+	 **/
+	getGenerateMetadataJob: function(id){
+		var kparams = new Object();
+		kparams.id = id;
+		return new KalturaRequestBuilder("aimetadatagenerator", "getGenerateMetadataJob", kparams);
+	},
+	
+	/**
+	 * Get metadata mapping structure and available generated metadata fields.
+	 **/
+	getMetadataFieldDefinitions: function(){
+		var kparams = new Object();
+		return new KalturaRequestBuilder("aimetadatagenerator", "getMetadataFieldDefinitions", kparams);
+	},
+	
+	/**
+	 * retrieve feature configuration.
+	 **/
+	getPartnerConfiguration: function(){
+		var kparams = new Object();
+		return new KalturaRequestBuilder("aimetadatagenerator", "getPartnerConfiguration", kparams);
+	},
+	
+	/**
+	 * update feature configuration.
+	 * @param	configuration	KalturaAiMetadataGeneratorConfiguration		the partner configuration to be set (optional)
+	 **/
+	updatePartnerConfiguration: function(configuration){
+		var kparams = new Object();
+		kparams.configuration = configuration;
+		return new KalturaRequestBuilder("aimetadatagenerator", "updatePartnerConfiguration", kparams);
+	}
+}
+
+/**
  *Class definition for the Kaltura service: announcement.
  **/
 var KalturaAnnouncementService = {
@@ -357,6 +424,24 @@ var KalturaAssetService = {
 	},
 	
 	/**
+	 * This API provides search capabilities for assets using semantic similarity based on the provided query..
+	 * @param	query	string		The search query text used to find semantically similar assets (optional)
+	 * @param	refineQuery	bool		When true, the search query is refined using LLM before vector search (optional, default: false)
+	 * @param	size	int		The maximum number of results to return. Must be between 1 and 100 (optional, default: 10)
+	 **/
+	semanticSearch: function(query, refineQuery, size){
+		if(!refineQuery)
+			refineQuery = false;
+		if(!size)
+			size = 10;
+		var kparams = new Object();
+		kparams.query = query;
+		kparams.refineQuery = refineQuery;
+		kparams.size = size;
+		return new KalturaRequestBuilder("asset", "semanticSearch", kparams);
+	},
+	
+	/**
 	 * update an existing asset.
  *	            For metas of type bool-&gt; use kalturaBoolValue, type number-&gt; KalturaDoubleValue, type date -&gt; KalturaLongValue, type string -&gt; KalturaStringValue.
 	 * @param	id	int		Asset Identifier (optional)
@@ -583,7 +668,7 @@ var KalturaAssetPersonalSelectionService = {
 	},
 	
 	/**
-	 * Add or update asset selection in slot.
+	 * upsert manages asset selections within slots.  It adds a new asset ID if it doesn&#39;t exist, or updates the timestamp if it does.  Slots are limited to 30 unique IDs.  When a slot is full, the oldest entry is removed (FIFO).  Inactive assets are automatically removed after 90 days..
 	 * @param	assetId	int		asset id (optional)
 	 * @param	assetType	string		asset type: media/epg (optional, enum: KalturaAssetType)
 	 * @param	slotNumber	int		slot number (optional)
@@ -6231,6 +6316,49 @@ var KalturaSegmentationTypeService = {
 }
 
 /**
+ *Class definition for the Kaltura service: semanticAssetSearchPartnerConfig.
+ **/
+var KalturaSemanticAssetSearchPartnerConfigService = {
+	/**
+	 * Retrieves the filtering condition applied to asset searches..
+	 **/
+	getFilteringCondition: function(){
+		var kparams = new Object();
+		return new KalturaRequestBuilder("semanticassetsearchpartnerconfig", "getFilteringCondition", kparams);
+	},
+	
+	/**
+	 * Retrieves the searchable attributes associated with a specific asset structure..
+	 * @param	assetStructId	int		The unique identifier of the asset structure. (optional)
+	 **/
+	getSearchableAttributes: function(assetStructId){
+		var kparams = new Object();
+		kparams.assetStructId = assetStructId;
+		return new KalturaRequestBuilder("semanticassetsearchpartnerconfig", "getSearchableAttributes", kparams);
+	},
+	
+	/**
+	 * Adds or updates a filtering condition for asset searches..
+	 * @param	filteringCondition	KalturaFilteringCondition		The filtering condition to be applied to asset searches. (optional)
+	 **/
+	upsertFilteringCondition: function(filteringCondition){
+		var kparams = new Object();
+		kparams.filteringCondition = filteringCondition;
+		return new KalturaRequestBuilder("semanticassetsearchpartnerconfig", "upsertFilteringCondition", kparams);
+	},
+	
+	/**
+	 * Adds or updates searchable attributes for a given asset structure..
+	 * @param	attributes	KalturaSearchableAttributes		The searchable attributes to be added or updated. (optional)
+	 **/
+	upsertSearchableAttributes: function(attributes){
+		var kparams = new Object();
+		kparams.attributes = attributes;
+		return new KalturaRequestBuilder("semanticassetsearchpartnerconfig", "upsertSearchableAttributes", kparams);
+	}
+}
+
+/**
  *Class definition for the Kaltura service: seriesRecording.
  **/
 var KalturaSeriesRecordingService = {
@@ -6846,6 +6974,24 @@ var KalturaSubscriptionSetService = {
 		kparams.id = id;
 		kparams.subscriptionSet = subscriptionSet;
 		return new KalturaRequestBuilder("subscriptionset", "update", kparams);
+	}
+}
+
+/**
+ *Class definition for the Kaltura service: subtitles.
+ **/
+var KalturaSubtitlesService = {
+	/**
+	 * Upload a subtitles file for a later analysis..
+	 * @param	subtitles	KalturaUploadSubtitles		Subtitle metadata (optional)
+	 * @param	fileData	HTMLElement		The subtitles text file to upload. Must be in UTF-8 encoding. (optional)
+	 **/
+	uploadFile: function(subtitles, fileData){
+		var kparams = new Object();
+		var kfiles = new Object();
+		kparams.subtitles = subtitles;
+		kfiles.fileData = fileData;
+		return new KalturaRequestBuilder("subtitles", "uploadFile", kparams, kfiles);
 	}
 }
 
@@ -7525,6 +7671,26 @@ var KalturaUserInterestService = {
 	listAction: function(){
 		var kparams = new Object();
 		return new KalturaRequestBuilder("userinterest", "list", kparams);
+	}
+}
+
+/**
+ *Class definition for the Kaltura service: userLog.
+ **/
+var KalturaUserLogService = {
+	/**
+	 * Retrieves a list of user log entries matching the specified filter criteria..
+	 * @param	filter	KalturaUserLogFilter		Filters user logs by user ID(s), message content, and creation date. (optional)
+	 * @param	pager	KalturaFilterPager		Specify the requested page. (optional, default: null)
+	 **/
+	listAction: function(filter, pager){
+		if(!pager)
+			pager = null;
+		var kparams = new Object();
+		kparams.filter = filter;
+		if (pager != null)
+			kparams.pager = pager;
+		return new KalturaRequestBuilder("userlog", "list", kparams);
 	}
 }
 
@@ -8422,8 +8588,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:25-01-07');
-	this.setApiVersion('10.7.1.4');
+	this.setClientTag('ajax:25-05-04');
+	this.setApiVersion('11.1.0.1');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
