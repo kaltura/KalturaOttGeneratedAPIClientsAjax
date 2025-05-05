@@ -6370,24 +6370,29 @@ var KalturaSemanticQueryService = {
 		var kparams = new Object();
 		kparams.query = query;
 		return new KalturaRequestBuilder("semanticquery", "generate", kparams);
-	},
-	
+	}
+}
+
+/**
+ *Class definition for the Kaltura service: semanticQueryPartnerConfiguration.
+ **/
+var KalturaSemanticQueryPartnerConfigurationService = {
 	/**
 	 * Retrieves the current partner configuration for semantic query..
 	 **/
-	getPartnerConfiguration: function(){
+	get: function(){
 		var kparams = new Object();
-		return new KalturaRequestBuilder("semanticquery", "getPartnerConfiguration", kparams);
+		return new KalturaRequestBuilder("semanticquerypartnerconfiguration", "get", kparams);
 	},
 	
 	/**
 	 * Updates the partner configuration for semantic query..
 	 * @param	configuration	KalturaSemanticQueryPartnerConfiguration		The configuration parameters for semantic query generation. (optional)
 	 **/
-	updatePartnerConfiguration: function(configuration){
+	update: function(configuration){
 		var kparams = new Object();
 		kparams.configuration = configuration;
-		return new KalturaRequestBuilder("semanticquery", "updatePartnerConfiguration", kparams);
+		return new KalturaRequestBuilder("semanticquerypartnerconfiguration", "update", kparams);
 	}
 }
 
@@ -8621,7 +8626,7 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:25-04-24');
+	this.setClientTag('ajax:25-05-05');
 	this.setApiVersion('11.1.0.1');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
