@@ -4,9 +4,11 @@
  **/
 var KalturaAiMetadataGeneratorService = {
 	/**
-	 * Start metadata generation process based on subtitles..
-	 * @param	subtitlesFileId	int		The subtitles file ID returned from subtitles.uploadFile. (optional)
-	 * @param	externalAssetIds	array		A list of external asset IDs to be populated with the generated metadata. (optional, default: null)
+	 * Initiate the the process of metadata generation based on the subtitles file..
+	 * @param	subtitlesFileId	int		The subtitles file ID returned when uploaded the subtitles file by the subtitles service.
+ *	            Represents also the job ID used by the generate metadata process (optional)
+	 * @param	externalAssetIds	array		A list of external asset IDs to be populated with the generated metadata
+ *	            Must be a valid existing KalturaLanguage systemName.\nIf not provided then the subtitles language will be used (optional, default: null)
 	 **/
 	generateMetadataBySubtitles: function(subtitlesFileId, externalAssetIds){
 		if(!externalAssetIds)
@@ -18,8 +20,8 @@ var KalturaAiMetadataGeneratorService = {
 	},
 	
 	/**
-	 * Retrieve the generated metadata.
-	 * @param	jobId	int		The job ID as received from GenerateMetadataBySubtitles. (optional)
+	 * retrieve the generated metadata.
+	 * @param	jobId	int		The job ID (equals the subtitles file ID returned by the subtitles.uploadFile service) (optional)
 	 **/
 	getGeneratedMetadata: function(jobId){
 		var kparams = new Object();
@@ -28,8 +30,8 @@ var KalturaAiMetadataGeneratorService = {
 	},
 	
 	/**
-	 * Get a metadata generation job..
-	 * @param	id	int		The job ID as received from GenerateMetadataBySubtitles. (optional)
+	 * retrieve the status of the metadata generation job, identified by the subtitles file ID..
+	 * @param	id	int		The file (job) ID as received from subtitles.uploadFile response" (optional)
 	 **/
 	getGenerateMetadataJob: function(id){
 		var kparams = new Object();
@@ -38,7 +40,7 @@ var KalturaAiMetadataGeneratorService = {
 	},
 	
 	/**
-	 * Get metadata mapping structure and available generated metadata fields..
+	 * Get metadata mapping structure and available generated metadata fields.
 	 **/
 	getMetadataFieldDefinitions: function(){
 		var kparams = new Object();
@@ -46,7 +48,7 @@ var KalturaAiMetadataGeneratorService = {
 	},
 	
 	/**
-	 * Get the metadata generation configuration..
+	 * retrieve feature configuration.
 	 **/
 	getPartnerConfiguration: function(){
 		var kparams = new Object();
@@ -54,7 +56,7 @@ var KalturaAiMetadataGeneratorService = {
 	},
 	
 	/**
-	 * Update/set the metadata generation configuration.
+	 * update feature configuration.
 	 * @param	configuration	KalturaAiMetadataGeneratorConfiguration		the partner configuration to be set (optional)
 	 **/
 	updatePartnerConfiguration: function(configuration){

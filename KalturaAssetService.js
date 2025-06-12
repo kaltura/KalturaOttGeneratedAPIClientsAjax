@@ -192,7 +192,7 @@ var KalturaAssetService = {
 	},
 	
 	/**
-	 * Search for assets using semantic similarity to a natural language query, with optional query refinement using LLM..
+	 * This API provides search capabilities for assets using semantic similarity based on the provided query..
 	 * @param	query	string		The search query text used to find semantically similar assets (optional)
 	 * @param	refineQuery	bool		When true, the search query is refined using LLM before vector search (optional, default: false)
 	 * @param	size	int		The maximum number of results to return. Must be between 1 and 100 (optional, default: 10)

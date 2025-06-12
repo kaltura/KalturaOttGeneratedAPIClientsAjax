@@ -4,9 +4,11 @@
  **/
 var KalturaAiMetadataGeneratorService = {
 	/**
-	 * Start metadata generation process based on subtitles..
-	 * @param	subtitlesFileId	int		The subtitles file ID returned from subtitles.uploadFile. (optional)
-	 * @param	externalAssetIds	array		A list of external asset IDs to be populated with the generated metadata. (optional, default: null)
+	 * Initiate the the process of metadata generation based on the subtitles file..
+	 * @param	subtitlesFileId	int		The subtitles file ID returned when uploaded the subtitles file by the subtitles service.
+ *	            Represents also the job ID used by the generate metadata process (optional)
+	 * @param	externalAssetIds	array		A list of external asset IDs to be populated with the generated metadata
+ *	            Must be a valid existing KalturaLanguage systemName.\nIf not provided then the subtitles language will be used (optional, default: null)
 	 **/
 	generateMetadataBySubtitles: function(subtitlesFileId, externalAssetIds){
 		if(!externalAssetIds)
@@ -18,8 +20,8 @@ var KalturaAiMetadataGeneratorService = {
 	},
 	
 	/**
-	 * Retrieve the generated metadata.
-	 * @param	jobId	int		The job ID as received from GenerateMetadataBySubtitles. (optional)
+	 * retrieve the generated metadata.
+	 * @param	jobId	int		The job ID (equals the subtitles file ID returned by the subtitles.uploadFile service) (optional)
 	 **/
 	getGeneratedMetadata: function(jobId){
 		var kparams = new Object();
@@ -28,8 +30,8 @@ var KalturaAiMetadataGeneratorService = {
 	},
 	
 	/**
-	 * Get a metadata generation job..
-	 * @param	id	int		The job ID as received from GenerateMetadataBySubtitles. (optional)
+	 * retrieve the status of the metadata generation job, identified by the subtitles file ID..
+	 * @param	id	int		The file (job) ID as received from subtitles.uploadFile response" (optional)
 	 **/
 	getGenerateMetadataJob: function(id){
 		var kparams = new Object();
@@ -38,7 +40,7 @@ var KalturaAiMetadataGeneratorService = {
 	},
 	
 	/**
-	 * Get metadata mapping structure and available generated metadata fields..
+	 * Get metadata mapping structure and available generated metadata fields.
 	 **/
 	getMetadataFieldDefinitions: function(){
 		var kparams = new Object();
@@ -46,7 +48,7 @@ var KalturaAiMetadataGeneratorService = {
 	},
 	
 	/**
-	 * Get the metadata generation configuration..
+	 * retrieve feature configuration.
 	 **/
 	getPartnerConfiguration: function(){
 		var kparams = new Object();
@@ -54,7 +56,7 @@ var KalturaAiMetadataGeneratorService = {
 	},
 	
 	/**
-	 * Update/set the metadata generation configuration.
+	 * update feature configuration.
 	 * @param	configuration	KalturaAiMetadataGeneratorConfiguration		the partner configuration to be set (optional)
 	 **/
 	updatePartnerConfiguration: function(configuration){
@@ -422,7 +424,7 @@ var KalturaAssetService = {
 	},
 	
 	/**
-	 * Search for assets using semantic similarity to a natural language query, with optional query refinement using LLM..
+	 * This API provides search capabilities for assets using semantic similarity based on the provided query..
 	 * @param	query	string		The search query text used to find semantically similar assets (optional)
 	 * @param	refineQuery	bool		When true, the search query is refined using LLM before vector search (optional, default: false)
 	 * @param	size	int		The maximum number of results to return. Must be between 1 and 100 (optional, default: 10)
@@ -6318,7 +6320,7 @@ var KalturaSegmentationTypeService = {
  **/
 var KalturaSemanticAssetSearchPartnerConfigService = {
 	/**
-	 * Retrieve the filtering condition configuration for the partner..
+	 * Retrieves the filtering condition applied to asset searches..
 	 **/
 	getFilteringCondition: function(){
 		var kparams = new Object();
@@ -6326,8 +6328,8 @@ var KalturaSemanticAssetSearchPartnerConfigService = {
 	},
 	
 	/**
-	 * Retrieve the current field configurations for semantic search..
-	 * @param	assetStructId	int		Asset structure ID to filter configurations. (optional)
+	 * Retrieves the searchable attributes associated with a specific asset structure..
+	 * @param	assetStructId	int		The unique identifier of the asset structure. (optional)
 	 **/
 	getSearchableAttributes: function(assetStructId){
 		var kparams = new Object();
@@ -6336,8 +6338,8 @@ var KalturaSemanticAssetSearchPartnerConfigService = {
 	},
 	
 	/**
-	 * Update rule that controls embedding generation and search behavior..
-	 * @param	filteringCondition	KalturaFilteringCondition		Rule configuration parameters. (optional)
+	 * Adds or updates a filtering condition for asset searches..
+	 * @param	filteringCondition	KalturaFilteringCondition		The filtering condition to be applied to asset searches. (optional)
 	 **/
 	upsertFilteringCondition: function(filteringCondition){
 		var kparams = new Object();
@@ -6346,51 +6348,13 @@ var KalturaSemanticAssetSearchPartnerConfigService = {
 	},
 	
 	/**
-	 * Update which fields should be included in semantic search for specific asset types..
-	 * @param	attributes	KalturaSearchableAttributes		Fields configuration parameters. (optional)
+	 * Adds or updates searchable attributes for a given asset structure..
+	 * @param	attributes	KalturaSearchableAttributes		The searchable attributes to be added or updated. (optional)
 	 **/
 	upsertSearchableAttributes: function(attributes){
 		var kparams = new Object();
 		kparams.attributes = attributes;
 		return new KalturaRequestBuilder("semanticassetsearchpartnerconfig", "upsertSearchableAttributes", kparams);
-	}
-}
-
-/**
- *Class definition for the Kaltura service: semanticQuery.
- **/
-var KalturaSemanticQueryService = {
-	/**
-	 * Generates a title and semantic sub-queries..
-	 * @param	query	KalturaGenerateSemanticQuery		Parameters required for generating semantic queries. (optional)
-	 **/
-	generate: function(query){
-		var kparams = new Object();
-		kparams.query = query;
-		return new KalturaRequestBuilder("semanticquery", "generate", kparams);
-	}
-}
-
-/**
- *Class definition for the Kaltura service: semanticQueryPartnerConfiguration.
- **/
-var KalturaSemanticQueryPartnerConfigurationService = {
-	/**
-	 * Retrieves partner configuration for semantic query service..
-	 **/
-	get: function(){
-		var kparams = new Object();
-		return new KalturaRequestBuilder("semanticquerypartnerconfiguration", "get", kparams);
-	},
-	
-	/**
-	 * Updates the partner configuration for semantic query service..
-	 * @param	configuration	KalturaSemanticQueryPartnerConfiguration		The partner configuration for semantic query generation. (optional)
-	 **/
-	update: function(configuration){
-		var kparams = new Object();
-		kparams.configuration = configuration;
-		return new KalturaRequestBuilder("semanticquerypartnerconfiguration", "update", kparams);
 	}
 }
 
@@ -7018,9 +6982,9 @@ var KalturaSubscriptionSetService = {
  **/
 var KalturaSubtitlesService = {
 	/**
-	 * Add a subtitles file to be used for generating metadata and enriching the assets using a multi-part form-data body including the JSON configuration object and the uploaded file..
-	 * @param	subtitles	KalturaUploadSubtitles		Subtitle file metadata. (optional)
-	 * @param	fileData	HTMLElement		The subtitles file to upload. The file must be in UTF-8 encoding. (optional)
+	 * Upload a subtitles file for a later analysis..
+	 * @param	subtitles	KalturaUploadSubtitles		Subtitle metadata (optional)
+	 * @param	fileData	HTMLElement		The subtitles text file to upload. Must be in UTF-8 encoding. (optional)
 	 **/
 	uploadFile: function(subtitles, fileData){
 		var kparams = new Object();
@@ -8624,8 +8588,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:25-06-11');
-	this.setApiVersion('11.2.1.0');
+	this.setClientTag('ajax:25-06-12');
+	this.setApiVersion('11.2.0.4');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**

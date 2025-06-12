@@ -4,7 +4,7 @@
  **/
 var KalturaSemanticAssetSearchPartnerConfigService = {
 	/**
-	 * Retrieve the filtering condition configuration for the partner..
+	 * Retrieves the filtering condition applied to asset searches..
 	 **/
 	getFilteringCondition: function(){
 		var kparams = new Object();
@@ -12,8 +12,8 @@ var KalturaSemanticAssetSearchPartnerConfigService = {
 	},
 	
 	/**
-	 * Retrieve the current field configurations for semantic search..
-	 * @param	assetStructId	int		Asset structure ID to filter configurations. (optional)
+	 * Retrieves the searchable attributes associated with a specific asset structure..
+	 * @param	assetStructId	int		The unique identifier of the asset structure. (optional)
 	 **/
 	getSearchableAttributes: function(assetStructId){
 		var kparams = new Object();
@@ -22,8 +22,8 @@ var KalturaSemanticAssetSearchPartnerConfigService = {
 	},
 	
 	/**
-	 * Update rule that controls embedding generation and search behavior..
-	 * @param	filteringCondition	KalturaFilteringCondition		Rule configuration parameters. (optional)
+	 * Adds or updates a filtering condition for asset searches..
+	 * @param	filteringCondition	KalturaFilteringCondition		The filtering condition to be applied to asset searches. (optional)
 	 **/
 	upsertFilteringCondition: function(filteringCondition){
 		var kparams = new Object();
@@ -32,8 +32,8 @@ var KalturaSemanticAssetSearchPartnerConfigService = {
 	},
 	
 	/**
-	 * Update which fields should be included in semantic search for specific asset types..
-	 * @param	attributes	KalturaSearchableAttributes		Fields configuration parameters. (optional)
+	 * Adds or updates searchable attributes for a given asset structure..
+	 * @param	attributes	KalturaSearchableAttributes		The searchable attributes to be added or updated. (optional)
 	 **/
 	upsertSearchableAttributes: function(attributes){
 		var kparams = new Object();
