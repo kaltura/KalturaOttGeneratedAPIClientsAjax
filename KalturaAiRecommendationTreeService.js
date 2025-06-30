@@ -6,22 +6,18 @@ var KalturaAiRecommendationTreeService = {
 	/**
 	 * Returns the next question, available answers, and content recommendations based on the current path through the tree..
 	 * @param	treeId	string		ID of the tree to navigate (optional - if omitted, the active tree will be used) (optional, default: null)
-	 * @param	previousQuestionId	string		The question ID that is currently presented (omit for first question) (optional, default: null)
 	 * @param	answerId	string		Selected answer ID from the previous question (required if previousQuestionId is provided) (optional, default: null)
 	 * @param	topQuestionId	string		Specific top-level question ID (relevant for first question only) (optional, default: null)
 	 **/
-	getNextNodeAndRecommendation: function(treeId, previousQuestionId, answerId, topQuestionId){
+	getNextNodeAndRecommendation: function(treeId, answerId, topQuestionId){
 		if(!treeId)
 			treeId = null;
-		if(!previousQuestionId)
-			previousQuestionId = null;
 		if(!answerId)
 			answerId = null;
 		if(!topQuestionId)
 			topQuestionId = null;
 		var kparams = new Object();
 		kparams.treeId = treeId;
-		kparams.previousQuestionId = previousQuestionId;
 		kparams.answerId = answerId;
 		kparams.topQuestionId = topQuestionId;
 		return new KalturaRequestBuilder("airecommendationtree", "getNextNodeAndRecommendation", kparams);
@@ -38,17 +34,17 @@ var KalturaAiRecommendationTreeService = {
 	/**
 	 * Returns content recommendations based on natural language input..
 	 * @param	naturalTextQuery	string		The query text entered by the user (optional)
-	 * @param	previousQuestionId	string		Previous question ID if building on question history (optional) (optional, default: null)
+	 * @param	questionId	string		The Id of the question that naturalTextQuery is the answer to (optional) (optional, default: null)
 	 * @param	treeId	string		ID of the tree to use (mandatory if previousQuestionId is provided) (optional, default: null)
 	 **/
-	getRecommendationWithNaturalText: function(naturalTextQuery, previousQuestionId, treeId){
-		if(!previousQuestionId)
-			previousQuestionId = null;
+	getRecommendationWithNaturalText: function(naturalTextQuery, questionId, treeId){
+		if(!questionId)
+			questionId = null;
 		if(!treeId)
 			treeId = null;
 		var kparams = new Object();
 		kparams.naturalTextQuery = naturalTextQuery;
-		kparams.previousQuestionId = previousQuestionId;
+		kparams.questionId = questionId;
 		kparams.treeId = treeId;
 		return new KalturaRequestBuilder("airecommendationtree", "getRecommendationWithNaturalText", kparams);
 	},
