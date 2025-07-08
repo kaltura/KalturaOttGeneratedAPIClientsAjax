@@ -30,6 +30,16 @@ var KalturaAssetService = {
 	},
 	
 	/**
+	 * Returns playback contexts for multiple assets in a single request.
+	 * @param	request	KalturaBulkPlaybackContextRequest		Bulk request containing array of playback context parameters (optional)
+	 **/
+	bulkGetPlaybackContext: function(request){
+		var kparams = new Object();
+		kparams.request = request;
+		return new KalturaRequestBuilder("asset", "bulkGetPlaybackContext", kparams);
+	},
+	
+	/**
 	 * Returns a group-by result for media or EPG according to given filter. Lists values of each field and their respective count..
 	 * @param	filter	KalturaSearchAssetFilter		Filtering the assets request (optional, default: null)
 	 **/
