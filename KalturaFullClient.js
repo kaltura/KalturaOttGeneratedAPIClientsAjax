@@ -65,6 +65,67 @@ var KalturaAiMetadataGeneratorService = {
 }
 
 /**
+ *Class definition for the Kaltura service: aiRecommendationTree.
+ **/
+var KalturaAiRecommendationTreeService = {
+	/**
+	 * Returns the next question, available answers, and content recommendations based on the current path through the tree..
+	 * @param	treeId	string		ID of the tree to navigate (optional - if omitted, the active tree will be used) (optional, default: null)
+	 * @param	answerId	string		Selected answer ID from the previous question (required if previousQuestionId is provided) (optional, default: null)
+	 * @param	topQuestionId	string		Specific top-level question ID (relevant for first question only) (optional, default: null)
+	 **/
+	getNextNodeAndRecommendation: function(treeId, answerId, topQuestionId){
+		if(!treeId)
+			treeId = null;
+		if(!answerId)
+			answerId = null;
+		if(!topQuestionId)
+			topQuestionId = null;
+		var kparams = new Object();
+		kparams.treeId = treeId;
+		kparams.answerId = answerId;
+		kparams.topQuestionId = topQuestionId;
+		return new KalturaRequestBuilder("airecommendationtree", "getNextNodeAndRecommendation", kparams);
+	},
+	
+	/**
+	 * Retrieves the current configuration settings for TV Genie for a specific partner..
+	 **/
+	getPartnerConfig: function(){
+		var kparams = new Object();
+		return new KalturaRequestBuilder("airecommendationtree", "getPartnerConfig", kparams);
+	},
+	
+	/**
+	 * Returns content recommendations based on natural language input..
+	 * @param	naturalTextQuery	string		The query text entered by the user (optional)
+	 * @param	questionId	string		The Id of the question that naturalTextQuery is the answer to (optional) (optional, default: null)
+	 * @param	treeId	string		ID of the tree to use (mandatory if previousQuestionId is provided) (optional, default: null)
+	 **/
+	getRecommendationWithNaturalText: function(naturalTextQuery, questionId, treeId){
+		if(!questionId)
+			questionId = null;
+		if(!treeId)
+			treeId = null;
+		var kparams = new Object();
+		kparams.naturalTextQuery = naturalTextQuery;
+		kparams.questionId = questionId;
+		kparams.treeId = treeId;
+		return new KalturaRequestBuilder("airecommendationtree", "getRecommendationWithNaturalText", kparams);
+	},
+	
+	/**
+	 * Updates the configuration settings for TV Genie on a per-partner basis..
+	 * @param	configuration	KalturaAiRecommendationTreePartnerConfiguration		The partner configuration to be set (optional)
+	 **/
+	upsertPartnerConfig: function(configuration){
+		var kparams = new Object();
+		kparams.configuration = configuration;
+		return new KalturaRequestBuilder("airecommendationtree", "upsertPartnerConfig", kparams);
+	}
+}
+
+/**
  *Class definition for the Kaltura service: announcement.
  **/
 var KalturaAnnouncementService = {
@@ -257,6 +318,16 @@ var KalturaAssetService = {
 		kparams.bulkUploadJobData = bulkUploadJobData;
 		kparams.bulkUploadAssetData = bulkUploadAssetData;
 		return new KalturaRequestBuilder("asset", "addFromBulkUpload", kparams, kfiles);
+	},
+	
+	/**
+	 * Returns playback contexts for multiple assets in a single request.
+	 * @param	request	KalturaBulkPlaybackContextRequest		Bulk request containing array of playback context parameters (optional)
+	 **/
+	bulkGetPlaybackContext: function(request){
+		var kparams = new Object();
+		kparams.request = request;
+		return new KalturaRequestBuilder("asset", "bulkGetPlaybackContext", kparams);
 	},
 	
 	/**
@@ -2758,6 +2829,61 @@ var KalturaFollowTvSeriesService = {
 		if (pager != null)
 			kparams.pager = pager;
 		return new KalturaRequestBuilder("followtvseries", "list", kparams);
+	}
+}
+
+/**
+ *Class definition for the Kaltura service: geoBlockRule.
+ **/
+var KalturaGeoBlockRuleService = {
+	/**
+	 * Add a new geo block rule.
+	 * @param	geoBlockRule	KalturaGeoBlockRule		The geo block rule to add (optional)
+	 **/
+	add: function(geoBlockRule){
+		var kparams = new Object();
+		kparams.geoBlockRule = geoBlockRule;
+		return new KalturaRequestBuilder("geoblockrule", "add", kparams);
+	},
+	
+	/**
+	 * Delete a geo block rule.
+	 * @param	id	int		The id of the geo block rule to delete (optional)
+	 **/
+	deleteAction: function(id){
+		var kparams = new Object();
+		kparams.id = id;
+		return new KalturaRequestBuilder("geoblockrule", "delete", kparams);
+	},
+	
+	/**
+	 * Get the list of geo block rules for the partner.
+	 * @param	filter	KalturaGeoBlockRuleFilter		Filter criteria for the geo block rules (optional, default: null)
+	 * @param	pager	KalturaFilterPager		Paging information for retrieving paginated results (optional, default: null)
+	 **/
+	listAction: function(filter, pager){
+		if(!filter)
+			filter = null;
+		if(!pager)
+			pager = null;
+		var kparams = new Object();
+		if (filter != null)
+			kparams.filter = filter;
+		if (pager != null)
+			kparams.pager = pager;
+		return new KalturaRequestBuilder("geoblockrule", "list", kparams);
+	},
+	
+	/**
+	 * Update an existing geo block rule.
+	 * @param	id	int		The id of the geo block rule to update (optional)
+	 * @param	geoBlockRule	KalturaGeoBlockRule		The geo block rule data to update (optional)
+	 **/
+	update: function(id, geoBlockRule){
+		var kparams = new Object();
+		kparams.id = id;
+		kparams.geoBlockRule = geoBlockRule;
+		return new KalturaRequestBuilder("geoblockrule", "update", kparams);
 	}
 }
 
@@ -8624,8 +8750,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:25-06-11');
-	this.setApiVersion('11.2.1.0');
+	this.setClientTag('ajax:25-07-11');
+	this.setApiVersion('11.4.0.3');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
