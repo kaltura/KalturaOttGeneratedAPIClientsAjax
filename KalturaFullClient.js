@@ -631,7 +631,7 @@ var KalturaAssetFilePpvService = {
 	},
 	
 	/**
-	 * Update assetFilePpv.
+	 * Update assetFilePpv dates.
 	 * @param	assetFileId	int		Asset file id (optional)
 	 * @param	ppvModuleId	int		Ppv module id (optional)
 	 * @param	assetFilePpv	KalturaAssetFilePpv		assetFilePpv (optional)
@@ -8763,7 +8763,7 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:25-08-06');
+	this.setClientTag('ajax:25-08-07');
 	this.setApiVersion('11.5.0.0');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
