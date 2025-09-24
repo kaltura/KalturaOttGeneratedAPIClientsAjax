@@ -1,144 +1,5 @@
 
 /**
- *Class definition for the Kaltura service: aiMetadataGenerator.
- **/
-var KalturaAiMetadataGeneratorService = {
-	/**
-	 * Initiate the process of metadata generation based on existing asset description metadata.
- *	            The service will analyze the asset&#39;s description and genre metadata using AI/LLM to generate
- *	            additional enriched metadata fields including enhanced genre classifications, sentiment analysis,
- *	            and relevant keywords. This method is useful for enriching assets that already have basic
- *	            description metadata but need additional AI-generated metadata fields..
-	 * @param	generateMetadataByDescription	KalturaGenerateMetadataByDescription		Request object containing the external asset ID to analyze and enrich (optional)
-	 **/
-	generateMetadataByDescription: function(generateMetadataByDescription){
-		var kparams = new Object();
-		kparams.generateMetadataByDescription = generateMetadataByDescription;
-		return new KalturaRequestBuilder("aimetadatagenerator", "generateMetadataByDescription", kparams);
-	},
-	
-	/**
-	 * Initiate the process of metadata generation based on the subtitles file.
- *	            The subtitles file must be previously uploaded using the subtitles.uploadFile service.
- *	            The service will analyze the subtitle content using AI/LLM to generate enriched metadata including
- *	            genre, description, keywords, sentiment analysis, and other metadata fields..
-	 * @param	generateMetadataBySubtitles	KalturaGenerateMetadataBySubtitles		Request object containing the subtitles file ID and optional external asset IDs to update (optional)
-	 **/
-	generateMetadataBySubtitles: function(generateMetadataBySubtitles){
-		var kparams = new Object();
-		kparams.generateMetadataBySubtitles = generateMetadataBySubtitles;
-		return new KalturaRequestBuilder("aimetadatagenerator", "generateMetadataBySubtitles", kparams);
-	},
-	
-	/**
-	 * Retrieve the generated metadata.
-	 * @param	jobId	int		The job ID as received from GenerateMetadataBySubtitles. (optional)
-	 **/
-	getGeneratedMetadata: function(jobId){
-		var kparams = new Object();
-		kparams.jobId = jobId;
-		return new KalturaRequestBuilder("aimetadatagenerator", "getGeneratedMetadata", kparams);
-	},
-	
-	/**
-	 * Get a metadata generation job..
-	 * @param	id	int		The job ID as received from GenerateMetadataBySubtitles. (optional)
-	 **/
-	getGenerateMetadataJob: function(id){
-		var kparams = new Object();
-		kparams.id = id;
-		return new KalturaRequestBuilder("aimetadatagenerator", "getGenerateMetadataJob", kparams);
-	},
-	
-	/**
-	 * Get metadata mapping structure and available generated metadata fields..
-	 **/
-	getMetadataFieldDefinitions: function(){
-		var kparams = new Object();
-		return new KalturaRequestBuilder("aimetadatagenerator", "getMetadataFieldDefinitions", kparams);
-	},
-	
-	/**
-	 * Get the metadata generation configuration..
-	 **/
-	getPartnerConfiguration: function(){
-		var kparams = new Object();
-		return new KalturaRequestBuilder("aimetadatagenerator", "getPartnerConfiguration", kparams);
-	},
-	
-	/**
-	 * Update/set the metadata generation configuration.
-	 * @param	configuration	KalturaAiMetadataGeneratorConfiguration		the partner configuration to be set (optional)
-	 **/
-	updatePartnerConfiguration: function(configuration){
-		var kparams = new Object();
-		kparams.configuration = configuration;
-		return new KalturaRequestBuilder("aimetadatagenerator", "updatePartnerConfiguration", kparams);
-	}
-}
-
-/**
- *Class definition for the Kaltura service: aiRecommendationTree.
- **/
-var KalturaAiRecommendationTreeService = {
-	/**
-	 * Returns the next question, available answers, and content recommendations based on the current path through the tree..
-	 * @param	treeId	string		ID of the tree to navigate (optional - if omitted, the active tree will be used) (optional, default: null)
-	 * @param	answerId	string		Selected answer ID from the previous question (required if previousQuestionId is provided) (optional, default: null)
-	 * @param	topQuestionId	string		Specific top-level question ID (relevant for first question only) (optional, default: null)
-	 **/
-	getNextNodeAndRecommendation: function(treeId, answerId, topQuestionId){
-		if(!treeId)
-			treeId = null;
-		if(!answerId)
-			answerId = null;
-		if(!topQuestionId)
-			topQuestionId = null;
-		var kparams = new Object();
-		kparams.treeId = treeId;
-		kparams.answerId = answerId;
-		kparams.topQuestionId = topQuestionId;
-		return new KalturaRequestBuilder("airecommendationtree", "getNextNodeAndRecommendation", kparams);
-	},
-	
-	/**
-	 * Retrieves the current configuration settings for TV Genie for a specific partner..
-	 **/
-	getPartnerConfig: function(){
-		var kparams = new Object();
-		return new KalturaRequestBuilder("airecommendationtree", "getPartnerConfig", kparams);
-	},
-	
-	/**
-	 * Returns content recommendations based on natural language input..
-	 * @param	naturalTextQuery	string		The query text entered by the user (optional)
-	 * @param	questionId	string		The Id of the question that naturalTextQuery is the answer to (optional) (optional, default: null)
-	 * @param	treeId	string		ID of the tree to use (mandatory if previousQuestionId is provided) (optional, default: null)
-	 **/
-	getRecommendationWithNaturalText: function(naturalTextQuery, questionId, treeId){
-		if(!questionId)
-			questionId = null;
-		if(!treeId)
-			treeId = null;
-		var kparams = new Object();
-		kparams.naturalTextQuery = naturalTextQuery;
-		kparams.questionId = questionId;
-		kparams.treeId = treeId;
-		return new KalturaRequestBuilder("airecommendationtree", "getRecommendationWithNaturalText", kparams);
-	},
-	
-	/**
-	 * Updates the configuration settings for TV Genie on a per-partner basis..
-	 * @param	configuration	KalturaAiRecommendationTreePartnerConfiguration		The partner configuration to be set (optional)
-	 **/
-	upsertPartnerConfig: function(configuration){
-		var kparams = new Object();
-		kparams.configuration = configuration;
-		return new KalturaRequestBuilder("airecommendationtree", "upsertPartnerConfig", kparams);
-	}
-}
-
-/**
  *Class definition for the Kaltura service: announcement.
  **/
 var KalturaAnnouncementService = {
@@ -334,16 +195,6 @@ var KalturaAssetService = {
 	},
 	
 	/**
-	 * Returns playback contexts for multiple assets in a single request.
-	 * @param	request	KalturaBulkPlaybackContextRequest		Bulk request containing array of playback context parameters (optional)
-	 **/
-	bulkGetPlaybackContext: function(request){
-		var kparams = new Object();
-		kparams.request = request;
-		return new KalturaRequestBuilder("asset", "bulkGetPlaybackContext", kparams);
-	},
-	
-	/**
 	 * Returns a group-by result for media or EPG according to given filter. Lists values of each field and their respective count..
 	 * @param	filter	KalturaSearchAssetFilter		Filtering the assets request (optional, default: null)
 	 **/
@@ -506,24 +357,6 @@ var KalturaAssetService = {
 	},
 	
 	/**
-	 * Search for assets using semantic similarity to a natural language query, with optional query refinement using LLM..
-	 * @param	query	string		The search query text used to find semantically similar assets (optional)
-	 * @param	refineQuery	bool		When true, the search query is refined using LLM before vector search (optional, default: false)
-	 * @param	size	int		The maximum number of results to return. Must be between 1 and 100 (optional, default: 10)
-	 **/
-	semanticSearch: function(query, refineQuery, size){
-		if(!refineQuery)
-			refineQuery = false;
-		if(!size)
-			size = 10;
-		var kparams = new Object();
-		kparams.query = query;
-		kparams.refineQuery = refineQuery;
-		kparams.size = size;
-		return new KalturaRequestBuilder("asset", "semanticSearch", kparams);
-	},
-	
-	/**
 	 * update an existing asset.
  *	            For metas of type bool-&gt; use kalturaBoolValue, type number-&gt; KalturaDoubleValue, type date -&gt; KalturaLongValue, type string -&gt; KalturaStringValue.
 	 * @param	id	int		Asset Identifier (optional)
@@ -534,16 +367,6 @@ var KalturaAssetService = {
 		kparams.id = id;
 		kparams.asset = asset;
 		return new KalturaRequestBuilder("asset", "update", kparams);
-	},
-	
-	/**
-	 * Return list of assets - assets are personal recommendations for the caller..
-	 * @param	profileId	int		WatchBasedRecommendations profile id (optional)
-	 **/
-	watchBasedRecommendationsList: function(profileId){
-		var kparams = new Object();
-		kparams.profileId = profileId;
-		return new KalturaRequestBuilder("asset", "watchBasedRecommendationsList", kparams);
 	}
 }
 
@@ -750,7 +573,7 @@ var KalturaAssetPersonalSelectionService = {
 	},
 	
 	/**
-	 * upsert manages asset selections within slots.  It adds a new asset ID if it doesn&#39;t exist, or updates the timestamp if it does.  Slots are limited to 30 unique IDs.  When a slot is full, the oldest entry is removed (FIFO).  Inactive assets are automatically removed after 90 days..
+	 * Add or update asset selection in slot.
 	 * @param	assetId	int		asset id (optional)
 	 * @param	assetType	string		asset type: media/epg (optional, enum: KalturaAssetType)
 	 * @param	slotNumber	int		slot number (optional)
@@ -2842,61 +2665,6 @@ var KalturaFollowTvSeriesService = {
 		if (pager != null)
 			kparams.pager = pager;
 		return new KalturaRequestBuilder("followtvseries", "list", kparams);
-	}
-}
-
-/**
- *Class definition for the Kaltura service: geoBlockRule.
- **/
-var KalturaGeoBlockRuleService = {
-	/**
-	 * Add a new geo block rule.
-	 * @param	geoBlockRule	KalturaGeoBlockRule		The geo block rule to add (optional)
-	 **/
-	add: function(geoBlockRule){
-		var kparams = new Object();
-		kparams.geoBlockRule = geoBlockRule;
-		return new KalturaRequestBuilder("geoblockrule", "add", kparams);
-	},
-	
-	/**
-	 * Delete a geo block rule.
-	 * @param	id	int		The id of the geo block rule to delete (optional)
-	 **/
-	deleteAction: function(id){
-		var kparams = new Object();
-		kparams.id = id;
-		return new KalturaRequestBuilder("geoblockrule", "delete", kparams);
-	},
-	
-	/**
-	 * Get the list of geo block rules for the partner.
-	 * @param	filter	KalturaGeoBlockRuleFilter		Filter criteria for the geo block rules (optional, default: null)
-	 * @param	pager	KalturaFilterPager		Paging information for retrieving paginated results (optional, default: null)
-	 **/
-	listAction: function(filter, pager){
-		if(!filter)
-			filter = null;
-		if(!pager)
-			pager = null;
-		var kparams = new Object();
-		if (filter != null)
-			kparams.filter = filter;
-		if (pager != null)
-			kparams.pager = pager;
-		return new KalturaRequestBuilder("geoblockrule", "list", kparams);
-	},
-	
-	/**
-	 * Update an existing geo block rule.
-	 * @param	id	int		The id of the geo block rule to update (optional)
-	 * @param	geoBlockRule	KalturaGeoBlockRule		The geo block rule data to update (optional)
-	 **/
-	update: function(id, geoBlockRule){
-		var kparams = new Object();
-		kparams.id = id;
-		kparams.geoBlockRule = geoBlockRule;
-		return new KalturaRequestBuilder("geoblockrule", "update", kparams);
 	}
 }
 
@@ -6453,87 +6221,6 @@ var KalturaSegmentationTypeService = {
 }
 
 /**
- *Class definition for the Kaltura service: semanticAssetSearchPartnerConfig.
- **/
-var KalturaSemanticAssetSearchPartnerConfigService = {
-	/**
-	 * Retrieve the filtering condition configuration for the partner..
-	 **/
-	getFilteringCondition: function(){
-		var kparams = new Object();
-		return new KalturaRequestBuilder("semanticassetsearchpartnerconfig", "getFilteringCondition", kparams);
-	},
-	
-	/**
-	 * Retrieve the current field configurations for semantic search..
-	 * @param	assetStructId	int		Asset structure ID to filter configurations. (optional)
-	 **/
-	getSearchableAttributes: function(assetStructId){
-		var kparams = new Object();
-		kparams.assetStructId = assetStructId;
-		return new KalturaRequestBuilder("semanticassetsearchpartnerconfig", "getSearchableAttributes", kparams);
-	},
-	
-	/**
-	 * Update rule that controls embedding generation and search behavior..
-	 * @param	filteringCondition	KalturaFilteringCondition		Rule configuration parameters. (optional)
-	 **/
-	upsertFilteringCondition: function(filteringCondition){
-		var kparams = new Object();
-		kparams.filteringCondition = filteringCondition;
-		return new KalturaRequestBuilder("semanticassetsearchpartnerconfig", "upsertFilteringCondition", kparams);
-	},
-	
-	/**
-	 * Update which fields should be included in semantic search for specific asset types..
-	 * @param	attributes	KalturaSearchableAttributes		Fields configuration parameters. (optional)
-	 **/
-	upsertSearchableAttributes: function(attributes){
-		var kparams = new Object();
-		kparams.attributes = attributes;
-		return new KalturaRequestBuilder("semanticassetsearchpartnerconfig", "upsertSearchableAttributes", kparams);
-	}
-}
-
-/**
- *Class definition for the Kaltura service: semanticQuery.
- **/
-var KalturaSemanticQueryService = {
-	/**
-	 * Generates a title and semantic sub-queries..
-	 * @param	query	KalturaGenerateSemanticQuery		Parameters required for generating semantic queries. (optional)
-	 **/
-	generate: function(query){
-		var kparams = new Object();
-		kparams.query = query;
-		return new KalturaRequestBuilder("semanticquery", "generate", kparams);
-	}
-}
-
-/**
- *Class definition for the Kaltura service: semanticQueryPartnerConfiguration.
- **/
-var KalturaSemanticQueryPartnerConfigurationService = {
-	/**
-	 * Retrieves partner configuration for semantic query service..
-	 **/
-	get: function(){
-		var kparams = new Object();
-		return new KalturaRequestBuilder("semanticquerypartnerconfiguration", "get", kparams);
-	},
-	
-	/**
-	 * Updates the partner configuration for semantic query service..
-	 * @param	configuration	KalturaSemanticQueryPartnerConfiguration		The partner configuration for semantic query generation. (optional)
-	 **/
-	update: function(configuration){
-		var kparams = new Object();
-		kparams.configuration = configuration;
-		return new KalturaRequestBuilder("semanticquerypartnerconfiguration", "update", kparams);
-	}
-}
-
-/**
  *Class definition for the Kaltura service: seriesRecording.
  **/
 var KalturaSeriesRecordingService = {
@@ -7153,24 +6840,6 @@ var KalturaSubscriptionSetService = {
 }
 
 /**
- *Class definition for the Kaltura service: subtitles.
- **/
-var KalturaSubtitlesService = {
-	/**
-	 * Add a subtitles file to be used for generating metadata and enriching the assets using a multi-part form-data body including the JSON configuration object and the uploaded file..
-	 * @param	subtitles	KalturaUploadSubtitles		Subtitle file metadata. (optional)
-	 * @param	fileData	HTMLElement		The subtitles file to upload. The file must be in UTF-8 encoding. (optional)
-	 **/
-	uploadFile: function(subtitles, fileData){
-		var kparams = new Object();
-		var kfiles = new Object();
-		kparams.subtitles = subtitles;
-		kfiles.fileData = fileData;
-		return new KalturaRequestBuilder("subtitles", "uploadFile", kparams, kfiles);
-	}
-}
-
-/**
  *Class definition for the Kaltura service: system.
  **/
 var KalturaSystemService = {
@@ -7336,7 +7005,6 @@ var KalturaTimeShiftedTvPartnerSettingsService = {
 	
 	/**
 	 * Configure the account’s time-shifted TV settings (catch-up and C-DVR, Trick-play, Start-over).
- *	            When updating the timeshiftedtvpartnersettings, user must provide values for all the setting fields. If any field is omitted, its value may reset to the default configuration, potentially overwriting the current settings..
 	 * @param	settings	KalturaTimeShiftedTvPartnerSettings		Time shifted TV settings (optional)
 	 **/
 	update: function(settings){
@@ -7850,26 +7518,6 @@ var KalturaUserInterestService = {
 }
 
 /**
- *Class definition for the Kaltura service: userLog.
- **/
-var KalturaUserLogService = {
-	/**
-	 * Retrieves a list of user log entries matching the specified filter criteria..
-	 * @param	filter	KalturaUserLogFilter		Filters user logs by user ID(s), message content, and creation date. (optional)
-	 * @param	pager	KalturaFilterPager		Specify the requested page. (optional, default: null)
-	 **/
-	listAction: function(filter, pager){
-		if(!pager)
-			pager = null;
-		var kparams = new Object();
-		kparams.filter = filter;
-		if (pager != null)
-			kparams.pager = pager;
-		return new KalturaRequestBuilder("userlog", "list", kparams);
-	}
-}
-
-/**
  *Class definition for the Kaltura service: userLoginPin.
  **/
 var KalturaUserLoginPinService = {
@@ -8079,89 +7727,6 @@ var KalturaUserSessionProfileService = {
 		kparams.id = id;
 		kparams.userSessionProfile = userSessionProfile;
 		return new KalturaRequestBuilder("usersessionprofile", "update", kparams);
-	}
-}
-
-/**
- *Class definition for the Kaltura service: watchBasedRecommendationsAdminConfiguration.
- **/
-var KalturaWatchBasedRecommendationsAdminConfigurationService = {
-	/**
-	 * Get partner&#39;s watch based recommendations admin configuration..
-	 **/
-	get: function(){
-		var kparams = new Object();
-		return new KalturaRequestBuilder("watchbasedrecommendationsadminconfiguration", "get", kparams);
-	},
-	
-	/**
-	 * Updates partner&#39;s watch based recommendations admin configuration..
-	 * @param	configuration	KalturaWatchBasedRecommendationsAdminConfiguration		watch based recommendations admin configuration (optional)
-	 **/
-	update: function(configuration){
-		var kparams = new Object();
-		kparams.configuration = configuration;
-		return new KalturaRequestBuilder("watchbasedrecommendationsadminconfiguration", "update", kparams);
-	}
-}
-
-/**
- *Class definition for the Kaltura service: watchBasedRecommendationsProfile.
- **/
-var KalturaWatchBasedRecommendationsProfileService = {
-	/**
-	 * Add partner&#39;s watch based recommendations profile..
-	 * @param	profile	KalturaWatchBasedRecommendationsProfile		watch based recommendations profile to add (optional)
-	 **/
-	add: function(profile){
-		var kparams = new Object();
-		kparams.profile = profile;
-		return new KalturaRequestBuilder("watchbasedrecommendationsprofile", "add", kparams);
-	},
-	
-	/**
-	 * Delete partner&#39;s watch based recommendations profile..
-	 * @param	id	int		profile id to update (optional)
-	 **/
-	deleteAction: function(id){
-		var kparams = new Object();
-		kparams.id = id;
-		return new KalturaRequestBuilder("watchbasedrecommendationsprofile", "delete", kparams);
-	},
-	
-	/**
-	 * Delete all recommendations that were calculated based on specific profile..
-	 * @param	id	int		profile id (optional)
-	 **/
-	deleteWatchBasedRecommendationsOfProfile: function(id){
-		var kparams = new Object();
-		kparams.id = id;
-		return new KalturaRequestBuilder("watchbasedrecommendationsprofile", "deleteWatchBasedRecommendationsOfProfile", kparams);
-	},
-	
-	/**
-	 * Get partner&#39;s watch based recommendations profiles..
-	 * @param	filter	KalturaWatchBasedRecommendationsProfileFilter		Filtering parameters for watch based recommendations profiles (optional, default: null)
-	 **/
-	listAction: function(filter){
-		if(!filter)
-			filter = null;
-		var kparams = new Object();
-		if (filter != null)
-			kparams.filter = filter;
-		return new KalturaRequestBuilder("watchbasedrecommendationsprofile", "list", kparams);
-	},
-	
-	/**
-	 * Update partner&#39;s watch based recommendations profile..
-	 * @param	id	int		profile id to update (optional)
-	 * @param	profile	KalturaWatchBasedRecommendationsProfile		watch based recommendations profile to add (optional)
-	 **/
-	update: function(id, profile){
-		var kparams = new Object();
-		kparams.id = id;
-		kparams.profile = profile;
-		return new KalturaRequestBuilder("watchbasedrecommendationsprofile", "update", kparams);
 	}
 }
 // ===================================================================================================
@@ -8763,8 +8328,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:25-08-06');
-	this.setApiVersion('11.5.0.0');
+	this.setClientTag('ajax:25-09-24');
+	this.setApiVersion('10.4.1.5');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
