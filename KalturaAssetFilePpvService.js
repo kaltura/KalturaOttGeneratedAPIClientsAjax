@@ -36,7 +36,7 @@ var KalturaAssetFilePpvService = {
 	},
 	
 	/**
-	 * Update assetFilePpv.
+	 * Update assetFilePpv dates.
 	 * @param	assetFileId	int		Asset file id (optional)
 	 * @param	ppvModuleId	int		Ppv module id (optional)
 	 * @param	assetFilePpv	KalturaAssetFilePpv		assetFilePpv (optional)
