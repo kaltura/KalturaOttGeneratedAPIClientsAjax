@@ -31,6 +31,20 @@ var KalturaAiMetadataGeneratorService = {
 	},
 	
 	/**
+	 * Initiate the process of metadata generation for Program assets based on existing asset description metadata.
+ *	            The service will analyze the program&#39;s description and genre metadata using AI/LLM to generate
+ *	            additional enriched metadata fields. This method is specifically designed for Program/EPG assets
+ *	            and supports CRID-based uniqueness, regeneration options, and configurable overwrite behavior.
+ *	            Programs without a CRID are out of scope for this feature..
+	 * @param	generateProgramMetadataByDescription	KalturaGenerateProgramMetadatasByDescription		Request object containing the external asset ID and regenerate flag (optional)
+	 **/
+	generateProgramMetadataByDescription: function(generateProgramMetadataByDescription){
+		var kparams = new Object();
+		kparams.generateProgramMetadataByDescription = generateProgramMetadataByDescription;
+		return new KalturaRequestBuilder("aimetadatagenerator", "generateProgramMetadataByDescription", kparams);
+	},
+	
+	/**
 	 * Retrieve the generated metadata.
 	 * @param	jobId	int		The job ID as received from GenerateMetadataBySubtitles. (optional)
 	 **/
@@ -524,6 +538,26 @@ var KalturaAssetService = {
 	},
 	
 	/**
+	 * Performs unified semantic search across both assets and programs..
+	 * @param	query	string		Search query text (optional)
+	 * @param	searchScopes	array		List of search scopes defining which types to search (Asset/Program) and optional filters (optional)
+	 * @param	refineQuery	bool		Whether to refine the query using LLM (optional, default: false)
+	 * @param	size	int		Maximum number of results to return (optional, default: 10)
+	 **/
+	unifiedSemanticSearch: function(query, searchScopes, refineQuery, size){
+		if(!refineQuery)
+			refineQuery = false;
+		if(!size)
+			size = 10;
+		var kparams = new Object();
+		kparams.query = query;
+		kparams.searchScopes = searchScopes;
+		kparams.refineQuery = refineQuery;
+		kparams.size = size;
+		return new KalturaRequestBuilder("asset", "unifiedSemanticSearch", kparams);
+	},
+	
+	/**
 	 * update an existing asset.
  *	            For metas of type bool-&gt; use kalturaBoolValue, type number-&gt; KalturaDoubleValue, type date -&gt; KalturaLongValue, type string -&gt; KalturaStringValue.
 	 * @param	id	int		Asset Identifier (optional)
@@ -631,7 +665,7 @@ var KalturaAssetFilePpvService = {
 	},
 	
 	/**
-	 * Update assetFilePpv.
+	 * Update assetFilePpv dates.
 	 * @param	assetFileId	int		Asset file id (optional)
 	 * @param	ppvModuleId	int		Ppv module id (optional)
 	 * @param	assetFilePpv	KalturaAssetFilePpv		assetFilePpv (optional)
@@ -6465,6 +6499,22 @@ var KalturaSemanticAssetSearchPartnerConfigService = {
 	},
 	
 	/**
+	 * Retrieve the filtering condition configuration for program assets..
+	 **/
+	getProgramFilteringCondition: function(){
+		var kparams = new Object();
+		return new KalturaRequestBuilder("semanticassetsearchpartnerconfig", "getProgramFilteringCondition", kparams);
+	},
+	
+	/**
+	 * Retrieve the current program field configurations for semantic search..
+	 **/
+	getProgramSearchableAttributes: function(){
+		var kparams = new Object();
+		return new KalturaRequestBuilder("semanticassetsearchpartnerconfig", "getProgramSearchableAttributes", kparams);
+	},
+	
+	/**
 	 * Retrieve the current field configurations for semantic search..
 	 * @param	assetStructId	int		Asset structure ID to filter configurations. (optional)
 	 **/
@@ -6482,6 +6532,26 @@ var KalturaSemanticAssetSearchPartnerConfigService = {
 		var kparams = new Object();
 		kparams.filteringCondition = filteringCondition;
 		return new KalturaRequestBuilder("semanticassetsearchpartnerconfig", "upsertFilteringCondition", kparams);
+	},
+	
+	/**
+	 * Update rule that controls embedding generation and search behavior for program assets..
+	 * @param	filteringCondition	KalturaFilteringCondition		Rule configuration parameters for programs. (optional)
+	 **/
+	upsertProgramFilteringCondition: function(filteringCondition){
+		var kparams = new Object();
+		kparams.filteringCondition = filteringCondition;
+		return new KalturaRequestBuilder("semanticassetsearchpartnerconfig", "upsertProgramFilteringCondition", kparams);
+	},
+	
+	/**
+	 * Update which fields should be included in semantic search for program assets..
+	 * @param	programAttributes	string		Comma-separated list of program attribute names to be searchable. (optional)
+	 **/
+	upsertProgramSearchableAttributes: function(programAttributes){
+		var kparams = new Object();
+		kparams.programAttributes = programAttributes;
+		return new KalturaRequestBuilder("semanticassetsearchpartnerconfig", "upsertProgramSearchableAttributes", kparams);
 	},
 	
 	/**
@@ -8763,8 +8833,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:25-08-06');
-	this.setApiVersion('11.5.0.0');
+	this.setClientTag('ajax:25-11-24');
+	this.setApiVersion('11.8.0.1');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
