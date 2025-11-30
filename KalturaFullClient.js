@@ -31,6 +31,20 @@ var KalturaAiMetadataGeneratorService = {
 	},
 	
 	/**
+	 * Initiate the process of metadata generation for Program assets based on existing asset description metadata.
+ *	            The service will analyze the program&#39;s description and genre metadata using AI/LLM to generate
+ *	            additional enriched metadata fields. This method is specifically designed for Program/EPG assets
+ *	            and supports CRID-based uniqueness, regeneration options, and configurable overwrite behavior.
+ *	            Programs without a CRID are out of scope for this feature..
+	 * @param	generateProgramMetadataByDescription	KalturaGenerateProgramMetadatasByDescription		Request object containing the external asset ID and regenerate flag (optional)
+	 **/
+	generateProgramMetadataByDescription: function(generateProgramMetadataByDescription){
+		var kparams = new Object();
+		kparams.generateProgramMetadataByDescription = generateProgramMetadataByDescription;
+		return new KalturaRequestBuilder("aimetadatagenerator", "generateProgramMetadataByDescription", kparams);
+	},
+	
+	/**
 	 * Retrieve the generated metadata.
 	 * @param	jobId	int		The job ID as received from GenerateMetadataBySubtitles. (optional)
 	 **/
@@ -631,7 +645,7 @@ var KalturaAssetFilePpvService = {
 	},
 	
 	/**
-	 * Update assetFilePpv.
+	 * Update assetFilePpv dates.
 	 * @param	assetFileId	int		Asset file id (optional)
 	 * @param	ppvModuleId	int		Ppv module id (optional)
 	 * @param	assetFilePpv	KalturaAssetFilePpv		assetFilePpv (optional)
@@ -7002,12 +7016,16 @@ var KalturaStreamingDeviceService = {
 	 * @param	fileId	string		KalturaMediaFile.id media file belonging to the asset for which a concurrency slot is being reserved (optional)
 	 * @param	assetId	string		KalturaAsset.id - asset for which a concurrency slot is being reserved (optional)
 	 * @param	assetType	string		Identifies the type of asset for which the concurrency slot is being reserved (optional, enum: KalturaAssetType)
+	 * @param	externalRecordingProgramId	int		Optional EPG program ID used as fallback for concurrency checks when the external recording ID does not exist in the backend (e.g., recording not yet created). Only applicable for recording asset types when external recordings feature is enabled. (optional, default: null)
 	 **/
-	bookPlaybackSession: function(fileId, assetId, assetType){
+	bookPlaybackSession: function(fileId, assetId, assetType, externalRecordingProgramId){
+		if(!externalRecordingProgramId)
+			externalRecordingProgramId = null;
 		var kparams = new Object();
 		kparams.fileId = fileId;
 		kparams.assetId = assetId;
 		kparams.assetType = assetType;
+		kparams.externalRecordingProgramId = externalRecordingProgramId;
 		return new KalturaRequestBuilder("streamingdevice", "bookPlaybackSession", kparams);
 	},
 	
@@ -8763,8 +8781,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:25-08-06');
-	this.setApiVersion('11.5.0.0');
+	this.setClientTag('ajax:25-11-30');
+	this.setApiVersion('11.9.0.0');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
