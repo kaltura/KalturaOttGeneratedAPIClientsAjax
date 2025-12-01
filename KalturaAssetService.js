@@ -202,31 +202,14 @@ var KalturaAssetService = {
 	},
 	
 	/**
-	 * Search for assets using semantic similarity to a natural language query, with optional query refinement using LLM..
-	 * @param	query	string		The search query text used to find semantically similar assets (optional)
-	 * @param	refineQuery	bool		When true, the search query is refined using LLM before vector search (optional, default: false)
-	 * @param	size	int		The maximum number of results to return. Must be between 1 and 100 (optional, default: 10)
-	 **/
-	semanticSearch: function(query, refineQuery, size){
-		if(!refineQuery)
-			refineQuery = false;
-		if(!size)
-			size = 10;
-		var kparams = new Object();
-		kparams.query = query;
-		kparams.refineQuery = refineQuery;
-		kparams.size = size;
-		return new KalturaRequestBuilder("asset", "semanticSearch", kparams);
-	},
-	
-	/**
-	 * Performs unified semantic search across media and programs..
+	 * Search for assets using semantic similarity to a natural language query.
+ *	            Supports unified search across both media/VOD assets and programs/EPG with optional type-specific filters..
 	 * @param	searchParams	KalturaSemanticSearchParams		Search parameters including query text, content type filters, and optional type-specific filters (optional)
 	 **/
-	unifiedSemanticSearch: function(searchParams){
+	semanticSearch: function(searchParams){
 		var kparams = new Object();
 		kparams.searchParams = searchParams;
-		return new KalturaRequestBuilder("asset", "unifiedSemanticSearch", kparams);
+		return new KalturaRequestBuilder("asset", "semanticSearch", kparams);
 	},
 	
 	/**
