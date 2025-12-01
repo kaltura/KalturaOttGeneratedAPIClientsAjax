@@ -220,22 +220,12 @@ var KalturaAssetService = {
 	},
 	
 	/**
-	 * Performs unified semantic search across both assets and programs..
-	 * @param	query	string		Search query text (optional)
-	 * @param	searchScopes	array		List of search scopes defining which types to search (Asset/Program) and optional filters (optional)
-	 * @param	refineQuery	bool		Whether to refine the query using LLM (optional, default: false)
-	 * @param	size	int		Maximum number of results to return (optional, default: 10)
+	 * Performs unified semantic search across media and programs..
+	 * @param	searchParams	KalturaSemanticSearchParams		Search parameters including query text, content type filters, and optional type-specific filters (optional)
 	 **/
-	unifiedSemanticSearch: function(query, searchScopes, refineQuery, size){
-		if(!refineQuery)
-			refineQuery = false;
-		if(!size)
-			size = 10;
+	unifiedSemanticSearch: function(searchParams){
 		var kparams = new Object();
-		kparams.query = query;
-		kparams.searchScopes = searchScopes;
-		kparams.refineQuery = refineQuery;
-		kparams.size = size;
+		kparams.searchParams = searchParams;
 		return new KalturaRequestBuilder("asset", "unifiedSemanticSearch", kparams);
 	},
 	
