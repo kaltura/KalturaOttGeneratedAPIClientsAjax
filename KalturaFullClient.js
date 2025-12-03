@@ -6519,7 +6519,7 @@ var KalturaSemanticAssetSearchPartnerConfigService = {
 	
 	/**
 	 * Update which fields should be included in semantic search for program assets..
-	 * @param	programAttributes	string		Comma-separated list of program attribute names to be searchable. (optional)
+	 * @param	programAttributes	KalturaProgramSearchableAttributes		Program searchable attributes configuration containing comma-separated attribute names. (optional)
 	 **/
 	upsertProgramSearchableAttributes: function(programAttributes){
 		var kparams = new Object();
@@ -8806,7 +8806,7 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:25-12-02');
+	this.setClientTag('ajax:25-12-03');
 	this.setApiVersion('11.8.0.1');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
