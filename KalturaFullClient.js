@@ -520,20 +520,13 @@ var KalturaAssetService = {
 	},
 	
 	/**
-	 * Search for assets using semantic similarity to a natural language query, with optional query refinement using LLM..
-	 * @param	query	string		The search query text used to find semantically similar assets (optional)
-	 * @param	refineQuery	bool		When true, the search query is refined using LLM before vector search (optional, default: false)
-	 * @param	size	int		The maximum number of results to return. Must be between 1 and 100 (optional, default: 10)
+	 * Search for assets using semantic similarity to a natural language query.
+ *	            Supports unified search across both media/VOD assets and programs/EPG with optional type-specific filters..
+	 * @param	searchParams	KalturaSemanticSearchParams		Search parameters including query text, content type filters, and optional type-specific filters (optional)
 	 **/
-	semanticSearch: function(query, refineQuery, size){
-		if(!refineQuery)
-			refineQuery = false;
-		if(!size)
-			size = 10;
+	semanticSearch: function(searchParams){
 		var kparams = new Object();
-		kparams.query = query;
-		kparams.refineQuery = refineQuery;
-		kparams.size = size;
+		kparams.searchParams = searchParams;
 		return new KalturaRequestBuilder("asset", "semanticSearch", kparams);
 	},
 	
@@ -6479,6 +6472,22 @@ var KalturaSemanticAssetSearchPartnerConfigService = {
 	},
 	
 	/**
+	 * Retrieve the filtering condition configuration for program assets..
+	 **/
+	getProgramFilteringCondition: function(){
+		var kparams = new Object();
+		return new KalturaRequestBuilder("semanticassetsearchpartnerconfig", "getProgramFilteringCondition", kparams);
+	},
+	
+	/**
+	 * Retrieve the current program field configurations for semantic search..
+	 **/
+	getProgramSearchableAttributes: function(){
+		var kparams = new Object();
+		return new KalturaRequestBuilder("semanticassetsearchpartnerconfig", "getProgramSearchableAttributes", kparams);
+	},
+	
+	/**
 	 * Retrieve the current field configurations for semantic search..
 	 * @param	assetStructId	int		Asset structure ID to filter configurations. (optional)
 	 **/
@@ -6496,6 +6505,26 @@ var KalturaSemanticAssetSearchPartnerConfigService = {
 		var kparams = new Object();
 		kparams.filteringCondition = filteringCondition;
 		return new KalturaRequestBuilder("semanticassetsearchpartnerconfig", "upsertFilteringCondition", kparams);
+	},
+	
+	/**
+	 * Update rule that controls embedding generation and search behavior for program assets..
+	 * @param	filteringCondition	KalturaFilteringCondition		Rule configuration parameters for programs. (optional)
+	 **/
+	upsertProgramFilteringCondition: function(filteringCondition){
+		var kparams = new Object();
+		kparams.filteringCondition = filteringCondition;
+		return new KalturaRequestBuilder("semanticassetsearchpartnerconfig", "upsertProgramFilteringCondition", kparams);
+	},
+	
+	/**
+	 * Update which fields should be included in semantic search for program assets..
+	 * @param	programAttributes	KalturaProgramSearchableAttributes		Program searchable attributes configuration containing comma-separated attribute names. (optional)
+	 **/
+	upsertProgramSearchableAttributes: function(programAttributes){
+		var kparams = new Object();
+		kparams.programAttributes = programAttributes;
+		return new KalturaRequestBuilder("semanticassetsearchpartnerconfig", "upsertProgramSearchableAttributes", kparams);
 	},
 	
 	/**
