@@ -31,6 +31,20 @@ var KalturaAiMetadataGeneratorService = {
 	},
 	
 	/**
+	 * Initiate the process of metadata generation for Program assets based on existing asset description metadata.
+ *	            The service will analyze the program&#39;s description and genre metadata using AI/LLM to generate
+ *	            additional enriched metadata fields. This method is specifically designed for Program/EPG assets
+ *	            and supports CRID-based uniqueness, regeneration options, and configurable overwrite behavior.
+ *	            Programs without a CRID are out of scope for this feature..
+	 * @param	generateProgramMetadataByDescription	KalturaGenerateProgramMetadatasByDescription		Request object containing the external asset ID and regenerate flag (optional)
+	 **/
+	generateProgramMetadataByDescription: function(generateProgramMetadataByDescription){
+		var kparams = new Object();
+		kparams.generateProgramMetadataByDescription = generateProgramMetadataByDescription;
+		return new KalturaRequestBuilder("aimetadatagenerator", "generateProgramMetadataByDescription", kparams);
+	},
+	
+	/**
 	 * Retrieve the generated metadata.
 	 * @param	jobId	int		The job ID as received from GenerateMetadataBySubtitles. (optional)
 	 **/
