@@ -31,6 +31,20 @@ var KalturaAiMetadataGeneratorService = {
 	},
 	
 	/**
+	 * Initiate the process of metadata generation for Program assets based on existing asset description metadata.
+ *	            The service will analyze the program&#39;s description and genre metadata using AI/LLM to generate
+ *	            additional enriched metadata fields. This method is specifically designed for Program/EPG assets
+ *	            and supports CRID-based uniqueness, regeneration options, and configurable overwrite behavior.
+ *	            Programs without a CRID are out of scope for this feature..
+	 * @param	generateProgramMetadataByDescription	KalturaGenerateProgramMetadatasByDescription		Request object containing the external asset ID and regenerate flag (optional)
+	 **/
+	generateProgramMetadataByDescription: function(generateProgramMetadataByDescription){
+		var kparams = new Object();
+		kparams.generateProgramMetadataByDescription = generateProgramMetadataByDescription;
+		return new KalturaRequestBuilder("aimetadatagenerator", "generateProgramMetadataByDescription", kparams);
+	},
+	
+	/**
 	 * Retrieve the generated metadata.
 	 * @param	jobId	int		The job ID as received from GenerateMetadataBySubtitles. (optional)
 	 **/
@@ -211,6 +225,76 @@ var KalturaAnnouncementService = {
 		kparams.id = id;
 		kparams.status = status;
 		return new KalturaRequestBuilder("announcement", "updateStatus", kparams);
+	}
+}
+
+/**
+ *Class definition for the Kaltura service: appleIdp.
+ **/
+var KalturaAppleIdpService = {
+	/**
+	 * Attaches the KS’s ottUser to a Apple identity. Note: Attempting to attach to an IDP, a user that is already attached to the IDP in question, will fail with the appropriate error..
+	 * @param	idToken	string		The Apple OIDC ID Token obtained from the client. (optional)
+	 **/
+	attach: function(idToken){
+		var kparams = new Object();
+		kparams.idToken = idToken;
+		return new KalturaRequestBuilder("appleidp", "attach", kparams);
+	},
+	
+	/**
+	 * Detaches the KS’s ottUser from the Apple identity that he is connected to. Note: Attempting to detach from an IDP, a user that is not attached to the IDP in question, will fail with the appropriate error..
+	 **/
+	detach: function(){
+		var kparams = new Object();
+		return new KalturaRequestBuilder("appleidp", "detach", kparams);
+	},
+	
+	/**
+	 * Returns the identification of Kaltura’s partner (acting as the service provider) in Apple (acting as the identity provider)..
+	 **/
+	getServiceId: function(){
+		var kparams = new Object();
+		return new KalturaRequestBuilder("appleidp", "getServiceId", kparams);
+	},
+	
+	/**
+	 * Returns whether the user in question is attached to the Apple..
+	 **/
+	isAttached: function(){
+		var kparams = new Object();
+		return new KalturaRequestBuilder("appleidp", "isAttached", kparams);
+	},
+	
+	/**
+	 * Login an ottUser (acquire KS) using an Apple id token..
+	 * @param	partnerId	int		Partner identifier (optional)
+	 * @param	idToken	string		The Apple OIDC ID Token used to verify user identity. (optional)
+	 * @param	extraParams	map		Partner specific extra parameters for the login process (optional, default: null)
+	 * @param	udid	string		The user device identification (optional, default: null)
+	 **/
+	login: function(partnerId, idToken, extraParams, udid){
+		if(!extraParams)
+			extraParams = null;
+		if(!udid)
+			udid = null;
+		var kparams = new Object();
+		kparams.partnerId = partnerId;
+		kparams.idToken = idToken;
+		if (extraParams != null)
+			kparams.extraParams = extraParams;
+		kparams.udid = udid;
+		return new KalturaRequestBuilder("appleidp", "login", kparams);
+	},
+	
+	/**
+	 * Sets the identification of Kaltura’s partner (that acts as a service provider) in Apple (that acts as identity provider)..
+	 * @param	serviceId	string		The Apple App ID (Application Identifier). (optional)
+	 **/
+	setServiceId: function(serviceId){
+		var kparams = new Object();
+		kparams.serviceId = serviceId;
+		return new KalturaRequestBuilder("appleidp", "setServiceId", kparams);
 	}
 }
 
@@ -506,20 +590,13 @@ var KalturaAssetService = {
 	},
 	
 	/**
-	 * Search for assets using semantic similarity to a natural language query, with optional query refinement using LLM..
-	 * @param	query	string		The search query text used to find semantically similar assets (optional)
-	 * @param	refineQuery	bool		When true, the search query is refined using LLM before vector search (optional, default: false)
-	 * @param	size	int		The maximum number of results to return. Must be between 1 and 100 (optional, default: 10)
+	 * Search for assets using semantic similarity to a natural language query.
+ *	            Supports unified search across both media/VOD assets and programs/EPG with optional type-specific filters..
+	 * @param	searchParams	KalturaSemanticSearchParams		Search parameters including query text, content type filters, and optional type-specific filters (optional)
 	 **/
-	semanticSearch: function(query, refineQuery, size){
-		if(!refineQuery)
-			refineQuery = false;
-		if(!size)
-			size = 10;
+	semanticSearch: function(searchParams){
 		var kparams = new Object();
-		kparams.query = query;
-		kparams.refineQuery = refineQuery;
-		kparams.size = size;
+		kparams.searchParams = searchParams;
 		return new KalturaRequestBuilder("asset", "semanticSearch", kparams);
 	},
 	
@@ -631,7 +708,7 @@ var KalturaAssetFilePpvService = {
 	},
 	
 	/**
-	 * Update assetFilePpv.
+	 * Update assetFilePpv dates.
 	 * @param	assetFileId	int		Asset file id (optional)
 	 * @param	ppvModuleId	int		Ppv module id (optional)
 	 * @param	assetFilePpv	KalturaAssetFilePpv		assetFilePpv (optional)
@@ -2752,6 +2829,86 @@ var KalturaExternalChannelProfileService = {
 }
 
 /**
+ *Class definition for the Kaltura service: facebookIdp.
+ **/
+var KalturaFacebookIdpService = {
+	/**
+	 * Attaches the KS’s ottUser to a Facebook identity. Note: Attempting to attach to an IDP, a user that is already attached to the IDP in question, will fail with the appropriate error..
+	 * @param	accessToken	string		The valid Facebook Access Token obtained from the client-side login. (optional)
+	 **/
+	attach: function(accessToken){
+		var kparams = new Object();
+		kparams.accessToken = accessToken;
+		return new KalturaRequestBuilder("facebookidp", "attach", kparams);
+	},
+	
+	/**
+	 * Detaches the KS’s ottUser from the Facebook identity that he is connected to. Note: Attempting to detach from an IDP, a user that is not attached to the IDP in question, will fail with the appropriate error..
+	 **/
+	detach: function(){
+		var kparams = new Object();
+		return new KalturaRequestBuilder("facebookidp", "detach", kparams);
+	},
+	
+	/**
+	 * Returns the identification of Kaltura’s partner (acting as the service provider) in Facebook (acting as the identity provider)..
+	 **/
+	getServiceId: function(){
+		var kparams = new Object();
+		return new KalturaRequestBuilder("facebookidp", "getServiceId", kparams);
+	},
+	
+	/**
+	 * Returns whether the user in question is attached to the Facebook..
+	 **/
+	isAttached: function(){
+		var kparams = new Object();
+		return new KalturaRequestBuilder("facebookidp", "isAttached", kparams);
+	},
+	
+	/**
+	 * Login an ottUser (acquire KS) using a Facebook access token..
+	 * @param	partnerId	int		Partner identifier (optional)
+	 * @param	accessToken	string		The valid Facebook Access Token used to verify the user identity. (optional)
+	 * @param	extraParams	map		Partner specific extra parameters for the login process (optional, default: null)
+	 * @param	udid	string		The user device identification (optional, default: null)
+	 **/
+	login: function(partnerId, accessToken, extraParams, udid){
+		if(!extraParams)
+			extraParams = null;
+		if(!udid)
+			udid = null;
+		var kparams = new Object();
+		kparams.partnerId = partnerId;
+		kparams.accessToken = accessToken;
+		if (extraParams != null)
+			kparams.extraParams = extraParams;
+		kparams.udid = udid;
+		return new KalturaRequestBuilder("facebookidp", "login", kparams);
+	},
+	
+	/**
+	 * Sets the secret that is shared between Kaltura’s partner (that acts as a service provider) in Facebook (that acts as identity provider) that enables Facebook to identify the partner..
+	 * @param	secret	string		The shared secret key provided by Facebook for the application. (optional)
+	 **/
+	setSecret: function(secret){
+		var kparams = new Object();
+		kparams.secret = secret;
+		return new KalturaRequestBuilder("facebookidp", "setSecret", kparams);
+	},
+	
+	/**
+	 * Sets the identification of Kaltura’s partner (that acts as a service provider) in Facebook (that acts as identity provider)..
+	 * @param	serviceId	string		The Facebook App ID (Application Identifier). (optional)
+	 **/
+	setServiceId: function(serviceId){
+		var kparams = new Object();
+		kparams.serviceId = serviceId;
+		return new KalturaRequestBuilder("facebookidp", "setServiceId", kparams);
+	}
+}
+
+/**
  *Class definition for the Kaltura service: favorite.
  **/
 var KalturaFavoriteService = {
@@ -2897,6 +3054,76 @@ var KalturaGeoBlockRuleService = {
 		kparams.id = id;
 		kparams.geoBlockRule = geoBlockRule;
 		return new KalturaRequestBuilder("geoblockrule", "update", kparams);
+	}
+}
+
+/**
+ *Class definition for the Kaltura service: googleIdp.
+ **/
+var KalturaGoogleIdpService = {
+	/**
+	 * Attaches the KS’s ottUser to a Google identity. Note: Attempting to attach to an IDP, a user that is already attached to the IDP in question, will fail with the appropriate error..
+	 * @param	idToken	string		The Google OIDC ID Token obtained from the client. (optional)
+	 **/
+	attach: function(idToken){
+		var kparams = new Object();
+		kparams.idToken = idToken;
+		return new KalturaRequestBuilder("googleidp", "attach", kparams);
+	},
+	
+	/**
+	 * Detaches the KS’s ottUser from the Google identity that he is connected to. Note: Attempting to detach from an IDP, a user that is not attached to the IDP in question, will fail with the appropriate error..
+	 **/
+	detach: function(){
+		var kparams = new Object();
+		return new KalturaRequestBuilder("googleidp", "detach", kparams);
+	},
+	
+	/**
+	 * Returns the identification of Kaltura’s partner (acting as the service provider) in Google (acting as the identity provider)..
+	 **/
+	getServiceId: function(){
+		var kparams = new Object();
+		return new KalturaRequestBuilder("googleidp", "getServiceId", kparams);
+	},
+	
+	/**
+	 * Returns whether the user in question is attached to the Google..
+	 **/
+	isAttached: function(){
+		var kparams = new Object();
+		return new KalturaRequestBuilder("googleidp", "isAttached", kparams);
+	},
+	
+	/**
+	 * Login an ottUser (acquire KS) using a Google id token..
+	 * @param	partnerId	int		Partner identifier (optional)
+	 * @param	idToken	string		The Google OIDC ID Token used to verify user identity. (optional)
+	 * @param	extraParams	map		Partner specific extra parameters for the login process (optional, default: null)
+	 * @param	udid	string		The user device identification (optional, default: null)
+	 **/
+	login: function(partnerId, idToken, extraParams, udid){
+		if(!extraParams)
+			extraParams = null;
+		if(!udid)
+			udid = null;
+		var kparams = new Object();
+		kparams.partnerId = partnerId;
+		kparams.idToken = idToken;
+		if (extraParams != null)
+			kparams.extraParams = extraParams;
+		kparams.udid = udid;
+		return new KalturaRequestBuilder("googleidp", "login", kparams);
+	},
+	
+	/**
+	 * Sets the identification of Kaltura’s partner (that acts as a service provider) in Google (that acts as identity provider)..
+	 * @param	serviceId	string		The Google App ID (Application Identifier). (optional)
+	 **/
+	setServiceId: function(serviceId){
+		var kparams = new Object();
+		kparams.serviceId = serviceId;
+		return new KalturaRequestBuilder("googleidp", "setServiceId", kparams);
 	}
 }
 
@@ -6465,6 +6692,22 @@ var KalturaSemanticAssetSearchPartnerConfigService = {
 	},
 	
 	/**
+	 * Retrieve the filtering condition configuration for program assets..
+	 **/
+	getProgramFilteringCondition: function(){
+		var kparams = new Object();
+		return new KalturaRequestBuilder("semanticassetsearchpartnerconfig", "getProgramFilteringCondition", kparams);
+	},
+	
+	/**
+	 * Retrieve the current program field configurations for semantic search..
+	 **/
+	getProgramSearchableAttributes: function(){
+		var kparams = new Object();
+		return new KalturaRequestBuilder("semanticassetsearchpartnerconfig", "getProgramSearchableAttributes", kparams);
+	},
+	
+	/**
 	 * Retrieve the current field configurations for semantic search..
 	 * @param	assetStructId	int		Asset structure ID to filter configurations. (optional)
 	 **/
@@ -6482,6 +6725,26 @@ var KalturaSemanticAssetSearchPartnerConfigService = {
 		var kparams = new Object();
 		kparams.filteringCondition = filteringCondition;
 		return new KalturaRequestBuilder("semanticassetsearchpartnerconfig", "upsertFilteringCondition", kparams);
+	},
+	
+	/**
+	 * Update rule that controls embedding generation and search behavior for program assets..
+	 * @param	filteringCondition	KalturaFilteringCondition		Rule configuration parameters for programs. (optional)
+	 **/
+	upsertProgramFilteringCondition: function(filteringCondition){
+		var kparams = new Object();
+		kparams.filteringCondition = filteringCondition;
+		return new KalturaRequestBuilder("semanticassetsearchpartnerconfig", "upsertProgramFilteringCondition", kparams);
+	},
+	
+	/**
+	 * Update which fields should be included in semantic search for program assets..
+	 * @param	programAttributes	KalturaProgramSearchableAttributes		Program searchable attributes configuration containing comma-separated attribute names. (optional)
+	 **/
+	upsertProgramSearchableAttributes: function(programAttributes){
+		var kparams = new Object();
+		kparams.programAttributes = programAttributes;
+		return new KalturaRequestBuilder("semanticassetsearchpartnerconfig", "upsertProgramSearchableAttributes", kparams);
 	},
 	
 	/**
@@ -7002,12 +7265,16 @@ var KalturaStreamingDeviceService = {
 	 * @param	fileId	string		KalturaMediaFile.id media file belonging to the asset for which a concurrency slot is being reserved (optional)
 	 * @param	assetId	string		KalturaAsset.id - asset for which a concurrency slot is being reserved (optional)
 	 * @param	assetType	string		Identifies the type of asset for which the concurrency slot is being reserved (optional, enum: KalturaAssetType)
+	 * @param	externalRecordingProgramId	int		Optional EPG program ID used as fallback for concurrency checks when the external recording ID does not exist in the backend (e.g., recording not yet created). Only applicable for recording asset types when external recordings feature is enabled. (optional, default: null)
 	 **/
-	bookPlaybackSession: function(fileId, assetId, assetType){
+	bookPlaybackSession: function(fileId, assetId, assetType, externalRecordingProgramId){
+		if(!externalRecordingProgramId)
+			externalRecordingProgramId = null;
 		var kparams = new Object();
 		kparams.fileId = fileId;
 		kparams.assetId = assetId;
 		kparams.assetType = assetType;
+		kparams.externalRecordingProgramId = externalRecordingProgramId;
 		return new KalturaRequestBuilder("streamingdevice", "bookPlaybackSession", kparams);
 	},
 	
@@ -8763,8 +9030,8 @@ var MD5 = function (string) {
  */
 function KalturaClient(config){
 	this.init(config);
-	this.setClientTag('ajax:25-08-06');
-	this.setApiVersion('11.5.0.0');
+	this.setClientTag('ajax:26-08-18');
+	this.setApiVersion('12.7.0.0');
 }
 KalturaClient.inheritsFrom (KalturaClientBase);
 /**
